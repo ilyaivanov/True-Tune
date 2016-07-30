@@ -1,5 +1,6 @@
 import React from 'react';
 import Select2 from 'react-select2-wrapper';
+import ArtistsList from './artistList';
 import 'react-select2-wrapper/css/select2.css';
 
 class Core extends React.Component {
@@ -42,9 +43,7 @@ class Core extends React.Component {
                 options={configuration}
             />
 
-            <div>
-                {this.state.artists.map(a => <div key={a.id}>{a.text}</div>)}
-            </div>
+            <ArtistsList artists={this.state.artists} />
         </div>);
     }
 }
