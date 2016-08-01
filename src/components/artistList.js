@@ -1,11 +1,21 @@
 import React from 'react';
 
-let maper = a => <div key={a.id}>{a.text}</div>;
+let albumsMapper = album => <li key={album.url}>{album.name}</li>;
+let showAlbums = albums => albums.map(albumsMapper);
+
+
 
 let ArtistsList = function (props) {
-    return (<div>
-        {props.artists.map(maper)}
-    </div>)
+    let mapper = function (a) {
+        return (<li key={a.id}>
+            <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, a)}>{a.text}</a>
+            <ul>{a.isAlbumsVisible && showAlbums(a.albums)}</ul>
+        </li>);
+    }
+
+    return (<ul>
+        {props.artists.map(mapper)}
+    </ul>)
 };
 
 export default ArtistsList;

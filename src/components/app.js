@@ -2,13 +2,12 @@ import React from 'react';
 import Select2 from 'react-select2-wrapper';
 import ArtistsList from './artistList';
 import 'react-select2-wrapper/css/select2.css';
-
+import lastfm from './../loaders/lastfm';
 class Core extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            artists: [
-            ]
+            artists: []
         };
 
     }
@@ -19,6 +18,7 @@ class Core extends React.Component {
             newState.artists.push(p.params.data);
             this.setState(newState);
         }
+
         var configuration = {
             ajax: {
                 url: function (params) {
@@ -35,6 +35,21 @@ class Core extends React.Component {
             minimumInputLength: 1
 
         };
+
+        function toggleAlbums(artist) {
+            var self = this;
+            artist.isAlbumsVisible = !artist.isAlbumsVisible;
+            if (!artist.albums) {
+                lastfm.findAlbums(artist.text)
+                    .then(function(albums) {
+                        artist.albums = albums;
+                        self.forceUpdate();
+                    });
+            } else {
+                this.forceUpdate();
+            }
+        }
+
         return (<div>
             <Select2
                 className="mySelect"
@@ -43,7 +58,7 @@ class Core extends React.Component {
                 options={configuration}
             />
 
-            <ArtistsList artists={this.state.artists} />
+            <ArtistsList artists={this.state.artists} toggleAlbum={toggleAlbums.bind(this)}/>
         </div>);
     }
 }
