@@ -85,8 +85,10 @@ class Core extends React.Component {
             }
         }
 
-        function onChange() {
-            console.log('change');
+        function onChange(event, e) {
+            //TODO: add a delay
+            lastfm.findArtists(event.target.value)
+                .then(artists => this.setState({artists:artists}));
         }
 
         var self = this;
@@ -112,7 +114,7 @@ class Core extends React.Component {
                             <FormControl
                                 type="text"
                                 placeholder="Start entering an artist name"
-                                onChange={onChange}
+                                onChange={onChange.bind(this)}
                             />
                             <br/>
                             <SearchResults toggleArtist={toggleArtist}
