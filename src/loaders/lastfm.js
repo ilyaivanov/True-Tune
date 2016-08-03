@@ -44,15 +44,19 @@ class lastfm {
     }
 
     static validateItems(items, setName) {
-        items = items.filter(a => a.id);
+        var itemsWithId = items.filter(a => a.id);
 
-        var duplicated = this.getDuplicated(items, 'id');
+        if (itemsWithId < items.length) {
+            console.log(`ignoring ${items.length - itemsWithId} ${setName} with no id`);
+        }
+
+        var duplicated = this.getDuplicated(itemsWithId, 'id');
         if (duplicated) {
             logger.warn(`Found duplicated ${setName}\r\n` + duplicated);
             logger.warn('Taking the first artist by id');
-            items = this.filterOutDuplicatedBy(items, 'id')
+            itemsWithId = this.filterOutDuplicatedBy(itemsWithId, 'id')
         }
-        return items;
+        return itemsWithId;
     }
 
     static getDuplicated(items, targetPropertyName) {
