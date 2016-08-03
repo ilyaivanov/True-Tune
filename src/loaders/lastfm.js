@@ -4,7 +4,7 @@ class lastfm {
         console.log('http request to lastfm. artist.search(\'' + term + '\')');
         return $
             .get("http://ws.audioscrobbler.com/2.0?method=artist.search&api_key=185032d80f1827034396b9acfab5a79f&format=json&artist=" + term)
-            .then(response => response.results.artistmatches.artist.map(a => ({name: a.name, id: a.mbid})))
+            .then(response => response.results.artistmatches.artist.map(this.mapArtists))
             .then(artists => this.validateItems(artists, 'artists'));
     }
 
@@ -24,6 +24,13 @@ class lastfm {
             .then(tracks => this.validateItems(tracks, 'tracks'));
     }
 
+    static mapArtists(artist){
+        return {
+            name: artist.name,
+            id: artist.mbid,
+            image: artist.image[1]['#text']
+        };
+    }
 
     static validateItems(items, setName) {
         items = items.filter(a => a.id);
