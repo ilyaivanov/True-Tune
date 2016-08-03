@@ -14,23 +14,33 @@ class App extends React.Component {
         this.delayedOnChange = _.debounce(this.delayedOnChange, 300);
     }
 
-    onChange(event){
+    onChange(event) {
         //http://stackoverflow.com/a/28046731/1283124
         event.persist();
         this.delayedOnChange(event);
     }
-    delayedOnChange(event){
+
+    delayedOnChange(event) {
         lastfm
             .findArtists(event.target.value)
             .then(artists => this.setState({artists: artists}));
     }
 
-    render() {
-        function toggleArtist(artist) {
+    toggleArtist(artist) {
+        if (!artist.albums) {
+            lastfm.findAlbums(artist.name)
+                .then(albums => {
+                    artist.albums = albums;
+                    artist.areAlbumsShown = !artist.areAlbumsShown;
+                    this.forceUpdate();
+                })
+        } else {
             artist.areAlbumsShown = !artist.areAlbumsShown;
             this.forceUpdate();
         }
+    }
 
+    render() {
         function toggleAlbum(album) {
             album.areTracksShown = !album.areTracksShown;
             this.forceUpdate();
@@ -48,7 +58,7 @@ class App extends React.Component {
                                 onChange={this.onChange.bind(this)}
                             />
                             <br/>
-                            <SearchResults toggleArtist={toggleArtist.bind(this)}
+                            <SearchResults toggleArtist={this.toggleArtist.bind(this)}
                                            toggleAlbum={toggleAlbum.bind(this)}
                                            artists={this.state.artists}/>
                         </div>

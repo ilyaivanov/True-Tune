@@ -8,7 +8,7 @@ class lastfm {
 
         return $
             .get(this.url, {method, artist: term})
-            .then(response => response.results.artistmatches.artist.map(this.mapArtists))
+            .then(response => response.results.artistmatches.artist.map(this.mapItem))
             .then(artists => this.validateItems(artists, 'artists'));
     }
 
@@ -18,7 +18,7 @@ class lastfm {
 
         return $
             .get(this.url, {method, artist: artistName})
-            .then(response => response.topalbums.album)
+            .then(response => response.topalbums.album.map(this.mapItem))
             .then(albums => this.validateItems(albums, 'albums'));
     }
 
@@ -35,11 +35,11 @@ class lastfm {
             .then(tracks => this.validateItems(tracks, 'tracks'));
     }
 
-    static mapArtists(artist) {
+    static mapItem(item) {
         return {
-            name: artist.name,
-            id: artist.mbid,
-            image: artist.image[1]['#text']
+            name: item.name,
+            id: item.mbid,
+            image: item.image[1]['#text'] //medium image
         };
     }
 

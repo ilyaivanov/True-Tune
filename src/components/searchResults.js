@@ -10,7 +10,7 @@ let SearchResults = function (props) {
             <div key={album.id}>
                 <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, album)} className="list-group-item">
                 <span>
-                    <img src="https://lastfm-img2.akamaized.net/i/u/64s/6e1af1afee234816a5b4c9794c656160.png"
+                    <img src={album.image}
                          alt=""/>
                 </span>
                     <span className="artist-title">{album.name}</span>
