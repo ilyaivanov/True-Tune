@@ -19,19 +19,6 @@ class logger {
         this.warnToConsole(message);
     }
 
-
-    //Motivation: I want to group all lastfm message, but I don't know how many of them user will create
-    //if some intermediate log messages will appear our of the group - fine, just end current group and log them as usual
-    static logToGroupOrCreateNew(group, message) {
-        if (this.currentGroup) {
-            this.logToConsole(message)
-        } else {
-            this.currentGroup = group;
-            this.startGroup()(this.currentGroup);
-            this.logToConsole(message);
-        }
-    }
-
     static logToConsole(message){
         /* eslint-disable no-console */
         console.log(message);

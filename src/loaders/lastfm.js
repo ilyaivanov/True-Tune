@@ -76,7 +76,7 @@ class lastfm {
     }
 
     static log(methodName, params) {
-        logger.logToGroupOrCreateNew('lastfm', `http request to lastfm. ${methodName}(${params})`)
+        logger.log(`http request to lastfm. ${methodName}(${params})`)
     }
 
     static get url() {
