@@ -22,8 +22,8 @@ class lastfm {
             .then(albums => this.validateItems(albums, 'albums'));
     }
 
-    static findTracks(album) {
-        var artistName = album.artist.name;
+    static findTracks(artist, album) {
+        var artistName = artist.name;
         var albumName = album.name;
 
         var method = 'album.getInfo';
@@ -31,7 +31,7 @@ class lastfm {
 
         return $
             .get(this.url, {method, artist: artistName, album: albumName})
-            .then(response => response.topalbums.album)
+            .then(response => response.album.tracks.track.map(this.mapTrack))
             .then(tracks => this.validateItems(tracks, 'tracks'));
     }
 
@@ -40,6 +40,13 @@ class lastfm {
             name: item.name,
             id: item.mbid,
             image: item.image[1]['#text'] //medium image
+        };
+    }
+
+    static mapTrack(item) {
+        return {
+            name: item.name,
+            id: item.url
         };
     }
 

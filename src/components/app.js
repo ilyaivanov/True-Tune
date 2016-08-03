@@ -40,11 +40,22 @@ class App extends React.Component {
         }
     }
 
-    render() {
-        function toggleAlbum(album) {
+    toggleAlbum(artist, album) {
+        if (!album.tracks) {
+            lastfm.findTracks(artist, album)
+                .then(albums => {
+                    album.tracks = albums;
+                    album.areTracksShown = !album.areTracksShown;
+                    this.forceUpdate();
+                })
+        } else {
             album.areTracksShown = !album.areTracksShown;
             this.forceUpdate();
         }
+    }
+
+    render() {
+
 
         return (<div id="wrapper">
             <Sidebar />
@@ -59,7 +70,7 @@ class App extends React.Component {
                             />
                             <br/>
                             <SearchResults toggleArtist={this.toggleArtist.bind(this)}
-                                           toggleAlbum={toggleAlbum.bind(this)}
+                                           toggleAlbum={this.toggleAlbum.bind(this)}
                                            artists={this.state.artists}/>
                         </div>
                     </div>

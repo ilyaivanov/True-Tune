@@ -5,10 +5,10 @@ let SearchResults = function (props) {
 
     let mapTrack = t => <a href="JavaScript:;" key={t.id} className="list-group-item">{t.name}</a>;
 
-    let mapAlbum = function (album) {
+    let mapAlbum = function (artist, album) {
         return (
             <div key={album.id}>
-                <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, album)} className="list-group-item">
+                <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, artist, album)} className="list-group-item">
                 <span>
                     <img src={album.image}
                          alt=""/>
@@ -36,7 +36,7 @@ let SearchResults = function (props) {
                 </a>
                 <Collapse in={artist.areAlbumsShown}>
                     <div>
-                        {artist.albums && artist.albums.map(mapAlbum)}
+                        {artist.albums && artist.albums.map(album => mapAlbum(artist, album))}
                     </div>
                 </Collapse>
             </div>
