@@ -3,7 +3,7 @@ import './searchResults.css'
 import {Collapse, Button, Well} from 'react-bootstrap';
 let SearchResults = function (props) {
 
-    let mapTrack = t => <a href="JavaScript:;" key={t.id} className="list-group-item">{t.name}</a>;
+    let mapTrack = (t, i) => <li key={t.id} className="list-group-item">{i+1}. {t.name}</li>;
 
     let mapAlbum = function (artist, album) {
         return (
@@ -16,9 +16,9 @@ let SearchResults = function (props) {
                     <span className="artist-title">{album.name}</span>
                 </a>
                 <Collapse in={album.areTracksShown}>
-                    <div className="list-group">
+                    <ol className="list-group">
                         {album.tracks && album.tracks.map(mapTrack)}
-                    </div>
+                    </ol>
                 </Collapse>
             </div>);
     };
@@ -35,7 +35,7 @@ let SearchResults = function (props) {
                     <span className="artist-title">{artist.name}</span>
                 </a>
                 <Collapse in={artist.areAlbumsShown}>
-                    <div>
+                    <div className="list-group">
                         {artist.albums && artist.albums.map(album => mapAlbum(artist, album))}
                     </div>
                 </Collapse>
