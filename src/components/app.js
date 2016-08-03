@@ -5,21 +5,27 @@ import Sidebar from './sidebar/sidebar';
 import {FormControl} from 'react-bootstrap';
 import SearchResults from './searchResults';
 import './../../node_modules/bootstrap/dist/css/bootstrap.css';
+import _ from 'lodash';
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {artists: []};
+        this.delayedOnChange = _.debounce(this.delayedOnChange, 300);
+    }
+
+    onChange(event){
+        //http://stackoverflow.com/a/28046731/1283124
+        event.persist();
+        this.delayedOnChange(event);
+    }
+    delayedOnChange(event){
+        lastfm
+            .findArtists(event.target.value)
+            .then(artists => this.setState({artists: artists}));
     }
 
     render() {
-        function onChange(event) {
-            //TODO: add a delay
-            lastfm
-                .findArtists(event.target.value)
-                .then(artists => this.setState({artists: artists}));
-        }
-
         function toggleArtist(artist) {
             artist.areAlbumsShown = !artist.areAlbumsShown;
             this.forceUpdate();
@@ -39,7 +45,7 @@ class App extends React.Component {
                             <FormControl
                                 type="text"
                                 placeholder="Start entering an artist name"
-                                onChange={onChange.bind(this)}
+                                onChange={this.onChange.bind(this)}
                             />
                             <br/>
                             <SearchResults toggleArtist={toggleArtist.bind(this)}
