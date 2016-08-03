@@ -5,18 +5,18 @@ class logger {
 
     static log(message) {
         if (this.currentGroup) {
-            console.groupEnd();
+            this.endGroup();
             this.currentGroup = '';
         }
-        console.log(message);
+        this.logToConsole(message);
     }
 
     static warn(message) {
         if (this.currentGroup) {
-            console.groupEnd();
+            this.groupEnd();
             this.currentGroup = '';
         }
-        console.warn(message);
+        this.warnToConsole(message);
     }
 
 
@@ -24,12 +24,36 @@ class logger {
     //if some intermediate log messages will appear our of the group - fine, just end current group and log them as usual
     static logToGroupOrCreateNew(group, message) {
         if (this.currentGroup) {
-            console.log(message)
+            this.logToConsole(message)
         } else {
             this.currentGroup = group;
-            console.group(this.currentGroup);
-            console.log(message);
+            this.startGroup()(this.currentGroup);
+            this.logToConsole(message);
         }
+    }
+
+    static logToConsole(message){
+        /* eslint-disable no-console */
+        console.log(message);
+        /* eslint-enable no-console */
+    }
+
+    static warnToConsole(message){
+        /* eslint-disable no-console */
+        console.warn(message);
+        /* eslint-enable no-console */
+    }
+
+    static startGroup(groupName){
+        /* eslint-disable no-console */
+        console.group(groupName);
+        /* eslint-enable no-console */
+    }
+
+    static endGroup(){
+        /* eslint-disable no-console */
+        console.groupEnd();
+        /* eslint-enable no-console */
     }
 }
 
