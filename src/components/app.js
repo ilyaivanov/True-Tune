@@ -21,9 +21,11 @@ class App extends React.Component {
     }
 
     delayedOnChange(event) {
-        lastfm
-            .findArtists(event.target.value)
-            .then(artists => this.setState({artists: artists}));
+        if (event.target.value) {
+            lastfm
+                .findArtists(event.target.value)
+                .then(artists => this.setState({artists: artists}));
+        }
     }
 
     toggleArtist(artist) {
