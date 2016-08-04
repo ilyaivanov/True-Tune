@@ -1,12 +1,12 @@
 import React from 'react';
-import 'react-select2-wrapper/css/select2.css';
 import lastfm from './../loaders/lastfm';
 import Sidebar from './sidebar/sidebar';
 import {FormControl} from 'react-bootstrap';
 import SearchResults from './searchResults';
 import './../../node_modules/bootstrap/dist/css/bootstrap.css';
 import _ from 'lodash';
-
+import Youtube from 'react-youtube'
+import './app.css'
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -56,6 +56,18 @@ class App extends React.Component {
         }
     }
 
+
+
+
+    _onReady(event) {
+        // access to player in all event handlers via event.target
+        this.player = event.target;
+        this.player.playVideo();
+    }
+
+    playAsura(){
+        this.player.loadVideoById('bGpGOaUVsgU');
+    }
     render() {
 
 
@@ -71,6 +83,12 @@ class App extends React.Component {
                                 onChange={this.onChange.bind(this)}
                             />
                             <br/>
+                            <Youtube
+                                videoId='DT2X5b0tyDI'
+                                onReady={this._onReady.bind(this)}
+                                className="video-container"
+                            />
+                            <button onClick={this.playAsura.bind(this)}>Play Asura!!!!</button>
                             <SearchResults toggleArtist={this.toggleArtist.bind(this)}
                                            toggleAlbum={this.toggleAlbum.bind(this)}
                                            artists={this.state.artists}/>
