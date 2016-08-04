@@ -39,7 +39,7 @@ class lastfm {
         return {
             name: item.name,
             id: item.mbid,
-            image: item.image[1]['#text'] //medium image
+            image: item.image[0]['#text'] //small image
         };
     }
 
