@@ -3,12 +3,16 @@ import './searchResults.css'
 import {Collapse, Button, Well} from 'react-bootstrap';
 let SearchResults = function (props) {
 
-    let mapTrack = (t, i) => <li key={t.id} className="list-group-item">{i+1}. {t.name}</li>;
+    let mapTrack = (artist, album, track, index) => <li key={track.id} className="list-group-item">{index + 1}.
+        <a href="JavaScript:;" onClick={() => props.playTrack(artist, album, track)}><span
+            className="glyphicon glyphicon-play"></span></a> {track.name}
+    </li>;
 
     let mapAlbum = function (artist, album) {
         return (
             <div key={album.id}>
-                <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, artist, album)} className="list-group-item">
+                <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, artist, album)}
+                   className="list-group-item">
                 <span>
                     <img src={album.image}
                          alt=""/>
@@ -17,7 +21,7 @@ let SearchResults = function (props) {
                 </a>
                 <Collapse in={album.areTracksShown}>
                     <ol className="list-group">
-                        {album.tracks && album.tracks.map(mapTrack)}
+                        {album.tracks && album.tracks.map((track, index) => mapTrack(artist, album, track, index))}
                     </ol>
                 </Collapse>
             </div>);

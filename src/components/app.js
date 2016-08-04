@@ -7,6 +7,8 @@ import './../../node_modules/bootstrap/dist/css/bootstrap.css';
 import _ from 'lodash';
 import Youtube from 'react-youtube'
 import './app.css'
+import youtube from './../loaders/youtube'
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -61,12 +63,19 @@ class App extends React.Component {
 
     _onReady(event) {
         // access to player in all event handlers via event.target
+        console.log('ready')
         this.player = event.target;
-        this.player.playVideo();
     }
 
     playAsura(){
-        this.player.loadVideoById('bGpGOaUVsgU');
+        //assumes player has been loaded
+        youtube.getVideoIdForTerm('Asura - Trinity')
+            .then(v => this.player.loadVideoById(v.id));
+    }
+
+    playTrack(artist, album, track){
+        youtube.getVideoIdForTerm(`${artist.name} - ${track.name}`)
+            .then(v => this.player.loadVideoById(v.id));
     }
     render() {
 
@@ -83,15 +92,15 @@ class App extends React.Component {
                                 onChange={this.onChange.bind(this)}
                             />
                             <br/>
+
+                            <SearchResults toggleArtist={this.toggleArtist.bind(this)}
+                                           toggleAlbum={this.toggleAlbum.bind(this)}
+                                           playTrack={this.playTrack.bind(this)}
+                                           artists={this.state.artists}/>
                             <Youtube
-                                videoId='DT2X5b0tyDI'
                                 onReady={this._onReady.bind(this)}
                                 className="video-container"
                             />
-                            <button onClick={this.playAsura.bind(this)}>Play Asura!!!!</button>
-                            <SearchResults toggleArtist={this.toggleArtist.bind(this)}
-                                           toggleAlbum={this.toggleAlbum.bind(this)}
-                                           artists={this.state.artists}/>
                         </div>
                     </div>
                 </div>
