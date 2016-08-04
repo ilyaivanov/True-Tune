@@ -58,28 +58,17 @@ class App extends React.Component {
         }
     }
 
-
-
-
     _onReady(event) {
         // access to player in all event handlers via event.target
-        console.log('ready')
         this.player = event.target;
     }
 
-    playAsura(){
-        //assumes player has been loaded
-        youtube.getVideoIdForTerm('Asura - Trinity')
-            .then(v => this.player.loadVideoById(v.id));
-    }
-
-    playTrack(artist, album, track){
+    playTrack(artist, album, track) {
         youtube.getVideoIdForTerm(`${artist.name} - ${track.name}`)
             .then(v => this.player.loadVideoById(v.id));
     }
+
     render() {
-
-
         return (<div id="wrapper">
             <Sidebar />
             <div id="page-content-wrapper">
