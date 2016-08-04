@@ -1,6 +1,5 @@
 import React from 'react';
 import lastfm from './../loaders/lastfm';
-import Sidebar from './sidebar/sidebar';
 import {FormControl} from 'react-bootstrap';
 import SearchResults from './searchResults';
 import './../../node_modules/bootstrap/dist/css/bootstrap.css';
@@ -70,7 +69,6 @@ class App extends React.Component {
 
     render() {
         return (<div id="wrapper">
-            <Sidebar />
             <div id="page-content-wrapper">
                 <div className="container-fluid">
                     <div className="row">
