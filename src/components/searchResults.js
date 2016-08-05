@@ -1,6 +1,6 @@
 import React from 'react';
 import './searchResults.css'
-import {Collapse, Button, Well} from 'react-bootstrap';
+import {Collapse, DropdownButton, MenuItem} from 'react-bootstrap';
 let SearchResults = function (props) {
 
     let mapTrack = (artist, album, track, index) => <li key={track.id} className="list-group-item">{index + 1}.
@@ -8,6 +8,10 @@ let SearchResults = function (props) {
             className="glyphicon glyphicon-play"></span></a> {track.name}
     </li>;
 
+    let foo = function (event) {
+        console.log('bookmarked');
+        event.stopPropagation();
+    }
     let mapAlbum = function (artist, album) {
         return (
             <div key={album.id}>
@@ -18,6 +22,14 @@ let SearchResults = function (props) {
                          alt=""/>
                 </span>
                     <span className="artist-title">{album.name}</span>
+                    <DropdownButton title="Add" id="foo-bar-shmar">
+                        <MenuItem eventKey="1">Ambient</MenuItem>
+                        <MenuItem eventKey="2">Metal</MenuItem>
+                        <MenuItem eventKey="2">Meditation</MenuItem>
+                        <MenuItem eventKey="2">Working out</MenuItem>
+                        <MenuItem eventKey="2">Just Working</MenuItem>
+                    </DropdownButton>
+                    <a href="JavaScript:;"><span onClick={foo} className="glyphicon glyphicon-bookmark"></span></a>
                 </a>
                 <Collapse in={album.areTracksShown}>
                     <ol className="list-group">
