@@ -1,13 +1,13 @@
 import React from 'react';
-import './../../../node_modules/bootstrap/dist/css/bootstrap.css'
-import './baseLayout.css'
-import Player from './player/player'
-import Sidebar from './sidebar/sidebar'
-import App from './../app'
+import './../../../node_modules/bootstrap/dist/css/bootstrap.css';
+import './baseLayout.css';
+import Player from './player/player';
+import Sidebar from './sidebar/sidebar';
+import App from './../app';
 
 class BaseLayout extends React.Component {
     render() {
-        var styles = {'marginBottom': 0};
+        let  styles = {'marginBottom': 0};
 
         return (<div id="wrapper">
             <nav className="navbar navbar-default navbar-static-top" role="navigation" style={styles}>

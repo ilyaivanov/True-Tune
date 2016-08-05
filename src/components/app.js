@@ -4,9 +4,9 @@ import {FormControl} from 'react-bootstrap';
 import SearchResults from './searchResults';
 import './../../node_modules/bootstrap/dist/css/bootstrap.css';
 import _ from 'lodash';
-import Youtube from 'react-youtube'
-import './app.css'
-import youtube from './../loaders/youtube'
+import Youtube from 'react-youtube';
+import './app.css';
+import youtube from './../loaders/youtube';
 
 class App extends React.Component {
     constructor(props) {
