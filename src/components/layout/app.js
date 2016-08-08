@@ -210,6 +210,7 @@ class App extends React.Component {
                 onReady={this._onReady.bind(this)}
                 onPlay={this.resume.bind(this)}
                 onPause={this.pause.bind(this)}
+                onEnd={this.playNextSong.bind(this)}
                 className="video-container"
             />
         </div>);
