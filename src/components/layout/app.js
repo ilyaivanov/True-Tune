@@ -20,7 +20,8 @@ class App extends React.Component {
             currentArtist: {},
             currentAlbum: {},
             currentTrack: {},
-            artists: []
+            artists: [],
+            isPlaying: false
         }
     }
 
@@ -30,7 +31,7 @@ class App extends React.Component {
 
     playNextSong() {
         var indexOfCurrentTrack = _.indexOf(this.state.currentAlbum.tracks, this.state.currentTrack);
-        if(indexOfCurrentTrack >= this.state.currentAlbum.tracks.length - 1)
+        if (indexOfCurrentTrack >= this.state.currentAlbum.tracks.length - 1)
             return;
 
         var track = this.state.currentAlbum.tracks[indexOfCurrentTrack + 1];
@@ -41,7 +42,7 @@ class App extends React.Component {
 
     playPreviousSong() {
         var indexOfCurrentTrack = _.indexOf(this.state.currentAlbum.tracks, this.state.currentTrack);
-        if(indexOfCurrentTrack <= 0)
+        if (indexOfCurrentTrack <= 0)
             return;
 
         var track = this.state.currentAlbum.tracks[indexOfCurrentTrack - 1];
@@ -50,7 +51,7 @@ class App extends React.Component {
         }, this.playCurrentTrack.bind(this));
     }
 
-    playCurrentTrack(){
+    playCurrentTrack() {
         youtube.getVideoIdForTerm(`${this.state.currentArtist.name} - ${this.state.currentTrack.name}`)
             .then(v => this.player.loadVideoById(v.id));
 
@@ -82,20 +83,24 @@ class App extends React.Component {
                     currentTime: this.player.getCurrentTime(),
                     overallTime: this.player.getDuration(),
                     fullName: this.player.getVideoData().title
-                }
+                },
+                isPlaying: true
             });
         };
 
-        if (this.currentWatcher) {
-            console.log('stopping previous interval');
-            clearInterval(this.currentWatcher);
-            this.currentWatcher = 0;
-        }
+        this.stopTracking();
         console.log('Starting playing...');
         updateProgress.bind(this)();
         this.currentWatcher = setInterval(updateProgress.bind(this), 1000)
     }
 
+    stopTracking(){
+        if (this.currentWatcher) {
+            console.log('stopping previous interval');
+            clearInterval(this.currentWatcher);
+            this.currentWatcher = 0;
+        }
+    }
 
     findArtists(term) {
         lastfm
@@ -131,6 +136,24 @@ class App extends React.Component {
         }
     }
 
+    pause() {
+        this.setState({
+            isPlaying : false
+        }, () => {
+            this.stopTracking();
+            this.player.pauseVideo();
+        });
+    }
+
+    resume() {
+        this.setState({
+            isPlaying : true
+        }, () => {
+            this.startTracking();
+            this.player.playVideo();
+        });
+    }
+
     render() {
         let styles = {'marginBottom': 0};
 
@@ -144,13 +167,15 @@ class App extends React.Component {
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
                     </button>
-                    {/*<a className="navbar-brand" href="JavaScript:;">True Tune</a>*/}
-                    <a className="navbar-brand" href="JavaScript:;">{this.state.currentArtist.name}</a>
+                    <a className="navbar-brand" href="JavaScript:;">True Tune</a>
                 </div>
 
                 <Player songInfo={this.state.songInfo}
+                        isPlaying={this.state.isPlaying}
                         playNextSong={this.playNextSong.bind(this)}
                         playPreviousSong={this.playPreviousSong.bind(this)}
+                        pause={this.pause.bind(this)}
+                        resume={this.resume.bind(this)}
                 />
 
                 <Sidebar/>
@@ -174,7 +199,8 @@ class App extends React.Component {
             </div>
             <Youtube
                 onReady={this._onReady.bind(this)}
-                onPlay={this.startTracking.bind(this)}
+                onPlay={this.resume.bind(this)}
+                onPause={this.pause.bind(this)}
                 className="video-container"
             />
         </div>);
