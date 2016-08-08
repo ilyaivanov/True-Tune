@@ -1,18 +1,21 @@
 import React from 'react';
-import lastfm from './../loaders/lastfm';
 import {FormControl} from 'react-bootstrap';
 import SearchResults from './searchResults';
 import './../../node_modules/bootstrap/dist/css/bootstrap.css';
 import _ from 'lodash';
-import Youtube from 'react-youtube';
 import './searchPage.css';
-import youtube from './../loaders/youtube';
 
 class SearchPage extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {artists: []};
         this.updateProgress = props.updateProgress;
+        this.onPlayStart = props.onPlayStart;
+
+        //use inlined lambdas here
+        this.findArtists = props.findArtists;
+        this.findAlbums = props.findAlbums;
+        this.findTracks = props.findTracks;
+
         this.delayedOnChange = _.debounce(this.delayedOnChange, 300);
     }
 
@@ -24,70 +27,20 @@ class SearchPage extends React.Component {
 
     delayedOnChange(event) {
         if (event.target.value) {
-            lastfm
-                .findArtists(event.target.value)
-                .then(artists => this.setState({artists: artists}));
+            this.findArtists(event.target.value);
         }
     }
 
     toggleArtist(artist) {
-        if (!artist.albums) {
-            lastfm.findAlbums(artist.name)
-                .then(albums => {
-                    artist.albums = albums;
-                    artist.areAlbumsShown = !artist.areAlbumsShown;
-                    this.forceUpdate();
-                })
-        } else {
-            artist.areAlbumsShown = !artist.areAlbumsShown;
-            this.forceUpdate();
-        }
+        this.findAlbums(artist);
     }
 
     toggleAlbum(artist, album) {
-        if (!album.tracks) {
-            lastfm.findTracks(artist, album)
-                .then(albums => {
-                    album.tracks = albums;
-                    album.areTracksShown = !album.areTracksShown;
-                    this.forceUpdate();
-                })
-        } else {
-            album.areTracksShown = !album.areTracksShown;
-            this.forceUpdate();
-        }
-    }
-
-    _onReady(event) {
-        // access to player in all event handlers via event.target
-        this.player = event.target;
+        this.findTracks(artist, album);
     }
 
     playTrack(artist, album, track) {
-        this.currentArtist = artist;
-        this.currentAlbum = album;
-        this.currentTrack = track;
-        youtube.getVideoIdForTerm(`${artist.name} - ${track.name}`)
-            .then(v => this.player.loadVideoById(v.id));
-    }
-
-    startTracking() {
-        let updateProgress = function () {
-            this.updateProgress({
-                currentTime: this.player.getCurrentTime(),
-                overallTime: this.player.getDuration(),
-                fullName: this.player.getVideoData().title
-            });
-        };
-
-        if(this.currentWatcher){
-            console.log('stopping previous interval');
-            clearInterval(this.currentWatcher);
-            this.currentWatcher = 0;
-        }
-        console.log('Starting playing...');
-        updateProgress.bind(this)();
-        this.currentWatcher = setInterval(updateProgress.bind(this), 1000)
+        this.onPlayStart(artist, album, track);
     }
 
     render() {
@@ -107,11 +60,7 @@ class SearchPage extends React.Component {
                                            toggleAlbum={this.toggleAlbum.bind(this)}
                                            playTrack={this.playTrack.bind(this)}
                                            artists={this.state.artists}/>
-                            <Youtube
-                                onReady={this._onReady.bind(this)}
-                                onPlay={this.startTracking.bind(this)}
-                                className="video-container"
-                            />
+
                         </div>
                     </div>
                 </div>
