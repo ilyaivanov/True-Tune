@@ -1,6 +1,6 @@
 import React from 'react';
 import './searchResults.css'
-import {Collapse} from 'react-bootstrap';
+import {Collapse, Image} from 'react-bootstrap';
 let SearchResults = function (props) {
 
     let mapTrack = (artist, album, track, index) => <li key={track.id} className="list-group-item">{index + 1}.
@@ -18,8 +18,7 @@ let SearchResults = function (props) {
                 <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, artist, album)}
                    className="list-group-item">
                 <span>
-                    <img src={album.image}
-                         alt=""/>
+                    <Image src={album.image} circle/>
                 </span>
                     <span className="artist-title">{album.name}</span>
                 </a>
@@ -37,8 +36,7 @@ let SearchResults = function (props) {
                 <a href="JavaScript:;" onClick={props.toggleArtist.bind(this, artist)}
                    className="list-group-item">
                     <span>
-                        <img src={artist.image}
-                             alt=""/>
+                        <Image src={artist.image}/>
                     </span>
                     <span className="artist-title">{artist.name}</span>
                 </a>
