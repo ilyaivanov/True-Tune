@@ -69,11 +69,22 @@ class App extends React.Component {
     }
 
     startTracking() {
-        console.log('Starting playing...');
+        let updateProgress = function () {
+            this.updateProgress({
+                currentTime: this.player.getCurrentTime(),
+                overallTime: this.player.getDuration(),
+                fullName: this.player.getVideoData().title
+            });
+        };
 
-        setInterval(function () {
-            this.updateProgress({currentTime: this.player.getCurrentTime()});
-        }.bind(this), 1000)
+        if(this.currentWatcher){
+            console.log('stopping previous interval');
+            clearInterval(this.currentWatcher);
+            this.currentWatcher = 0;
+        }
+        console.log('Starting playing...');
+        updateProgress.bind(this)();
+        this.currentWatcher = setInterval(updateProgress.bind(this), 1000)
     }
 
     render() {

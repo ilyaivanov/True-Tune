@@ -9,7 +9,11 @@ class BaseLayout extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            songInfo: {currentTime: 0}
+            songInfo: {
+                currentTime: 0,
+                overallTime: 0,
+                fullName: " . "
+            }
         }
     }
 

@@ -20,12 +20,12 @@ let player = props => (<ul className="nav navbar-top-links navbar-right">
     </li>
     <li>{formatter.formatTime(props.songInfo.currentTime)}</li>
     <li>
-        <div className="songName">Artist - name of the song</div>
+        <div className="songName">{props.songInfo.fullName}</div>
         <div>
-            <input type="range" />
+            <input type="range" value={props.songInfo.currentTime} max={props.songInfo.overallTime} />
         </div>
     </li>
-    <li>{props.songInfo.time}</li>
+    <li>{formatter.formatTime(props.songInfo.overallTime)}</li>
     <li className="navbar-right">
         <a className="dropdown-toggle" data-toggle="dropdown" href="#">
             <i className="glyphicon glyphicon-cog"></i>
