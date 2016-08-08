@@ -78,14 +78,7 @@ class App extends React.Component {
 
     startTracking() {
         let updateProgress = function () {
-            this.setState({
-                songInfo: {
-                    currentTime: this.player.getCurrentTime(),
-                    overallTime: this.player.getDuration(),
-                    fullName: this.player.getVideoData().title
-                },
-                isPlaying: true
-            });
+            this.setCurrentTime(this.player.getCurrentTime());
         };
 
         this.stopTracking();
@@ -153,6 +146,21 @@ class App extends React.Component {
             this.player.playVideo();
         });
     }
+    setTrackTime(event){
+        this.player.seekTo(event.target.value, true);
+        this.setCurrentTime(event.target.value);
+    }
+
+    setCurrentTime(time){
+        this.setState({
+            songInfo: {
+                currentTime: time,
+                overallTime: this.player.getDuration(),
+                fullName: this.player.getVideoData().title
+            },
+            isPlaying: true
+        });
+    }
 
     render() {
         let styles = {'marginBottom': 0};
@@ -176,6 +184,7 @@ class App extends React.Component {
                         playPreviousSong={this.playPreviousSong.bind(this)}
                         pause={this.pause.bind(this)}
                         resume={this.resume.bind(this)}
+                        setTrackTime={this.setTrackTime.bind(this)}
                 />
 
                 <Sidebar/>

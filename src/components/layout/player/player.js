@@ -37,7 +37,10 @@ let player = props => (<ul className="nav navbar-top-links navbar-right">
     <li>
         <div className="songName">{props.songInfo.fullName}</div>
         <div>
-            <input type="range" value={props.songInfo.currentTime} max={props.songInfo.overallTime}/>
+            <input type="range"
+                   value={props.songInfo.currentTime}
+                   max={props.songInfo.overallTime}
+                   onChange={props.setTrackTime}/>
         </div>
     </li>
     <li>{formatter.formatTime(props.songInfo.overallTime)}</li>
