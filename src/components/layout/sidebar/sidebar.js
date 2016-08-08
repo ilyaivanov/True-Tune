@@ -1,6 +1,7 @@
 import React from 'react';
 
-let sidebar = () => (<div className="navbar-default sidebar" role="navigation">
+
+let sidebar = (props) => (<div className="navbar-default sidebar" role="navigation">
     <div className="sidebar-nav navbar-collapse">
         <ul className="nav" id="side-menu">
             <li className="sidebar-search">
@@ -15,14 +16,12 @@ let sidebar = () => (<div className="navbar-default sidebar" role="navigation">
                 </div>
             </li>
             <li>
-                <a href="JavaScript:;"><i className="glyphicon glyphicon-dashboard"></i> Dashboard</a>
+                <a href="JavaScript:;" onClick={props.createPlaylist}><i className="glyphicon glyphicon-plus"></i> Create playlist</a>
             </li>
-            <li>
-                <a href="JavaScript:;"><i className="glyphicon glyphicon-blackboard"></i> Tables</a>
-            </li>
-            <li>
-                <a href="JavaScript:;"><i className="glyphicon glyphicon-edit"></i> Forms</a>
-            </li>
+            {props.playlists.map((p, i) =>
+                (<li key={i}>
+                    <a href="JavaScript:;"><i className="glyphicon glyphicon-list-alt"></i> {p.name}</a>
+                </li>))}
         </ul>
     </div>
 </div>);

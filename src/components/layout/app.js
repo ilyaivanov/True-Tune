@@ -21,7 +21,12 @@ class App extends React.Component {
             currentAlbum: {},
             currentTrack: {},
             artists: [],
-            isPlaying: false
+            isPlaying: false,
+            playlists:[
+                {name:"Playlist 1"},
+                {name:"Playlist 2"},
+                {name:"Playlist 3"}
+            ]
         }
     }
 
@@ -161,6 +166,12 @@ class App extends React.Component {
             isPlaying: true
         });
     }
+    createPlaylist(){
+        var newPlaylist = {name:"new playlist"};
+        var newPlaylists = this.state.playlists;
+        newPlaylists.push(newPlaylist);
+        this.setState({playlists : newPlaylists});
+    }
 
     render() {
         let styles = {'marginBottom': 0};
@@ -187,7 +198,8 @@ class App extends React.Component {
                         setTrackTime={this.setTrackTime.bind(this)}
                 />
 
-                <Sidebar/>
+                <Sidebar playlists={this.state.playlists}
+                         createPlaylist={this.createPlaylist.bind(this)}/>
 
             </nav>
             <div id="page-wrapper">
