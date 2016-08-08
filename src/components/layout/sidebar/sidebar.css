@@ -1,0 +1,39 @@
+.edit{
+    display: none;
+    position: absolute;
+    top: 0;
+    right: 10px;
+    bottom: 0;
+    width: 25px;
+    height: 25px;
+    margin: auto 0;
+    font-size: 30px;
+    color: #7c7fcc;
+    margin-bottom: 11px;
+    transition: color 0.2s ease-out;
+}
+
+.edit:hover {
+    color: #5738af;
+}
+
+li:hover .edit {
+    display: block;
+}
+
+button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: 100%;
+    vertical-align: baseline;
+    font-family: inherit;
+    font-weight: inherit;
+    color: inherit;
+    -webkit-appearance: none;
+    appearance: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}

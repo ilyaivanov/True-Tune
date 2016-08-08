@@ -22,10 +22,10 @@ class App extends React.Component {
             currentTrack: {},
             artists: [],
             isPlaying: false,
-            playlists:[
-                {name:"Playlist 1"},
-                {name:"Playlist 2"},
-                {name:"Playlist 3"}
+            playlists: [
+                {name: "Playlist 1"},
+                {name: "Playlist 2"},
+                {name: "Playlist 3"}
             ]
         }
     }
@@ -92,7 +92,7 @@ class App extends React.Component {
         this.currentWatcher = setInterval(updateProgress.bind(this), 1000)
     }
 
-    stopTracking(){
+    stopTracking() {
         if (this.currentWatcher) {
             console.log('stopping previous interval');
             clearInterval(this.currentWatcher);
@@ -136,7 +136,7 @@ class App extends React.Component {
 
     pause() {
         this.setState({
-            isPlaying : false
+            isPlaying: false
         }, () => {
             this.stopTracking();
             this.player.pauseVideo();
@@ -145,18 +145,19 @@ class App extends React.Component {
 
     resume() {
         this.setState({
-            isPlaying : true
+            isPlaying: true
         }, () => {
             this.startTracking();
             this.player.playVideo();
         });
     }
-    setTrackTime(event){
+
+    setTrackTime(event) {
         this.player.seekTo(event.target.value, true);
         this.setCurrentTime(event.target.value);
     }
 
-    setCurrentTime(time){
+    setCurrentTime(time) {
         this.setState({
             songInfo: {
                 currentTime: time,
@@ -166,11 +167,28 @@ class App extends React.Component {
             isPlaying: true
         });
     }
-    createPlaylist(){
-        var newPlaylist = {name:"new playlist"};
+
+    createPlaylist() {
+        var newPlaylist = {name: "new playlist"};
         var newPlaylists = this.state.playlists;
         newPlaylists.push(newPlaylist);
-        this.setState({playlists : newPlaylists});
+        this.setState({playlists: newPlaylists});
+    }
+
+    editPlaylist(playlist) {
+        playlist.isEditing = true;
+        this.forceUpdate();
+    }
+
+    stopEditingPlaylist(playlist){
+        console.log(playlist);
+        playlist.isEditing = false;
+        this.forceUpdate();
+    }
+
+    setPlaylistName(playList, name){
+        playList.name = name;
+        this.forceUpdate();
     }
 
     render() {
@@ -199,7 +217,11 @@ class App extends React.Component {
                 />
 
                 <Sidebar playlists={this.state.playlists}
-                         createPlaylist={this.createPlaylist.bind(this)}/>
+                         createPlaylist={this.createPlaylist.bind(this)}
+                         editPlaylist={this.editPlaylist.bind(this)}
+                         stopEditingPlaylist={this.stopEditingPlaylist.bind(this)}
+                         setPlaylistName={this.setPlaylistName.bind(this)}
+                />
 
             </nav>
             <div id="page-wrapper">
