@@ -29,14 +29,40 @@ class App extends React.Component {
     }
 
     playNextSong() {
-        console.log('playNextSong');
+        var indexOfCurrentTrack = _.indexOf(this.state.currentAlbum.tracks, this.state.currentTrack);
+        if(indexOfCurrentTrack >= this.state.currentAlbum.tracks.length - 1)
+            return;
+
+        var track = this.state.currentAlbum.tracks[indexOfCurrentTrack + 1];
+        this.setState({
+            currentTrack: track
+        }, this.playCurrentTrack.bind(this));
     }
 
     playPreviousSong() {
-        console.log('playPreviousSong');
+        var indexOfCurrentTrack = _.indexOf(this.state.currentAlbum.tracks, this.state.currentTrack);
+        if(indexOfCurrentTrack <= 0)
+            return;
+
+        var track = this.state.currentAlbum.tracks[indexOfCurrentTrack - 1];
+        this.setState({
+            currentTrack: track
+        }, this.playCurrentTrack.bind(this));
+    }
+
+    playCurrentTrack(){
+        youtube.getVideoIdForTerm(`${this.state.currentArtist.name} - ${this.state.currentTrack.name}`)
+            .then(v => this.player.loadVideoById(v.id));
+
+        this.startTracking();
     }
 
     onPlayStart(artist, album, track) {
+        this.setState({
+            currentArtist: artist,
+            currentAlbum: album,
+            currentTrack: track
+        });
         //change the state
         //send the state to youtube
         console.log(artist, album, track);
