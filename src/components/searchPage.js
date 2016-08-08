@@ -5,10 +5,10 @@ import SearchResults from './searchResults';
 import './../../node_modules/bootstrap/dist/css/bootstrap.css';
 import _ from 'lodash';
 import Youtube from 'react-youtube';
-import './app.css';
+import './searchPage.css';
 import youtube from './../loaders/youtube';
 
-class App extends React.Component {
+class SearchPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {artists: []};
@@ -64,6 +64,9 @@ class App extends React.Component {
     }
 
     playTrack(artist, album, track) {
+        this.currentArtist = artist;
+        this.currentAlbum = album;
+        this.currentTrack = track;
         youtube.getVideoIdForTerm(`${artist.name} - ${track.name}`)
             .then(v => this.player.loadVideoById(v.id));
     }
@@ -117,4 +120,4 @@ class App extends React.Component {
     }
 }
 
-export default App;
+export default SearchPage;

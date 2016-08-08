@@ -1,27 +1,39 @@
 import React from 'react';
 import './../../../node_modules/bootstrap/dist/css/bootstrap.css';
-import './baseLayout.css';
+import './app.css';
 import Player from './player/player';
 import Sidebar from './sidebar/sidebar';
-import App from './../app';
+import SearchPage from '../searchPage';
 
-class BaseLayout extends React.Component {
-    constructor(props){
+class App extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
             songInfo: {
                 currentTime: 0,
                 overallTime: 0,
                 fullName: " . "
-            }
+            },
+            currentSong: 'foo'
+
         }
     }
 
-    updateProgress(songState){
-        this.setState({songInfo:songState});
+    updateProgress(songState) {
+        this.setState({songInfo: songState});
     }
+
+    playNextSong(){
+        console.log('playNextSong');
+        this.setState({currentSong: this.state.currentSong + 'next'});
+    }
+
+    playPreviousSong(){
+        console.log('playPreviousSong');
+    }
+
     render() {
-        let  styles = {'marginBottom': 0};
+        let styles = {'marginBottom': 0};
 
         return (<div id="wrapper">
             <nav className="navbar navbar-default navbar-static-top" role="navigation" style={styles}>
@@ -33,10 +45,14 @@ class BaseLayout extends React.Component {
                         <span className="icon-bar"></span>
                         <span className="icon-bar"></span>
                     </button>
-                    <a className="navbar-brand" href="JavaScript:;">True Tune</a>
+                    {/*<a className="navbar-brand" href="JavaScript:;">True Tune</a>*/}
+                    <a className="navbar-brand" href="JavaScript:;">{this.state.currentSong}</a>
                 </div>
 
-                <Player songInfo={this.state.songInfo}/>
+                <Player songInfo={this.state.songInfo}
+                        playNextSong={this.playNextSong.bind(this)}
+                        playPreviousSong={this.playPreviousSong.bind(this)}
+                />
 
                 <Sidebar/>
 
@@ -46,7 +62,7 @@ class BaseLayout extends React.Component {
                     <div className="col-lg-12">
 
                         {/*Search Page*/}
-                        <App updateProgress={this.updateProgress.bind(this)}/>
+                        <SearchPage updateProgress={this.updateProgress.bind(this)}/>
 
                     </div>
                 </div>
@@ -55,4 +71,4 @@ class BaseLayout extends React.Component {
     }
 }
 
-export default BaseLayout;
+export default App;

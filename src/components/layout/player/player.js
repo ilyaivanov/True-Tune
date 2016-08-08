@@ -4,7 +4,7 @@ import formatter from './../../../common/formatter';
 
 let player = props => (<ul className="nav navbar-top-links navbar-right">
     <li>
-        <a className="dropdown-toggle" data-toggle="dropdown" href="#">
+        <a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={props.playPreviousSong}>
             <i className="glyphicon glyphicon-backward"></i>
         </a>
     </li>
@@ -14,7 +14,7 @@ let player = props => (<ul className="nav navbar-top-links navbar-right">
         </a>
     </li>
     <li>
-        <a className="dropdown-toggle" data-toggle="dropdown" href="#">
+        <a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={props.playNextSong}>
             <i className="glyphicon glyphicon-forward"></i>
         </a>
     </li>
