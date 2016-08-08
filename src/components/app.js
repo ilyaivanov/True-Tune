@@ -12,6 +12,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {artists: []};
+        this.updateProgress = props.updateProgress;
         this.delayedOnChange = _.debounce(this.delayedOnChange, 300);
     }
 
@@ -67,6 +68,14 @@ class App extends React.Component {
             .then(v => this.player.loadVideoById(v.id));
     }
 
+    startTracking() {
+        console.log('Starting playing...');
+
+        setInterval(function () {
+            this.updateProgress({currentTime: this.player.getCurrentTime()});
+        }.bind(this), 1000)
+    }
+
     render() {
         return (<div id="wrapper">
             <div id="page-content-wrapper">
@@ -86,6 +95,7 @@ class App extends React.Component {
                                            artists={this.state.artists}/>
                             <Youtube
                                 onReady={this._onReady.bind(this)}
+                                onPlay={this.startTracking.bind(this)}
                                 className="video-container"
                             />
                         </div>

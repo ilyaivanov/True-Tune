@@ -6,6 +6,16 @@ import Sidebar from './sidebar/sidebar';
 import App from './../app';
 
 class BaseLayout extends React.Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            songInfo: {currentTime: 0}
+        }
+    }
+
+    updateProgress(songState){
+        this.setState({songInfo:songState});
+    }
     render() {
         let  styles = {'marginBottom': 0};
 
@@ -22,7 +32,7 @@ class BaseLayout extends React.Component {
                     <a className="navbar-brand" href="JavaScript:;">True Tune</a>
                 </div>
 
-                <Player />
+                <Player songInfo={this.state.songInfo}/>
 
                 <Sidebar/>
 
@@ -32,7 +42,7 @@ class BaseLayout extends React.Component {
                     <div className="col-lg-12">
 
                         {/*Search Page*/}
-                        <App/>
+                        <App updateProgress={this.updateProgress.bind(this)}/>
 
                     </div>
                 </div>
