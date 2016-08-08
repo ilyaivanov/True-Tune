@@ -17,10 +17,10 @@ class App extends React.Component {
                 overallTime: 0,
                 fullName: " . "
             },
-            currentArtist:{},
-            currentAlbum:{},
-            currentTrack:{},
-
+            currentArtist: {},
+            currentAlbum: {},
+            currentTrack: {},
+            artists: []
         }
     }
 
@@ -28,15 +28,15 @@ class App extends React.Component {
         this.setState({songInfo: songState});
     }
 
-    playNextSong(){
+    playNextSong() {
         console.log('playNextSong');
     }
 
-    playPreviousSong(){
+    playPreviousSong() {
         console.log('playPreviousSong');
     }
 
-    onPlayStart(artist, album, track){
+    onPlayStart(artist, album, track) {
         //change the state
         //send the state to youtube
         console.log(artist, album, track);
@@ -51,14 +51,16 @@ class App extends React.Component {
 
     startTracking() {
         let updateProgress = function () {
-            this.setState({songInfo:{
-                currentTime: this.player.getCurrentTime(),
-                overallTime: this.player.getDuration(),
-                fullName: this.player.getVideoData().title
-            }});
+            this.setState({
+                songInfo: {
+                    currentTime: this.player.getCurrentTime(),
+                    overallTime: this.player.getDuration(),
+                    fullName: this.player.getVideoData().title
+                }
+            });
         };
 
-        if(this.currentWatcher){
+        if (this.currentWatcher) {
             console.log('stopping previous interval');
             clearInterval(this.currentWatcher);
             this.currentWatcher = 0;
@@ -69,9 +71,9 @@ class App extends React.Component {
     }
 
 
-    findArtists(){
+    findArtists(term) {
         lastfm
-            .findArtists(event.target.value)
+            .findArtists(term)
             .then(artists => this.setState({artists: artists}));
     }
 
@@ -133,8 +135,13 @@ class App extends React.Component {
                     <div className="col-lg-12">
 
                         {/*Search Page*/}
-                        <SearchPage updateProgress={this.updateProgress.bind(this)}
-                        onPlayStart={this.onPlayStart.bind(this)}/>
+                        <SearchPage
+                            updateProgress={this.updateProgress.bind(this)}
+                            onPlayStart={this.onPlayStart.bind(this)}
+                            findArtists={this.findArtists.bind(this)}
+                            findAlbums={this.findAlbums.bind(this)}
+                            findTracks={this.findTracks.bind(this)}
+                            artists={this.state.artists}/>
 
                     </div>
                 </div>

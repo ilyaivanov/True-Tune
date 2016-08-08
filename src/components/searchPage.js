@@ -13,8 +13,8 @@ class SearchPage extends React.Component {
 
         //use inlined lambdas here
         this.findArtists = props.findArtists;
-        this.findAlbums = props.findAlbums;
-        this.findTracks = props.findTracks;
+        this.findAlbums = artist => props.findAlbums(artist);
+        this.findTracks = (artist, album) => props.findTracks(artist, album);
 
         this.delayedOnChange = _.debounce(this.delayedOnChange, 300);
     }
@@ -29,14 +29,6 @@ class SearchPage extends React.Component {
         if (event.target.value) {
             this.findArtists(event.target.value);
         }
-    }
-
-    toggleArtist(artist) {
-        this.findAlbums(artist);
-    }
-
-    toggleAlbum(artist, album) {
-        this.findTracks(artist, album);
     }
 
     playTrack(artist, album, track) {
@@ -56,10 +48,10 @@ class SearchPage extends React.Component {
                             />
                             <br/>
 
-                            <SearchResults toggleArtist={this.toggleArtist.bind(this)}
-                                           toggleAlbum={this.toggleAlbum.bind(this)}
+                            <SearchResults toggleArtist={this.findAlbums.bind(this)}
+                                           toggleAlbum={this.findTracks.bind(this)}
                                            playTrack={this.playTrack.bind(this)}
-                                           artists={this.state.artists}/>
+                                           artists={this.props.artists}/>
 
                         </div>
                     </div>
