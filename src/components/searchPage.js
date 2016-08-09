@@ -51,7 +51,9 @@ class SearchPage extends React.Component {
                             <SearchResults toggleArtist={this.findAlbums.bind(this)}
                                            toggleAlbum={this.findTracks.bind(this)}
                                            playTrack={this.playTrack.bind(this)}
-                                           artists={this.props.artists}/>
+                                           artists={this.props.artists}
+                                           playlists={this.props.playlists}
+                                           addTo={this.props.addTo}/>
 
                         </div>
                     </div>

@@ -23,9 +23,9 @@ class App extends React.Component {
             artists: [],
             isPlaying: false,
             playlists: [
-                {name: "Playlist 1"},
-                {name: "Playlist 2"},
-                {name: "Playlist 3"}
+                {name: "Playlist 1", items: []},
+                {name: "Playlist 2", items: []},
+                {name: "Playlist 3", items: []}
             ]
         }
     }
@@ -169,7 +169,7 @@ class App extends React.Component {
     }
 
     createPlaylist() {
-        var newPlaylist = {name: "new playlist"};
+        var newPlaylist = {name: "new playlist", items: []};
         var newPlaylists = this.state.playlists;
         newPlaylists.push(newPlaylist);
         this.setState({playlists: newPlaylists});
@@ -189,6 +189,11 @@ class App extends React.Component {
     setPlaylistName(playList, name){
         playList.name = name;
         this.forceUpdate();
+    }
+
+    addTo(playlist, item){
+        playlist.items.push(item);
+        console.log(playlist, item);
     }
 
     render() {
@@ -235,7 +240,9 @@ class App extends React.Component {
                             findArtists={this.findArtists.bind(this)}
                             findAlbums={this.findAlbums.bind(this)}
                             findTracks={this.findTracks.bind(this)}
-                            artists={this.state.artists}/>
+                            addTo={this.addTo.bind(this)}
+                            artists={this.state.artists}
+                            playlists={this.state.playlists}/>
 
                     </div>
                 </div>

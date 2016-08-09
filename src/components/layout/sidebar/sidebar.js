@@ -16,6 +16,7 @@ class Sidebar extends React.Component {
         //set focus on edited playlist
     }
 
+    
 
     render() {
         return (<div className="navbar-default sidebar" role="navigation">

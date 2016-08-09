@@ -20,6 +20,9 @@
 li:hover .edit {
     display: block;
 }
+.list-group-item:hover .edit {
+    display: block;
+}
 
 button {
     margin: 0;

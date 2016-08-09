@@ -1,6 +1,6 @@
 import React from 'react';
 import './searchResults.css'
-import {Collapse, Image} from 'react-bootstrap';
+import {Collapse, Image, DropdownButton, MenuItem} from 'react-bootstrap';
 let SearchResults = function (props) {
 
     let mapTrack = (artist, album, track, index) => <li key={track.id} className="list-group-item">{index + 1}.
@@ -8,10 +8,11 @@ let SearchResults = function (props) {
             className="glyphicon glyphicon-play"></span></a> {track.name}
     </li>;
 
-    let foo = function (event) {
-        console.log('bookmarked');
+    let addTo = (event, playlist, item, type) => {
+        item.type = type;
         event.stopPropagation();
-    }
+        props.addTo(playlist, item);
+    };
     let mapAlbum = function (artist, album) {
         return (
             <div key={album.id}>
@@ -20,7 +21,14 @@ let SearchResults = function (props) {
                 <span>
                     <Image src={album.image} circle/>
                 </span>
-                    <span className="artist-title">{album.name}</span>
+                    <span className="artist-title">{album.name}
+                        <div className="dropdown">
+                          <button className="dropbtn">add</button>
+                          <div className="dropdown-content">
+                              {props.playlists.map((p, i) => <a href="#" key={i} onClick={e => addTo(e, p, album, 'album')}>{p.name}</a>)}
+                          </div>
+                        </div>
+                    </span>
                 </a>
                 <Collapse in={album.areTracksShown}>
                     <ol className="list-group">
