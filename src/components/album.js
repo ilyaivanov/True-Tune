@@ -6,12 +6,14 @@ let mapTrack = (artist, album, track, index, playTrack) => <li key={track.id} cl
         className="glyphicon glyphicon-play"></span></a> {track.name}
 </li>;
 
-let addTo = (event, playlist, item, type) => {
-    item.type = type;
-    event.stopPropagation();
-    props.addTo(playlist, item);
-};
+
 let mapAlbum = function (props) {
+    let addTo = (event, playlist, item, type) => {
+        item.type = type;
+        event.stopPropagation();
+        props.addTo(playlist, item);
+    };
+
     return (
         <div>
             <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, props.artist, props.album)}
@@ -23,7 +25,7 @@ let mapAlbum = function (props) {
                     <div className="dropdown">
                           <button className="dropbtn">add</button>
                           <div className="dropdown-content">
-                              {props.playlists.map((p, i) => <a href="#" key={i} onClick={e => props.addTo(e, p, album, 'album')}>{p.name}</a>)}
+                              {props.playlists.map((p, i) => <a href="#" key={i} onClick={e => addTo(e, p, props.album, 'album')}>{p.name}</a>)}
                           </div>
                         </div>
                     </span>
