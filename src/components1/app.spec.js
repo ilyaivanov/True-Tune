@@ -3,14 +3,14 @@ import {shallow} from 'enzyme';
 import {expect} from 'chai';
 import App from './app';
 
-describe('App', () => {
-    it('should have a sub-header called with nice to see ya', () => {
+describe('<App />', () => {
+    it('should have a header called \'About\'', () => {
         const wrapper = shallow(<App />);
 
-        let received = wrapper.find('h4').text();
-        let expected = 'nice to see ya';
+        var received = wrapper.find('h4').text();
+        var expected = 'some contents';
 
-        expect(expected).to.equal(received);
+        expect(received).to.equal(expected);
     });
 
 });
