@@ -8,6 +8,7 @@ class Sidebar extends React.Component {
         this.createPlaylist = props.createPlaylist;
         this.setPlaylistName = (event, playlist) => props.setPlaylistName(playlist, event.target.value);
         this.stopEditingPlaylist = props.stopEditingPlaylist;
+        this.selectPlaylist = props.selectPlaylist;
         this.playlists = props.playlists;
 
     }
@@ -16,7 +17,7 @@ class Sidebar extends React.Component {
         //set focus on edited playlist
     }
 
-    
+
 
     render() {
         return (<div className="navbar-default sidebar" role="navigation">
@@ -47,7 +48,7 @@ class Sidebar extends React.Component {
                                             onChange={event => this.setPlaylistName(event, p)}
                                             onBlur={() => this.stopEditingPlaylist(p)}/>) :
                                     (
-                                        <a href="JavaScript:;"><i className="glyphicon glyphicon-list-alt"></i> {p.name}
+                                        <a href="JavaScript:;" onClick={()=>this.selectPlaylist(p)}><i className="glyphicon glyphicon-list-alt"></i> {p.name}
                                         </a>
                                     )
                             }

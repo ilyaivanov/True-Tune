@@ -7,6 +7,7 @@ import SearchPage from '../searchPage';
 import youtube from './../../loaders/youtube';
 import Youtube from 'react-youtube';
 import lastfm from './../../loaders/lastfm';
+import Playlist from './../pages/playlist';
 
 class App extends React.Component {
     constructor(props) {
@@ -26,7 +27,8 @@ class App extends React.Component {
                 {name: "Playlist 1", items: []},
                 {name: "Playlist 2", items: []},
                 {name: "Playlist 3", items: []}
-            ]
+            ],
+            currentPlaylist: undefined
         }
     }
 
@@ -180,24 +182,38 @@ class App extends React.Component {
         this.forceUpdate();
     }
 
-    stopEditingPlaylist(playlist){
+    stopEditingPlaylist(playlist) {
         console.log(playlist);
         playlist.isEditing = false;
         this.forceUpdate();
     }
 
-    setPlaylistName(playList, name){
+    setPlaylistName(playList, name) {
         playList.name = name;
         this.forceUpdate();
     }
 
-    addTo(playlist, item){
+    addTo(playlist, item) {
         playlist.items.push(item);
         console.log(playlist, item);
     }
 
+    selectPlaylist(playlist){
+        this.setState({currentPlaylist:playlist});
+    }
+
     render() {
         let styles = {'marginBottom': 0};
+        let page = this.state.currentPlaylist ? <Playlist playlist={this.state.currentPlaylist} /> :
+            <SearchPage
+                updateProgress={this.updateProgress.bind(this)}
+                onPlayStart={this.onPlayStart.bind(this)}
+                findArtists={this.findArtists.bind(this)}
+                findAlbums={this.findAlbums.bind(this)}
+                findTracks={this.findTracks.bind(this)}
+                addTo={this.addTo.bind(this)}
+                artists={this.state.artists}
+                playlists={this.state.playlists}/>;
 
         return (<div id="wrapper">
             <nav className="navbar navbar-default navbar-static-top" role="navigation" style={styles}>
@@ -226,6 +242,7 @@ class App extends React.Component {
                          editPlaylist={this.editPlaylist.bind(this)}
                          stopEditingPlaylist={this.stopEditingPlaylist.bind(this)}
                          setPlaylistName={this.setPlaylistName.bind(this)}
+                         selectPlaylist={this.selectPlaylist.bind(this)}
                 />
 
             </nav>
@@ -233,16 +250,8 @@ class App extends React.Component {
                 <div className="row">
                     <div className="col-lg-12">
 
-                        {/*Search Page*/}
-                        <SearchPage
-                            updateProgress={this.updateProgress.bind(this)}
-                            onPlayStart={this.onPlayStart.bind(this)}
-                            findArtists={this.findArtists.bind(this)}
-                            findAlbums={this.findAlbums.bind(this)}
-                            findTracks={this.findTracks.bind(this)}
-                            addTo={this.addTo.bind(this)}
-                            artists={this.state.artists}
-                            playlists={this.state.playlists}/>
+                        {page}
+
 
                     </div>
                 </div>
