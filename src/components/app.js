@@ -21,14 +21,15 @@ class App extends React.Component {
                 fullName: " . "
             },
             artists: [],
-            isPlaying: false,
             playlists: [
                 {name: "Playlist 1", items: []},
                 {name: "Playlist 2", items: []},
                 {name: "Playlist 3", items: []}
             ],
             currentPlaylist: undefined
-        }
+        };
+
+        PlayerModel.subscribe(() => this.forceUpdate());
     }
 
     updateProgress(songState) {

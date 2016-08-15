@@ -46,6 +46,7 @@ class PlayerModel {
 
         // this.stopTracking();
         this.player.pauseVideo();
+        this.inform();
     }
 
     static resume() {
@@ -55,6 +56,7 @@ class PlayerModel {
 
         // this.startTracking();
         this.player.playVideo();
+        this.inform();
     }
 
     static playCurrentTrack() {
