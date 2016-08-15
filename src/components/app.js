@@ -9,6 +9,8 @@ import Youtube from 'react-youtube';
 import lastfm from '../models/lastfm';
 import Playlist from './pages/playlist';
 
+import PlayerModel from './../models/player'
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -18,9 +20,6 @@ class App extends React.Component {
                 overallTime: 0,
                 fullName: " . "
             },
-            currentArtist: {},
-            currentAlbum: {},
-            currentTrack: {},
             artists: [],
             isPlaying: false,
             playlists: [
@@ -34,35 +33,6 @@ class App extends React.Component {
 
     updateProgress(songState) {
         this.setState({songInfo: songState});
-    }
-
-    playNextSong() {
-        var indexOfCurrentTrack = _.indexOf(this.state.currentAlbum.tracks, this.state.currentTrack);
-        if (indexOfCurrentTrack >= this.state.currentAlbum.tracks.length - 1)
-            return;
-
-        var track = this.state.currentAlbum.tracks[indexOfCurrentTrack + 1];
-        this.setState({
-            currentTrack: track
-        }, this.playCurrentTrack.bind(this));
-    }
-
-    playPreviousSong() {
-        var indexOfCurrentTrack = _.indexOf(this.state.currentAlbum.tracks, this.state.currentTrack);
-        if (indexOfCurrentTrack <= 0)
-            return;
-
-        var track = this.state.currentAlbum.tracks[indexOfCurrentTrack - 1];
-        this.setState({
-            currentTrack: track
-        }, this.playCurrentTrack.bind(this));
-    }
-
-    playCurrentTrack() {
-        youtube.getVideoIdForTerm(`${this.state.currentArtist.name} - ${this.state.currentTrack.name}`)
-            .then(v => this.player.loadVideoById(v.id));
-
-        this.startTracking();
     }
 
     onPlayStart(artist, album, track) {
@@ -79,21 +49,15 @@ class App extends React.Component {
     }
 
     startTracking() {
-        let updateProgress = function () {
-            this.setCurrentTime(this.player.getCurrentTime());
-        };
-
-        this.stopTracking();
-        console.log('Starting playing...');
-        updateProgress.bind(this)();
-        this.currentWatcher = setInterval(updateProgress.bind(this), 1000)
+        // let updateProgress = function () {
+        //     this.setCurrentTime(this.player.getCurrentTime());
+        // };
+        //
+        // this.stopTracking();
+        // console.log('Starting playing...');
+        // updateProgress.bind(this)();
+        // this.currentWatcher = setInterval(updateProgress.bind(this), 1000)
     }
-
-    _onReady(event) {
-        // access to player in all event handlers via event.target
-        this.player = event.target;
-    }
-
 
     stopTracking() {
         if (this.currentWatcher) {
@@ -208,7 +172,7 @@ class App extends React.Component {
         let page = this.state.currentPlaylist ? <Playlist playlist={this.state.currentPlaylist} /> :
             <SearchPage
                 updateProgress={this.updateProgress.bind(this)}
-                onPlayStart={this.onPlayStart.bind(this)}
+                onPlayStart={PlayerModel.play.bind(PlayerModel)}
                 findArtists={this.findArtists.bind(this)}
                 findAlbums={this.findAlbums.bind(this)}
                 findTracks={this.findTracks.bind(this)}
@@ -231,8 +195,8 @@ class App extends React.Component {
 
                 <Player songInfo={this.state.songInfo}
                         isPlaying={this.state.isPlaying}
-                        playNextSong={this.playNextSong.bind(this)}
-                        playPreviousSong={this.playPreviousSong.bind(this)}
+                        playNextSong={PlayerModel.playNextTrack.bind(PlayerModel)}
+                        playPreviousSong={PlayerModel.playPreviousTrack.bind(PlayerModel)}
                         pause={this.pause.bind(this)}
                         resume={this.resume.bind(this)}
                         setTrackTime={this.setTrackTime.bind(this)}
@@ -258,7 +222,7 @@ class App extends React.Component {
                 </div>
             </div>
             <Youtube
-                onReady={this._onReady.bind(this)}
+                onReady={e => PlayerModel.injectPlayer(e.target)}
                 onPlay={this.resume.bind(this)}
                 onPause={this.pause.bind(this)}
                 onEnd={this.playNextSong.bind(this)}

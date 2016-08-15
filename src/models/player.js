@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import logger from './../common/logger';
 import youtube from './youtube';
 //public methods
 //play(artist, album, track)
@@ -14,6 +15,8 @@ class PlayerModel {
         this.currentArtist = artist;
         this.currentAlbum = album;
         this.currentTrack = track;
+
+        this.playCurrentTrack();
     }
 
     static playNextTrack() {
@@ -23,19 +26,30 @@ class PlayerModel {
 
         let track = this.currentAlbum.tracks[indexOfCurrentTrack + 1];
         this.currentTrack = track;
+        this.playCurrentTrack();
     }
 
-    static playPreviousSong() {
+    static playPreviousTrack() {
         let indexOfCurrentTrack = _.indexOf(this.currentAlbum.tracks, this.currentTrack);
         if (indexOfCurrentTrack <= 0)
             return;
 
         let track = this.currentAlbum.tracks[indexOfCurrentTrack - 1];
         this.currentTrack = track;
+        this.playCurrentTrack();
+    }
+
+    static pause(){
+
+    }
+
+    static resume(){
+
     }
 
     static playCurrentTrack() {
-        youtube.getVideoIdForTerm(`${this.state.currentArtist.name} - ${this.state.currentTrack.name}`)
+        logger.log(`Playing: ${this.currentArtist.name} - ${this.currentAlbum.name} - ${this.currentTrack.name}`);
+        youtube.getVideoIdForTerm(`${this.currentArtist.name} - ${this.currentTrack.name}`)
             .then(v => this.player.loadVideoById(v.id));
 
     }
@@ -49,6 +63,7 @@ class PlayerModel {
     }
 
     static injectPlayer(player){
+        logger.log(`Injected player ${player}`);
         this.player = player;
     }
 
