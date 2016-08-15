@@ -1,6 +1,6 @@
 import React from 'react';
 import './player.css';
-import formatter from './../../../common/formatter';
+import formatter from '../../common/time.formatter';
 
 let playButton = isPlaying => isPlaying ? (
     <a className="dropdown-toggle" data-toggle="dropdown" href="#">

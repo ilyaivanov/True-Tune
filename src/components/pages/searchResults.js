@@ -1,6 +1,6 @@
 import React from 'react';
 import './searchResults.css'
-import Album from './album';
+import Album from '../album';
 import {Collapse, Image} from 'react-bootstrap';
 
 let SearchResults = function (props) {

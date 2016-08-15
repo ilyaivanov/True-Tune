@@ -1,14 +1,12 @@
 import React from 'react';
 import {FormControl} from 'react-bootstrap';
 import SearchResults from './searchResults';
-import './../../node_modules/bootstrap/dist/css/bootstrap.css';
 import _ from 'lodash';
 import './searchPage.css';
 
 class SearchPage extends React.Component {
     constructor(props) {
         super(props);
-        this.updateProgress = props.updateProgress;
         this.onPlayStart = props.onPlayStart;
 
         //use inlined lambdas here
