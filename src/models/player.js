@@ -44,19 +44,48 @@ class PlayerModel {
         logger.log('pausing');
         this.isPlaying = false;
 
-        // this.stopTracking();
+        this.stopTrackingIfAny();
         this.player.pauseVideo();
         this.inform();
     }
 
     static resume() {
-        //curently called two times: from ttplayer and from youtubeplayer
+        //currently called two times: from ttplayer and from youtubeplayer
         logger.log('resuming');
         this.isPlaying = true;
 
-        // this.startTracking();
+        this.startTracking();
         this.player.playVideo();
         this.inform();
+    }
+
+    static startTracking() {
+        this.stopTrackingIfAny();
+        console.log('Starting playing...');
+
+        this.currentWatcher = setInterval(this.inform.bind(this), 1000)
+    }
+
+    static stopTrackingIfAny() {
+        if (this.currentWatcher) {
+            console.log('stopping previous interval');
+            clearInterval(this.currentWatcher);
+            this.currentWatcher = 0;
+        }
+    }
+
+    static getCurrentTrackState() {
+        if (this.player)
+            return {
+                currentTime: this.player.getCurrentTime(),
+                overallTime: this.player.getDuration(),
+                fullName: this.player.getVideoData().title
+            };
+        return {
+            currentTime: 0,
+            overallTime: 0,
+            fullName: ""
+        };
     }
 
     static playCurrentTrack() {
@@ -94,7 +123,6 @@ class PlayerModel {
     static inform() {
         //store current state
         // Utils.store(this.key, this.todos);
-
         this.onChanges.forEach(cb => cb());
     }
 }

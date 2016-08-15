@@ -32,29 +32,6 @@ class App extends React.Component {
         PlayerModel.subscribe(() => this.forceUpdate());
     }
 
-    updateProgress(songState) {
-        this.setState({songInfo: songState});
-    }
-
-    startTracking() {
-        // let updateProgress = function () {
-        //     this.setCurrentTime(this.player.getCurrentTime());
-        // };
-        //
-        // this.stopTracking();
-        // console.log('Starting playing...');
-        // updateProgress.bind(this)();
-        // this.currentWatcher = setInterval(updateProgress.bind(this), 1000)
-    }
-
-    stopTracking() {
-        if (this.currentWatcher) {
-            console.log('stopping previous interval');
-            clearInterval(this.currentWatcher);
-            this.currentWatcher = 0;
-        }
-    }
-
     findArtists(term) {
         lastfm
             .findArtists(term)
@@ -94,17 +71,6 @@ class App extends React.Component {
         this.setCurrentTime(event.target.value);
     }
 
-    setCurrentTime(time) {
-        this.setState({
-            songInfo: {
-                currentTime: time,
-                overallTime: this.player.getDuration(),
-                fullName: this.player.getVideoData().title
-            },
-            isPlaying: true
-        });
-    }
-
     createPlaylist() {
         var newPlaylist = {name: "new playlist", items: []};
         var newPlaylists = this.state.playlists;
@@ -133,15 +99,15 @@ class App extends React.Component {
         console.log(playlist, item);
     }
 
-    selectPlaylist(playlist){
-        this.setState({currentPlaylist:playlist});
+    selectPlaylist(playlist) {
+        this.setState({currentPlaylist: playlist});
     }
 
     render() {
+
         let styles = {'marginBottom': 0};
-        let page = this.state.currentPlaylist ? <Playlist playlist={this.state.currentPlaylist} /> :
+        let page = this.state.currentPlaylist ? <Playlist playlist={this.state.currentPlaylist}/> :
             <SearchPage
-                updateProgress={this.updateProgress.bind(this)}
                 onPlayStart={PlayerModel.play.bind(PlayerModel)}
                 findArtists={this.findArtists.bind(this)}
                 findAlbums={this.findAlbums.bind(this)}
@@ -163,7 +129,7 @@ class App extends React.Component {
                     <a className="navbar-brand" href="JavaScript:;">True Tune</a>
                 </div>
 
-                <Player songInfo={this.state.songInfo}
+                <Player songInfo={PlayerModel.getCurrentTrackState()}
                         isPlaying={PlayerModel.isPlaying}
                         playNextSong={PlayerModel.playNextTrack.bind(PlayerModel)}
                         playPreviousSong={PlayerModel.playPreviousTrack.bind(PlayerModel)}

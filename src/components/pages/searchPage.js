@@ -7,7 +7,6 @@ import './searchPage.css';
 class SearchPage extends React.Component {
     constructor(props) {
         super(props);
-        this.updateProgress = props.updateProgress;
         this.onPlayStart = props.onPlayStart;
 
         //use inlined lambdas here
