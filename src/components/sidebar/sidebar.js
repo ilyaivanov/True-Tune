@@ -17,8 +17,6 @@ class Sidebar extends React.Component {
         //set focus on edited playlist
     }
 
-
-
     render() {
         return (<div className="navbar-default sidebar" role="navigation">
             <div className="sidebar-nav navbar-collapse">
@@ -48,12 +46,13 @@ class Sidebar extends React.Component {
                                             onChange={event => this.setPlaylistName(event, p)}
                                             onBlur={() => this.stopEditingPlaylist(p)}/>) :
                                     (
-                                        <a href="JavaScript:;" onClick={()=>this.selectPlaylist(p)}><i className="glyphicon glyphicon-list-alt"></i> {p.name}
+                                        <a href="JavaScript:;" onClick={()=>this.selectPlaylist(p)}><i
+                                            className="glyphicon glyphicon-list-alt"></i> {p.name}
                                         </a>
                                     )
                             }
                             {!p.isEditing && (<button className="edit glyphicon glyphicon-edit"
-                                                     onClick={() => this.editPlaylist(p)}></button>)}
+                                                      onClick={() => this.editPlaylist(p)}></button>)}
 
                         </li>))}
                 </ul>

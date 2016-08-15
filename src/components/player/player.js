@@ -10,7 +10,6 @@ let playButton = isPlaying => isPlaying ? (
         <i className="glyphicon glyphicon-play"></i>
     </a>);
 
-
 let player = props => (<ul className="nav navbar-top-links navbar-right">
     <li>
         <a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={props.playPreviousSong}>

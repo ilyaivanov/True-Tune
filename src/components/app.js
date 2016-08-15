@@ -4,7 +4,6 @@ import './app.css';
 import Player from './player/player';
 import Sidebar from './sidebar/sidebar';
 import SearchPage from './pages/searchPage';
-import youtube from '../services/youtube';
 import Youtube from 'react-youtube';
 import Playlist from './pages/playlist';
 
@@ -20,7 +19,6 @@ class App extends React.Component {
         ArtistsModel.subscribe(() => this.forceUpdate());
         PlaylistsModel.subscribe(() => this.forceUpdate());
     }
-
 
     render() {
         var currentPlaylist = PlaylistsModel.getSelectedPlaylists();
@@ -69,10 +67,7 @@ class App extends React.Component {
             <div id="page-wrapper">
                 <div className="row">
                     <div className="col-lg-12">
-
                         {page}
-
-
                     </div>
                 </div>
             </div>

@@ -1,4 +1,3 @@
-
 class PlaylistsModel {
 
     static createPlaylist() {
