@@ -1,7 +1,6 @@
 import React from 'react';
 import {FormControl} from 'react-bootstrap';
 import SearchResults from './searchResults';
-import './../../node_modules/bootstrap/dist/css/bootstrap.css';
 import _ from 'lodash';
 import './searchPage.css';
 

@@ -1,13 +1,13 @@
 import React from 'react';
-import './../../../node_modules/bootstrap/dist/css/bootstrap.css';
+import './../../node_modules/bootstrap/dist/css/bootstrap.css';
 import './app.css';
 import Player from './player/player';
 import Sidebar from './sidebar/sidebar';
-import SearchPage from '../searchPage';
-import youtube from './../../loaders/youtube';
+import SearchPage from './pages/searchPage';
+import youtube from '../models/youtube';
 import Youtube from 'react-youtube';
-import lastfm from './../../loaders/lastfm';
-import Playlist from './../pages/playlist';
+import lastfm from '../models/lastfm';
+import Playlist from './pages/playlist';
 
 class App extends React.Component {
     constructor(props) {
@@ -78,11 +78,6 @@ class App extends React.Component {
             .then(v => this.player.loadVideoById(v.id));
     }
 
-    _onReady(event) {
-        // access to player in all event handlers via event.target
-        this.player = event.target;
-    }
-
     startTracking() {
         let updateProgress = function () {
             this.setCurrentTime(this.player.getCurrentTime());
@@ -93,6 +88,12 @@ class App extends React.Component {
         updateProgress.bind(this)();
         this.currentWatcher = setInterval(updateProgress.bind(this), 1000)
     }
+
+    _onReady(event) {
+        // access to player in all event handlers via event.target
+        this.player = event.target;
+    }
+
 
     stopTracking() {
         if (this.currentWatcher) {
