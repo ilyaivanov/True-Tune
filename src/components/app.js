@@ -6,16 +6,15 @@ import Sidebar from './sidebar/sidebar';
 import SearchPage from './pages/searchPage';
 import youtube from '../services/youtube';
 import Youtube from 'react-youtube';
-import lastfm from '../services/lastfm';
 import Playlist from './pages/playlist';
 
 import PlayerModel from './../models/player'
+import ArtistsModel from './../models/artists'
 
 class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            artists: [],
             playlists: [
                 {name: "Playlist 1", items: []},
                 {name: "Playlist 2", items: []},
@@ -25,40 +24,7 @@ class App extends React.Component {
         };
 
         PlayerModel.subscribe(() => this.forceUpdate());
-    }
-
-    findArtists(term) {
-        lastfm
-            .findArtists(term)
-            .then(artists => this.setState({artists: artists}));
-    }
-
-    findAlbums(artist) {
-        if (!artist.albums) {
-            lastfm.findAlbums(artist.name)
-                .then(albums => {
-                    artist.albums = albums;
-                    artist.areAlbumsShown = !artist.areAlbumsShown;
-                    this.forceUpdate();
-                })
-        } else {
-            artist.areAlbumsShown = !artist.areAlbumsShown;
-            this.forceUpdate();
-        }
-    }
-
-    findTracks(artist, album) {
-        if (!album.tracks) {
-            lastfm.findTracks(artist, album)
-                .then(albums => {
-                    album.tracks = albums;
-                    album.areTracksShown = !album.areTracksShown;
-                    this.forceUpdate();
-                })
-        } else {
-            album.areTracksShown = !album.areTracksShown;
-            this.forceUpdate();
-        }
+        ArtistsModel.subscribe(() => this.forceUpdate());
     }
 
     createPlaylist() {
@@ -99,11 +65,11 @@ class App extends React.Component {
         let page = this.state.currentPlaylist ? <Playlist playlist={this.state.currentPlaylist}/> :
             <SearchPage
                 onPlayStart={PlayerModel.play.bind(PlayerModel)}
-                findArtists={this.findArtists.bind(this)}
-                findAlbums={this.findAlbums.bind(this)}
-                findTracks={this.findTracks.bind(this)}
+                findArtists={ArtistsModel.findArtists.bind(ArtistsModel)}
+                findAlbums={ArtistsModel.findAlbums.bind(ArtistsModel)}
+                findTracks={ArtistsModel.findTracks.bind(ArtistsModel)}
                 addTo={this.addTo.bind(this)}
-                artists={this.state.artists}
+                artists={ArtistsModel.artists}
                 playlists={this.state.playlists}/>;
 
         return (<div id="wrapper">
