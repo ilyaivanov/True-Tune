@@ -10,67 +10,30 @@ import Playlist from './pages/playlist';
 
 import PlayerModel from './../models/player'
 import ArtistsModel from './../models/artists'
+import PlaylistsModel from './../models/playlists'
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            playlists: [
-                {name: "Playlist 1", items: []},
-                {name: "Playlist 2", items: []},
-                {name: "Playlist 3", items: []}
-            ],
-            currentPlaylist: undefined
-        };
 
         PlayerModel.subscribe(() => this.forceUpdate());
         ArtistsModel.subscribe(() => this.forceUpdate());
+        PlaylistsModel.subscribe(() => this.forceUpdate());
     }
 
-    createPlaylist() {
-        var newPlaylist = {name: "new playlist", items: []};
-        var newPlaylists = this.state.playlists;
-        newPlaylists.push(newPlaylist);
-        this.setState({playlists: newPlaylists});
-    }
-
-    editPlaylist(playlist) {
-        playlist.isEditing = true;
-        this.forceUpdate();
-    }
-
-    stopEditingPlaylist(playlist) {
-        console.log(playlist);
-        playlist.isEditing = false;
-        this.forceUpdate();
-    }
-
-    setPlaylistName(playList, name) {
-        playList.name = name;
-        this.forceUpdate();
-    }
-
-    addTo(playlist, item) {
-        playlist.items.push(item);
-        console.log(playlist, item);
-    }
-
-    selectPlaylist(playlist) {
-        this.setState({currentPlaylist: playlist});
-    }
 
     render() {
-
+        var currentPlaylist = PlaylistsModel.getSelectedPlaylists();
         let styles = {'marginBottom': 0};
-        let page = this.state.currentPlaylist ? <Playlist playlist={this.state.currentPlaylist}/> :
+        let page = currentPlaylist ? <Playlist playlist={currentPlaylist}/> :
             <SearchPage
                 onPlayStart={PlayerModel.play.bind(PlayerModel)}
                 findArtists={ArtistsModel.findArtists.bind(ArtistsModel)}
                 findAlbums={ArtistsModel.findAlbums.bind(ArtistsModel)}
                 findTracks={ArtistsModel.findTracks.bind(ArtistsModel)}
-                addTo={this.addTo.bind(this)}
+                addTo={PlaylistsModel.addTo.bind(PlaylistsModel)}
                 artists={ArtistsModel.artists}
-                playlists={this.state.playlists}/>;
+                playlists={PlaylistsModel.getPlaylists()}/>;
 
         return (<div id="wrapper">
             <nav className="navbar navbar-default navbar-static-top" role="navigation" style={styles}>
@@ -94,12 +57,12 @@ class App extends React.Component {
                         setTrackTime={event => PlayerModel.setTrackTime(event.target.value)}
                 />
 
-                <Sidebar playlists={this.state.playlists}
-                         createPlaylist={this.createPlaylist.bind(this)}
-                         editPlaylist={this.editPlaylist.bind(this)}
-                         stopEditingPlaylist={this.stopEditingPlaylist.bind(this)}
-                         setPlaylistName={this.setPlaylistName.bind(this)}
-                         selectPlaylist={this.selectPlaylist.bind(this)}
+                <Sidebar playlists={PlaylistsModel.getPlaylists()}
+                         createPlaylist={PlaylistsModel.createPlaylist.bind(PlaylistsModel)}
+                         editPlaylist={PlaylistsModel.editPlaylist.bind(PlaylistsModel)}
+                         stopEditingPlaylist={PlaylistsModel.stopEditingPlaylist.bind(PlaylistsModel)}
+                         setPlaylistName={PlaylistsModel.setPlaylistName.bind(PlaylistsModel)}
+                         selectPlaylist={PlaylistsModel.selectPlaylist.bind(PlaylistsModel)}
                 />
 
             </nav>
