@@ -4,9 +4,9 @@ import './app.css';
 import Player from './player/player';
 import Sidebar from './sidebar/sidebar';
 import SearchPage from './pages/searchPage';
-import youtube from '../models/youtube';
+import youtube from '../services/youtube';
 import Youtube from 'react-youtube';
-import lastfm from '../models/lastfm';
+import lastfm from '../services/lastfm';
 import Playlist from './pages/playlist';
 
 import PlayerModel from './../models/player'

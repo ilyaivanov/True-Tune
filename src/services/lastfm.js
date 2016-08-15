@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import logger from './../common/logger';
+import logger from '../common/logger';
 class lastfm {
 
     static findArtists(term) {

@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import logger from './../common/logger';
+import logger from '../common/logger';
 class youtube {
     static getVideoIdForTerm(term) {
         return $.get('https://www.googleapis.com/youtube/v3/search', {

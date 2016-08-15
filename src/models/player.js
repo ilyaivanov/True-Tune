@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import logger from './../common/logger';
-import youtube from './youtube';
+import youtube from '../services/youtube';
 //public methods
 //play(artist, album, track)
 //playNext()
