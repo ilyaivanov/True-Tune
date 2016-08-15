@@ -7,9 +7,9 @@ describe('<App />', () => {
     it('should have a header called \'About\'', () => {
         const wrapper = shallow(<App />);
 
-        var received = wrapper.find('h4').text();
+        // var received = wrapper.find('h4').text();
         var expected = 'some contents';
-
+        console.log(wrapper.html())
         expect(received).to.equal(expected);
     });
 
