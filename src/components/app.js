@@ -225,7 +225,7 @@ class App extends React.Component {
                 onReady={e => PlayerModel.injectPlayer(e.target)}
                 onPlay={this.resume.bind(this)}
                 onPause={this.pause.bind(this)}
-                onEnd={this.playNextSong.bind(this)}
+                onEnd={PlayerModel.playNextTrack.bind(PlayerModel)}
                 className="video-container"
             />
         </div>);
