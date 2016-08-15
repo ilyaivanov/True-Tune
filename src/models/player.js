@@ -95,6 +95,10 @@ class PlayerModel {
 
     }
 
+    static setTrackTime(time){
+        this.player.seekTo(time, true);
+    }
+
     static onPlayStart(artist, album, track) {
         this.play(artist, album, track);
         //change the state

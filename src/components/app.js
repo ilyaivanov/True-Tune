@@ -15,11 +15,6 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            songInfo: {
-                currentTime: 0,
-                overallTime: 0,
-                fullName: " . "
-            },
             artists: [],
             playlists: [
                 {name: "Playlist 1", items: []},
@@ -64,11 +59,6 @@ class App extends React.Component {
             album.areTracksShown = !album.areTracksShown;
             this.forceUpdate();
         }
-    }
-
-    setTrackTime(event) {
-        this.player.seekTo(event.target.value, true);
-        this.setCurrentTime(event.target.value);
     }
 
     createPlaylist() {
@@ -135,7 +125,7 @@ class App extends React.Component {
                         playPreviousSong={PlayerModel.playPreviousTrack.bind(PlayerModel)}
                         pause={PlayerModel.pause.bind(PlayerModel)}
                         resume={PlayerModel.resume.bind(PlayerModel)}
-                        setTrackTime={this.setTrackTime.bind(this)}
+                        setTrackTime={event => PlayerModel.setTrackTime(event.target.value)}
                 />
 
                 <Sidebar playlists={this.state.playlists}
