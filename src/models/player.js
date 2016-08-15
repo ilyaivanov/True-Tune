@@ -39,12 +39,22 @@ class PlayerModel {
         this.playCurrentTrack();
     }
 
-    static pause(){
+    static pause() {
+        //curently called two times: from ttplayer and from youtubeplayer
+        logger.log('pausing');
+        this.isPlaying = false;
 
+        // this.stopTracking();
+        this.player.pauseVideo();
     }
 
-    static resume(){
+    static resume() {
+        //curently called two times: from ttplayer and from youtubeplayer
+        logger.log('resuming');
+        this.isPlaying = true;
 
+        // this.startTracking();
+        this.player.playVideo();
     }
 
     static playCurrentTrack() {
@@ -62,7 +72,7 @@ class PlayerModel {
             .then(v => this.player.loadVideoById(v.id));
     }
 
-    static injectPlayer(player){
+    static injectPlayer(player) {
         logger.log(`Injected player ${player}`);
         this.player = player;
     }

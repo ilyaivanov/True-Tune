@@ -35,19 +35,6 @@ class App extends React.Component {
         this.setState({songInfo: songState});
     }
 
-    onPlayStart(artist, album, track) {
-        this.setState({
-            currentArtist: artist,
-            currentAlbum: album,
-            currentTrack: track
-        });
-        //change the state
-        //send the state to youtube
-        console.log(artist, album, track);
-        youtube.getVideoIdForTerm(`${artist.name} - ${track.name}`)
-            .then(v => this.player.loadVideoById(v.id));
-    }
-
     startTracking() {
         // let updateProgress = function () {
         //     this.setCurrentTime(this.player.getCurrentTime());
@@ -99,24 +86,6 @@ class App extends React.Component {
             album.areTracksShown = !album.areTracksShown;
             this.forceUpdate();
         }
-    }
-
-    pause() {
-        this.setState({
-            isPlaying: false
-        }, () => {
-            this.stopTracking();
-            this.player.pauseVideo();
-        });
-    }
-
-    resume() {
-        this.setState({
-            isPlaying: true
-        }, () => {
-            this.startTracking();
-            this.player.playVideo();
-        });
     }
 
     setTrackTime(event) {
@@ -194,11 +163,11 @@ class App extends React.Component {
                 </div>
 
                 <Player songInfo={this.state.songInfo}
-                        isPlaying={this.state.isPlaying}
+                        isPlaying={PlayerModel.isPlaying}
                         playNextSong={PlayerModel.playNextTrack.bind(PlayerModel)}
                         playPreviousSong={PlayerModel.playPreviousTrack.bind(PlayerModel)}
-                        pause={this.pause.bind(this)}
-                        resume={this.resume.bind(this)}
+                        pause={PlayerModel.pause.bind(PlayerModel)}
+                        resume={PlayerModel.resume.bind(PlayerModel)}
                         setTrackTime={this.setTrackTime.bind(this)}
                 />
 
@@ -223,8 +192,8 @@ class App extends React.Component {
             </div>
             <Youtube
                 onReady={e => PlayerModel.injectPlayer(e.target)}
-                onPlay={this.resume.bind(this)}
-                onPause={this.pause.bind(this)}
+                onPlay={PlayerModel.resume.bind(PlayerModel)}
+                onPause={PlayerModel.pause.bind(PlayerModel)}
                 onEnd={PlayerModel.playNextTrack.bind(PlayerModel)}
                 className="video-container"
             />
