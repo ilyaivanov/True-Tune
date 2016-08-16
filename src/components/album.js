@@ -16,7 +16,7 @@ let mapAlbum = function (props) {
 
     return (
         <div>
-            <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, props.artist, props.album)}
+            <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, props.album.artist, props.album)}
                className="list-group-item">
                 <span>
                     <Image src={props.album.image} circle/>
@@ -32,7 +32,7 @@ let mapAlbum = function (props) {
             </a>
             <Collapse in={props.album.areTracksShown}>
                 <ol className="list-group">
-                    {props.album.tracks && props.album.tracks.map((track, index) => mapTrack(props.artist, props.album, track, index, props.playTrack))}
+                    {props.album.tracks && props.album.tracks.map((track, index) => mapTrack(props.album.artist, props.album, track, index, props.playTrack))}
                 </ol>
             </Collapse>
         </div>);

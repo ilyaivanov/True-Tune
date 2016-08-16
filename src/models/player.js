@@ -95,6 +95,8 @@ class PlayerModel {
 
     }
 
+
+
     static setTrackTime(time){
         this.player.seekTo(time, true);
     }
@@ -114,6 +116,10 @@ class PlayerModel {
 
     static getCurrentTrack() {
         return this.currentTrack;
+    }
+
+    static getCurrentArtist() {
+        return this.currentArtist;
     }
 
     static subscribe(onChange) {
