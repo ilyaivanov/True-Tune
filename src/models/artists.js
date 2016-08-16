@@ -16,7 +16,7 @@ class ArtistsModel {
             lastfm.findAlbums(artist.name)
                 .then(albums => {
                     artist.albums = albums;
-                    albums.forEach(a => a.artist = artist);
+                    albums.forEach(a => a.artistName = artist.name);
                     artist.areAlbumsShown = !artist.areAlbumsShown;
                     this.inform();
                 })
@@ -26,9 +26,9 @@ class ArtistsModel {
         }
     }
 
-    static findTracks(artist, album) {
+    static findTracks(artistName, album) {
         if (!album.tracks) {
-            lastfm.findTracks(artist, album)
+            lastfm.findTracks(artistName, album)
                 .then(albums => {
                     album.tracks = albums;
                     album.areTracksShown = !album.areTracksShown;

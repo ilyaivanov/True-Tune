@@ -1,8 +1,8 @@
 import React from 'react';
 import {Collapse, Image} from 'react-bootstrap';
 
-let mapTrack = (artist, album, track, index, playTrack) => <li key={track.id} className="list-group-item">{index + 1}.
-    <a href="JavaScript:;" onClick={() => playTrack(artist, album, track)}><span
+let mapTrack = (album, track, index, playTrack) => <li key={track.id} className="list-group-item">{index + 1}.
+    <a href="JavaScript:;" onClick={() => playTrack(album.artistName, album, track)}><span
         className="glyphicon glyphicon-play"></span></a> {track.name}
 </li>;
 
@@ -16,7 +16,7 @@ let mapAlbum = function (props) {
 
     return (
         <div>
-            <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, props.album.artist, props.album)}
+            <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, props.album.artistName, props.album)}
                className="list-group-item">
                 <span>
                     <Image src={props.album.image} circle/>
@@ -32,7 +32,7 @@ let mapAlbum = function (props) {
             </a>
             <Collapse in={props.album.areTracksShown}>
                 <ol className="list-group">
-                    {props.album.tracks && props.album.tracks.map((track, index) => mapTrack(props.album.artist, props.album, track, index, props.playTrack))}
+                    {props.album.tracks && props.album.tracks.map((track, index) => mapTrack(props.album, track, index, props.playTrack))}
                 </ol>
             </Collapse>
         </div>);

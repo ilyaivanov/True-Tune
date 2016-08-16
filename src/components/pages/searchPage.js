@@ -12,7 +12,7 @@ class SearchPage extends React.Component {
         //use inlined lambdas here
         this.findArtists = props.findArtists;
         this.findAlbums = artist => props.findAlbums(artist);
-        this.findTracks = (artist, album) => props.findTracks(artist, album);
+        this.findTracks = (artist, album) => props.findTracks(artist.name, album);
 
         this.delayedOnChange = _.debounce(this.delayedOnChange, 300);
     }

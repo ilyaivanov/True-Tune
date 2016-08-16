@@ -1,3 +1,5 @@
+import Storage from './../common/localStorage';
+
 class PlaylistsModel {
 
     static createPlaylist() {
@@ -5,6 +7,7 @@ class PlaylistsModel {
         var newPlaylists = this.playlists;
         newPlaylists.push(newPlaylist);
         this.playlists = newPlaylists;
+
 
         this.inform();
 
@@ -36,11 +39,11 @@ class PlaylistsModel {
         this.inform();
     }
 
-    static getPlaylists(){
+    static getPlaylists() {
         return this.playlists;
     }
 
-    static getSelectedPlaylists(){
+    static getSelectedPlaylists() {
         return this.currentPlaylist;
     }
 
@@ -49,13 +52,13 @@ class PlaylistsModel {
     }
 
     static inform() {
+        Storage.store('playlists', this.playlists);
         this.onChanges.forEach(cb => cb());
     }
 
-
 }
 
-PlaylistsModel.playlists = [];
+PlaylistsModel.playlists = Storage.store('playlists');
 
 PlaylistsModel.onChanges = [];
 

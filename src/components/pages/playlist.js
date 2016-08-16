@@ -6,7 +6,6 @@ import Album from './../album';
 let Playlist = (props) =>{
     let mapAlbum = album => (<Album key={album.id}
                                     album={album}
-                                    artist={props.artist}
                                     toggleAlbum={props.toggleAlbum}
                                     playlists={props.playlists}
                                     addTo={props.addTo}

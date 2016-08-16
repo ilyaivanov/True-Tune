@@ -26,7 +26,6 @@ class App extends React.Component {
         let page = currentPlaylist ? <Playlist
             playlists={PlaylistsModel.getPlaylists()}
             playlist={currentPlaylist}
-            artist={PlayerModel.getCurrentArtist()}
             playTrack={PlayerModel.play.bind(PlayerModel)}
             addTo={PlaylistsModel.addTo.bind(PlaylistsModel)}
             toggleAlbum={ArtistsModel.findTracks.bind(ArtistsModel)}/> :
