@@ -2,55 +2,40 @@ import React from 'react';
 import {Collapse, Image} from 'react-bootstrap';
 import Album from './album';
 import PlaylistsModel from './../models/playlists';
+import Artists from './../models/artists';
 
-let mapArtist = function (props) {
-    let addTo = (event, playlist, item, type) => {
-        item.type = type;
-        event.stopPropagation();
-        props.addTo(playlist, item);
-    };
-
-    let mapAlbum = function (album) {
-        return (
-            <Album key={album.id}
-                   album={album}
-                   toggleAlbum={props.toggleAlbum}
-                   playlists={props.playlists}
-                   playTrack={props.playTrack}
-            />
-        );
-    };
-
-    var artist = props.artist;
-    return (
-        <div >
-            <a href="JavaScript:;" onClick={props.toggleArtist.bind(this, artist)}
-               className="list-group-item">
-                    <span>
-                        <Image src={artist.image}/>
-                    </span>
-                <span className="artist-title">{artist.name}
-                    {(props.playlists) ? (<div className="dropdown">
-                        <button className="dropbtn glyphicon glyphicon-plus"></button>
-                        <div className="dropdown-content">
-                            {props.playlists.map((playlist, index) => <a href="#" key={index}
-                                                                         onClick={event => PlaylistsModel.addTo(event, playlist, artist, 'artist')}>{playlist.name}</a>)}
-                        </div>
-                    </div>) :
-                        (<div className="dropdown">
-                            <button className="dropbtn glyphicon glyphicon-remove"
-                                    onClick={e => PlaylistsModel.removeItemFromCurrentPlaylist(artist)}></button>
-
-                        </div>)}
+let mapArtist = props =>
+    (<div>
+        <a href="JavaScript:;" onClick={Artists.findAlbums.bind(Artists, props.artist)}
+           className="list-group-item">
+                <span>
+                    <Image src={props.artist.image}/>
                 </span>
-            </a>
-            <Collapse in={artist.areAlbumsShown}>
-                <div className="list-group">
-                    {artist.albums && artist.albums.map(mapAlbum)}
-                </div>
-            </Collapse>
-        </div>
-    )
-};
+            <span className="artist-title">{props.artist.name}
+                {(props.playlists) ? (<div className="dropdown">
+                    <button className="dropbtn glyphicon glyphicon-plus"></button>
+                    <div className="dropdown-content">
+                        {props.playlists.map((playlist, index) => <a href="#" key={index}
+                                                                     onClick={event => PlaylistsModel.addTo(event, playlist, props.artist, 'artist')}>{playlist.name}</a>)}
+                    </div>
+                </div>) :
+                    (<div className="dropdown">
+                        <button className="dropbtn glyphicon glyphicon-remove"
+                                onClick={e => PlaylistsModel.removeItemFromCurrentPlaylist(props.artist)}></button>
+                    </div>)}
+            </span>
+        </a>
+        <Collapse in={props.artist.areAlbumsShown}>
+            <div className="list-group">
+                {props.artist.albums && props.artist.albums.map(album =>
+                    <Album key={album.id}
+                           album={album}
+                           playlists={props.playlists}
+                           playTrack={props.playTrack}
+                    />)
+                }
+            </div>
+        </Collapse>
+    </div>);
 
 export default mapArtist;

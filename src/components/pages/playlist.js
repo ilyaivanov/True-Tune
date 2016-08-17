@@ -5,28 +5,18 @@ import Track from './../track';
 
 let Playlist = (props) => {
     let mapArtist = artist => <Artist key={artist.id}
-                                      artist={artist}
-                                      toggleArtist={props.toggleArtist}
-                                      toggleAlbum={props.toggleAlbum}
-                                      playTrack={props.playTrack}/>;
+                                      artist={artist}/>;
 
     let mapAlbum = album => (<Album key={album.id}
-                                    album={album}
-                                    toggleAlbum={props.toggleAlbum}
-                                    playTrack={props.playTrack}
-    />);
+                                    album={album}/>);
 
-    let mapTrack = (album, track) => (<Track key={track.id}
-                                             album={album}
-                                             track={track}
-                                             position={0}
-                                             playTrack={props.playTrack}/>);
+    let mapTrack = track => (<Track key={track.id}
+                                    track={track}
+                                    position={0}/>);
 
-    return (<div>
-        {props.playlist.items.map(item => item.type == 'album' ? mapAlbum(item) :
-                                          item.type == 'artist' ? mapArtist(item) :
-                                          mapTrack({name: 'some album'}, item))}
-    </div>);
-}
+    let getMapFunction = type => type == 'artist' ? mapArtist : type == 'album' ? mapAlbum : mapTrack;
+
+    return (<div>{props.playlist.items.map(item =>getMapFunction(item.type)(item))} </div>);
+};
 
 export default Playlist;

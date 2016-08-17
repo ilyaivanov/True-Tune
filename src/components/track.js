@@ -1,14 +1,13 @@
 import React from 'react';
 import PlaylistsModel from './../models/playlists';
+import Player from './../models/player';
 
 let mapTrack = (props) => {
-    var album = props.album,
-        track = props.track,
-        position = props.position,
-        playTrack = props.playTrack;
+    var track = props.track,
+        position = props.position;
 
     return <li className="list-group-item">{position}.
-        <a href="JavaScript:;" onClick={() => playTrack(track.artistName, track.albumName, track)}>
+        <a href="JavaScript:;" onClick={Player.play.bind(Player, track.artistName, track.albumName, track)}>
             <span className="glyphicon glyphicon-play"></span>
         </a>
         {track.name}

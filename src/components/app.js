@@ -20,26 +20,16 @@ class App extends React.Component {
         PlaylistsModel.subscribe(() => this.forceUpdate());
     }
 
-    navigateToFindArtistPage(){
+    navigateToFindArtistPage() {
         PlaylistsModel.selectPlaylist(undefined);
     }
 
     render() {
         var currentPlaylist = PlaylistsModel.getSelectedPlaylists();
         let styles = {'marginBottom': 0};
-        let page = currentPlaylist ? <Playlist
-            playlist={currentPlaylist}
-            playTrack={PlayerModel.play.bind(PlayerModel)}
-            toggleAlbum={ArtistsModel.findTracks.bind(ArtistsModel)}
-            toggleArtist={ArtistsModel.findAlbums.bind(ArtistsModel)}
-        /> :
-            <SearchPage
-                onPlayStart={PlayerModel.play.bind(PlayerModel)}
-                findArtists={ArtistsModel.findArtists.bind(ArtistsModel)}
-                findAlbums={ArtistsModel.findAlbums.bind(ArtistsModel)}
-                findTracks={ArtistsModel.findTracks.bind(ArtistsModel)}
-                artists={ArtistsModel.artists}
-                playlists={PlaylistsModel.getPlaylists()}/>;
+        let page = currentPlaylist ? <Playlist playlist={currentPlaylist}/> :
+            <SearchPage artists={ArtistsModel.artists}
+                        playlists={PlaylistsModel.getPlaylists()}/>;
 
         return (<div id="wrapper">
             <nav className="navbar navbar-default navbar-static-top" role="navigation" style={styles}>
