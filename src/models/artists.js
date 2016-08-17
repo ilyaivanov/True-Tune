@@ -1,4 +1,5 @@
 import lastfm from '../services/lastfm';
+import _ from 'lodash';
 
 class ArtistsModel {
 
@@ -16,6 +17,7 @@ class ArtistsModel {
             lastfm.findAlbums(artist.name)
                 .then(albums => {
                     artist.albums = albums;
+                    albums.forEach(a => a.artistName = artist.name);
                     artist.areAlbumsShown = !artist.areAlbumsShown;
                     this.inform();
                 })
@@ -25,11 +27,13 @@ class ArtistsModel {
         }
     }
 
-    static findTracks(artist, album) {
+    static findTracks(album) {
         if (!album.tracks) {
-            lastfm.findTracks(artist, album)
-                .then(albums => {
-                    album.tracks = albums;
+            lastfm.findTracks(album.artistName, album)
+                .then(tracks => {
+                    album.tracks = tracks;
+                    _.each(tracks, t => t.albumName = album.name);
+                    _.each(tracks, t => t.artistName = album.artistName);
                     album.areTracksShown = !album.areTracksShown;
                     this.inform();
                 })

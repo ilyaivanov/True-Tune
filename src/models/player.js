@@ -11,8 +11,8 @@ import youtube from '../services/youtube';
 
 class PlayerModel {
 
-    static play(artist, album, track) {
-        this.currentArtist = artist;
+    static play(artistName, album, track) {
+        this.currentArtistName = artistName;
         this.currentAlbum = album;
         this.currentTrack = track;
 
@@ -89,11 +89,13 @@ class PlayerModel {
     }
 
     static playCurrentTrack() {
-        logger.log(`Playing: ${this.currentArtist.name} - ${this.currentAlbum.name} - ${this.currentTrack.name}`);
-        youtube.getVideoIdForTerm(`${this.currentArtist.name} - ${this.currentTrack.name}`)
+        logger.log(`Playing: ${this.currentArtistName} - ${this.currentAlbum.name} - ${this.currentTrack.name}`);
+        youtube.getVideoIdForTerm(`${this.currentArtistName} - ${this.currentTrack.name}`)
             .then(v => this.player.loadVideoById(v.id));
 
     }
+
+
 
     static setTrackTime(time){
         this.player.seekTo(time, true);
@@ -114,6 +116,10 @@ class PlayerModel {
 
     static getCurrentTrack() {
         return this.currentTrack;
+    }
+
+    static getCurrentArtist() {
+        return this.currentArtist;
     }
 
     static subscribe(onChange) {

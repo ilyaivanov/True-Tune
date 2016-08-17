@@ -10,7 +10,7 @@ class Sidebar extends React.Component {
         this.stopEditingPlaylist = props.stopEditingPlaylist;
         this.selectPlaylist = props.selectPlaylist;
         this.playlists = props.playlists;
-
+        this.findArtists = props.findArtists;
     }
 
     componentDidUpdate() {
@@ -26,7 +26,7 @@ class Sidebar extends React.Component {
                             <input type="text" className="form-control" placeholder="Search..."/>
                             <span className="input-group-btn">
 
-                                <button className="btn btn-default" type="button">
+                                <button className="btn btn-default" type="button" onClick={this.findArtists}>
                                 <span className="glyphicon glyphicon-search"></span>
                                 </button>
                             </span>

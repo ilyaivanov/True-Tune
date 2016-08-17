@@ -20,10 +20,21 @@ class App extends React.Component {
         PlaylistsModel.subscribe(() => this.forceUpdate());
     }
 
+    navigateToFindArtistPage(){
+        PlaylistsModel.selectPlaylist(undefined);
+    }
+
     render() {
         var currentPlaylist = PlaylistsModel.getSelectedPlaylists();
         let styles = {'marginBottom': 0};
-        let page = currentPlaylist ? <Playlist playlist={currentPlaylist}/> :
+        let page = currentPlaylist ? <Playlist
+            playlists={PlaylistsModel.getPlaylists()}
+            playlist={currentPlaylist}
+            playTrack={PlayerModel.play.bind(PlayerModel)}
+            addTo={PlaylistsModel.addTo.bind(PlaylistsModel)}
+            toggleAlbum={ArtistsModel.findTracks.bind(ArtistsModel)}
+            toggleArtist={ArtistsModel.findAlbums.bind(ArtistsModel)}
+        /> :
             <SearchPage
                 onPlayStart={PlayerModel.play.bind(PlayerModel)}
                 findArtists={ArtistsModel.findArtists.bind(ArtistsModel)}
@@ -56,6 +67,7 @@ class App extends React.Component {
                 />
 
                 <Sidebar playlists={PlaylistsModel.getPlaylists()}
+                         findArtists={this.navigateToFindArtistPage.bind(this)}
                          createPlaylist={PlaylistsModel.createPlaylist.bind(PlaylistsModel)}
                          editPlaylist={PlaylistsModel.editPlaylist.bind(PlaylistsModel)}
                          stopEditingPlaylist={PlaylistsModel.stopEditingPlaylist.bind(PlaylistsModel)}

@@ -22,8 +22,7 @@ class lastfm {
             .then(albums => this.validateItems(albums, 'albums'));
     }
 
-    static findTracks(artist, album) {
-        var artistName = artist.name;
+    static findTracks(artistName, album) {
         var albumName = album.name;
 
         var method = 'album.getInfo';
