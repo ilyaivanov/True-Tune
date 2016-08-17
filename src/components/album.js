@@ -18,18 +18,18 @@ let mapAlbum = function (props) {
                     <Image src={props.album.image} circle/>
                 </span>
                 <span className="artist-title">{props.album.name}
-                    <div className="dropdown">
-                          <button className="dropbtn glyphicon glyphicon-plus"></button>
-                          <div className="dropdown-content">
-                              {props.playlists.map((playlist, index) => <a href="#" key={index}
-                                                                           onClick={event => addTo(event, playlist, props.album, 'album')}>{playlist.name}</a>)}
-                          </div>
-                    </div>
-                    <div className="dropdown">
-                          <button className="dropbtn glyphicon glyphicon-remove"
-                                  onClick={e => PlaylistsModel.removeItemFromCurrentPlaylist(props.album)}></button>
+                    {(props.addTo) ? (<div className="dropdown">
+                        <button className="dropbtn glyphicon glyphicon-plus"></button>
+                        <div className="dropdown-content">
+                            {props.playlists.map((playlist, index) => <a href="#" key={index}
+                                                                         onClick={event => addTo(event, playlist, props.album, 'album')}>{playlist.name}</a>)}
+                        </div>
+                    </div>) :
+                        (<div className="dropdown">
+                            <button className="dropbtn glyphicon glyphicon-remove"
+                                    onClick={e => PlaylistsModel.removeItemFromCurrentPlaylist(props.album)}></button>
 
-                    </div>
+                        </div>)}
                 </span>
             </a>
             <Collapse in={props.album.areTracksShown}>

@@ -7,7 +7,6 @@ let Playlist = (props) => {
     let mapArtist = artist => <Artist key={artist.id}
                                       playlists={props.playlists}
                                       artist={artist}
-                                      addTo={props.addTo}
                                       toggleArtist={props.toggleArtist}
                                       toggleAlbum={props.toggleAlbum}
                                       playTrack={props.playTrack}/>;
@@ -16,7 +15,6 @@ let Playlist = (props) => {
                                     album={album}
                                     toggleAlbum={props.toggleAlbum}
                                     playlists={props.playlists}
-                                    addTo={props.addTo}
                                     playTrack={props.playTrack}
     />);
 
@@ -25,7 +23,6 @@ let Playlist = (props) => {
                                              album={album}
                                              track={track}
                                              position={0}
-                                             addTrack={props.addTo}
                                              playTrack={props.playTrack}/>);
 
     return (<div>
