@@ -54,8 +54,8 @@ class App extends React.Component {
 
                         <ul className="nav navbar-nav">
 
-                            <li className="active"><a href="JavaScript:;"
-                                                      onClick={e => PlaylistsModel.selectPlaylist(undefined)}>Search</a>
+                            <li><a href="JavaScript:;"
+                                   onClick={e => PlaylistsModel.selectPlaylist(undefined)}>Search</a>
                             </li>
                         </ul>
                         <Player songInfo={PlayerModel.getCurrentTrackState()} isPlaying={PlayerModel.isPlaying}/>
