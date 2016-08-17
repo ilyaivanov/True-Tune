@@ -28,10 +28,8 @@ class App extends React.Component {
         var currentPlaylist = PlaylistsModel.getSelectedPlaylists();
         let styles = {'marginBottom': 0};
         let page = currentPlaylist ? <Playlist
-            playlists={PlaylistsModel.getPlaylists()}
             playlist={currentPlaylist}
             playTrack={PlayerModel.play.bind(PlayerModel)}
-            addTo={PlaylistsModel.addTo.bind(PlaylistsModel)}
             toggleAlbum={ArtistsModel.findTracks.bind(ArtistsModel)}
             toggleArtist={ArtistsModel.findAlbums.bind(ArtistsModel)}
         /> :
