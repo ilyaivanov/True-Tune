@@ -10,7 +10,10 @@ class PlaylistsModel {
         this.inform();
     }
 
-    static editPlaylist(playlist) {
+    static editPlaylist(playlist, event) {
+        if (event) {
+            event.stopPropagation();
+        }
         playlist.isEditing = true;
         this.inform();
     }
@@ -33,13 +36,21 @@ class PlaylistsModel {
         this.inform();
     }
 
-    static removeItemFromCurrentPlaylist(item){
+    static removeItemFromCurrentPlaylist(item) {
         this.currentPlaylist.items.splice(_.indexOf(this.currentPlaylist.items, item), 1);
         this.inform();
     }
 
     static selectPlaylist(playlist) {
+        if (this.currentPlaylist) {
+            this.currentPlaylist.isActive = false;
+        }
+
         this.currentPlaylist = playlist;
+
+        if (this.currentPlaylist) {
+            this.currentPlaylist.isActive = true;
+        }
         this.inform();
     }
 

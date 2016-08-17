@@ -56,3 +56,4 @@ describe('subscribing for on changes', function () {
         expect(called).to.be.ok;
     });
 });
+
