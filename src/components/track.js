@@ -1,23 +1,22 @@
 import React from 'react';
 import PlaylistsModel from './../models/playlists';
+import Player from './../models/player';
 
 let mapTrack = (props) => {
-    var album = props.album,
-        track = props.track,
-        position = props.position,
-        playTrack = props.playTrack;
+    var track = props.track,
+        position = props.position;
 
     return <li className="list-group-item">{position}.
-        <a href="JavaScript:;" onClick={() => playTrack(track.artistName, track.albumName, track)}>
+        <a href="JavaScript:;" onClick={Player.play.bind(Player, track.artistName, track.albumName, track)}>
             <span className="glyphicon glyphicon-play"></span>
         </a>
         {track.name}
-        {(props.addTrack) ? (
+        {(props.playlists) ? (
             <div className="dropdown">
                 <button className="dropbtn glyphicon glyphicon-plus"></button>
                 <div className="dropdown-content">
                     {props.playlists.map((playlist, index) => <a href="#" key={index}
-                                                                 onClick={event => props.addTrack(event, playlist, track, 'track')}>{playlist.name}</a>)}
+                                                                 onClick={event => PlaylistsModel.addTo(event, playlist, track, 'track')}>{playlist.name}</a>)}
                 </div>
             </div>) :
             (<div className="dropdown">

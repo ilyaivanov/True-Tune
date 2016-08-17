@@ -1,33 +1,26 @@
 import React from 'react';
 import './player.css';
 import formatter from '../../common/time.formatter';
-
-let playButton = isPlaying => isPlaying ? (
-    <a className="dropdown-toggle" data-toggle="dropdown" href="#">
-        <i className="glyphicon glyphicon-pause"></i>
-    </a>) : (
-    <a className="dropdown-toggle" data-toggle="dropdown" href="#">
-        <i className="glyphicon glyphicon-play"></i>
-    </a>);
+import Player from './../../models/player';
 
 let player = props => (<ul className="nav navbar-top-links navbar-right">
     <li>
-        <a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={props.playPreviousSong}>
+        <a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.playPreviousTrack}>
             <i className="glyphicon glyphicon-backward"></i>
         </a>
     </li>
     <li>
         {(props.isPlaying) ?
-            (<a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={props.pause}>
+            (<a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.pause}>
                 <i className="glyphicon glyphicon-pause"></i>
             </a>) :
-            (<a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={props.resume}>
+            (<a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.resume}>
                 <i className="glyphicon glyphicon-play"></i>
             </a>)
         }
     </li>
     <li>
-        <a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={props.playNextSong}>
+        <a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.playNextTrack}>
             <i className="glyphicon glyphicon-forward"></i>
         </a>
     </li>
@@ -39,7 +32,7 @@ let player = props => (<ul className="nav navbar-top-links navbar-right">
             <input type="range"
                    value={props.songInfo.currentTime}
                    max={props.songInfo.overallTime}
-                   onChange={props.setTrackTime}/>
+                   onChange={event => PlayerModel.setTrackTime(event.target.value)}/>
         </div>
     </li>
     <li>{formatter.formatTime(props.songInfo.overallTime)}</li>

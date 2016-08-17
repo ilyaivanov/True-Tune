@@ -20,29 +20,12 @@ class App extends React.Component {
         PlaylistsModel.subscribe(() => this.forceUpdate());
     }
 
-    navigateToFindArtistPage(){
-        PlaylistsModel.selectPlaylist(undefined);
-    }
-
     render() {
         var currentPlaylist = PlaylistsModel.getSelectedPlaylists();
         let styles = {'marginBottom': 0};
-        let page = currentPlaylist ? <Playlist
-            playlists={PlaylistsModel.getPlaylists()}
-            playlist={currentPlaylist}
-            playTrack={PlayerModel.play.bind(PlayerModel)}
-            addTo={PlaylistsModel.addTo.bind(PlaylistsModel)}
-            toggleAlbum={ArtistsModel.findTracks.bind(ArtistsModel)}
-            toggleArtist={ArtistsModel.findAlbums.bind(ArtistsModel)}
-        /> :
-            <SearchPage
-                onPlayStart={PlayerModel.play.bind(PlayerModel)}
-                findArtists={ArtistsModel.findArtists.bind(ArtistsModel)}
-                findAlbums={ArtistsModel.findAlbums.bind(ArtistsModel)}
-                findTracks={ArtistsModel.findTracks.bind(ArtistsModel)}
-                addTo={PlaylistsModel.addTo.bind(PlaylistsModel)}
-                artists={ArtistsModel.artists}
-                playlists={PlaylistsModel.getPlaylists()}/>;
+        let page = currentPlaylist ? <Playlist playlist={currentPlaylist}/> :
+            <SearchPage artists={ArtistsModel.artists}
+                        playlists={PlaylistsModel.getPlaylists()}/>;
 
         return (<div id="wrapper">
             <nav className="navbar navbar-default navbar-static-top" role="navigation" style={styles}>
@@ -58,22 +41,9 @@ class App extends React.Component {
                 </div>
 
                 <Player songInfo={PlayerModel.getCurrentTrackState()}
-                        isPlaying={PlayerModel.isPlaying}
-                        playNextSong={PlayerModel.playNextTrack.bind(PlayerModel)}
-                        playPreviousSong={PlayerModel.playPreviousTrack.bind(PlayerModel)}
-                        pause={PlayerModel.pause.bind(PlayerModel)}
-                        resume={PlayerModel.resume.bind(PlayerModel)}
-                        setTrackTime={event => PlayerModel.setTrackTime(event.target.value)}
-                />
+                        isPlaying={PlayerModel.isPlaying}/>
 
-                <Sidebar playlists={PlaylistsModel.getPlaylists()}
-                         findArtists={this.navigateToFindArtistPage.bind(this)}
-                         createPlaylist={PlaylistsModel.createPlaylist.bind(PlaylistsModel)}
-                         editPlaylist={PlaylistsModel.editPlaylist.bind(PlaylistsModel)}
-                         stopEditingPlaylist={PlaylistsModel.stopEditingPlaylist.bind(PlaylistsModel)}
-                         setPlaylistName={PlaylistsModel.setPlaylistName.bind(PlaylistsModel)}
-                         selectPlaylist={PlaylistsModel.selectPlaylist.bind(PlaylistsModel)}
-                />
+                <Sidebar playlists={PlaylistsModel.getPlaylists()}/>
 
             </nav>
             <div id="page-wrapper">

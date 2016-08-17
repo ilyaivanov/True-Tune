@@ -26,7 +26,9 @@ class PlaylistsModel {
         this.inform();
     }
 
-    static addTo(playlist, item) {
+    static addTo(event, playlist, item, type) {
+        event.stopPropagation();
+        item.type = type;
         playlist.items.push(item);
         this.inform();
     }
@@ -59,6 +61,14 @@ class PlaylistsModel {
     }
 
 }
+
+
+//set binding to public methods
+//avoiding using bind from clients onClick={PlaylistsModel.createPlaylist.bind(PlaylistsModel)}
+//                      and allows onClick={PlaylistsModel.createPlaylist}
+//maybe consider using loops to enumerate own static properties
+PlaylistsModel.createPlaylist = PlaylistsModel.createPlaylist.bind(PlaylistsModel);
+
 
 PlaylistsModel.playlists = Storage.store('playlists');
 

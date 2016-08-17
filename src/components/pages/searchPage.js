@@ -4,17 +4,11 @@ import {FormControl} from 'react-bootstrap';
 import _ from 'lodash';
 import './searchPage.css';
 import './searchResults.css';
+import Artists from './../../models/artists';
 
 class SearchPage extends React.Component {
     constructor(props) {
         super(props);
-        this.onPlayStart = props.onPlayStart;
-
-        //use inlined lambdas here
-        this.findArtists = props.findArtists;
-        this.findAlbums = artist => props.findAlbums(artist);
-        this.findTracks = props.findTracks;
-
         this.delayedOnChange = _.debounce(this.delayedOnChange, 300);
     }
 
@@ -26,12 +20,8 @@ class SearchPage extends React.Component {
 
     delayedOnChange(event) {
         if (event.target.value) {
-            this.findArtists(event.target.value);
+            Artists.findArtists(event.target.value);
         }
-    }
-
-    playTrack(artist, album, track) {
-        this.onPlayStart(artist, album, track);
     }
 
     render() {
@@ -45,15 +35,10 @@ class SearchPage extends React.Component {
                                 placeholder="Start entering an artist name"
                                 onChange={this.onChange.bind(this)}
                             />
-                            <br/>
-
                             <div className="list-group list-group-root well">
                                 {this.props.artists.map(artist => <Artist key={artist.id}
                                                                           playlists={this.props.playlists}
-                                                                          artist={artist}
-                                                                          addTo={this.props.addTo}
-                                                                          toggleArtist={this.findAlbums.bind(this)}
-                                                                          toggleAlbum={this.findTracks.bind(this)}/>)}
+                                                                          artist={artist}/>)}
                             </div>
 
                         </div>
