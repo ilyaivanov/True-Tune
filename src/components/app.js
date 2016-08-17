@@ -45,13 +45,7 @@ class App extends React.Component {
                 </div>
 
                 <Player songInfo={PlayerModel.getCurrentTrackState()}
-                        isPlaying={PlayerModel.isPlaying}
-                        playNextSong={PlayerModel.playNextTrack.bind(PlayerModel)}
-                        playPreviousSong={PlayerModel.playPreviousTrack.bind(PlayerModel)}
-                        pause={PlayerModel.pause.bind(PlayerModel)}
-                        resume={PlayerModel.resume.bind(PlayerModel)}
-                        setTrackTime={event => PlayerModel.setTrackTime(event.target.value)}
-                />
+                        isPlaying={PlayerModel.isPlaying}/>
 
                 <Sidebar playlists={PlaylistsModel.getPlaylists()}
                          findArtists={this.navigateToFindArtistPage.bind(this)}
