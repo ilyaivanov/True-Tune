@@ -32,7 +32,9 @@ class App extends React.Component {
             playlist={currentPlaylist}
             playTrack={PlayerModel.play.bind(PlayerModel)}
             addTo={PlaylistsModel.addTo.bind(PlaylistsModel)}
-            toggleAlbum={ArtistsModel.findTracks.bind(ArtistsModel)}/> :
+            toggleAlbum={ArtistsModel.findTracks.bind(ArtistsModel)}
+            toggleArtist={ArtistsModel.findAlbums.bind(ArtistsModel)}
+        /> :
             <SearchPage
                 onPlayStart={PlayerModel.play.bind(PlayerModel)}
                 findArtists={ArtistsModel.findArtists.bind(ArtistsModel)}
