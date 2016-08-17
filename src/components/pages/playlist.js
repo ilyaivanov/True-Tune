@@ -9,7 +9,8 @@ let Playlist = (props) => {
                                       artist={artist}
                                       addTo={props.addTo}
                                       toggleArtist={props.toggleArtist}
-                                      toggleAlbum={props.toggleAlbum}/>;
+                                      toggleAlbum={props.toggleAlbum}
+                                      playTrack={props.playTrack}/>;
 
     let mapAlbum = album => (<Album key={album.id}
                                     album={album}
