@@ -20,6 +20,10 @@ class App extends React.Component {
         PlaylistsModel.subscribe(() => this.forceUpdate());
     }
 
+    navigateToFindArtistPage(){
+        PlaylistsModel.selectPlaylist(undefined);
+    }
+
     render() {
         var currentPlaylist = PlaylistsModel.getSelectedPlaylists();
         let styles = {'marginBottom': 0};
@@ -61,6 +65,7 @@ class App extends React.Component {
                 />
 
                 <Sidebar playlists={PlaylistsModel.getPlaylists()}
+                         findArtists={this.navigateToFindArtistPage.bind(this)}
                          createPlaylist={PlaylistsModel.createPlaylist.bind(PlaylistsModel)}
                          editPlaylist={PlaylistsModel.editPlaylist.bind(PlaylistsModel)}
                          stopEditingPlaylist={PlaylistsModel.stopEditingPlaylist.bind(PlaylistsModel)}
