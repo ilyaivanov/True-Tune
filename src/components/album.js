@@ -18,11 +18,11 @@ let mapAlbum = function (props) {
                     <Image src={props.album.image} circle/>
                 </span>
                 <span className="artist-title">{props.album.name}
-                    {(props.addTo) ? (<div className="dropdown">
+                    {(props.playlists) ? (<div className="dropdown">
                         <button className="dropbtn glyphicon glyphicon-plus"></button>
                         <div className="dropdown-content">
                             {props.playlists.map((playlist, index) => <a href="#" key={index}
-                                                                         onClick={event => addTo(event, playlist, props.album, 'album')}>{playlist.name}</a>)}
+                                                                         onClick={event => PlaylistsModel.addTo(event, playlist, props.album, 'album')}>{playlist.name}</a>)}
                         </div>
                     </div>) :
                         (<div className="dropdown">
@@ -40,7 +40,6 @@ let mapAlbum = function (props) {
                         album={props.album}
                         track={track}
                         position={index + 1}
-                        addTrack={addTo}
                         playTrack={props.playTrack}/>)}
                 </ol>
             </Collapse>

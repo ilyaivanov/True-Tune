@@ -40,7 +40,6 @@ class App extends React.Component {
                 findArtists={ArtistsModel.findArtists.bind(ArtistsModel)}
                 findAlbums={ArtistsModel.findAlbums.bind(ArtistsModel)}
                 findTracks={ArtistsModel.findTracks.bind(ArtistsModel)}
-                addTo={PlaylistsModel.addTo.bind(PlaylistsModel)}
                 artists={ArtistsModel.artists}
                 playlists={PlaylistsModel.getPlaylists()}/>;
 

@@ -26,7 +26,9 @@ class PlaylistsModel {
         this.inform();
     }
 
-    static addTo(playlist, item) {
+    static addTo(event, playlist, item, type) {
+        event.stopPropagation();
+        item.type = type;
         playlist.items.push(item);
         this.inform();
     }

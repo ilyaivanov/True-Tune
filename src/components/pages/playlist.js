@@ -5,7 +5,6 @@ import Track from './../track';
 
 let Playlist = (props) => {
     let mapArtist = artist => <Artist key={artist.id}
-                                      playlists={props.playlists}
                                       artist={artist}
                                       toggleArtist={props.toggleArtist}
                                       toggleAlbum={props.toggleAlbum}
@@ -14,12 +13,10 @@ let Playlist = (props) => {
     let mapAlbum = album => (<Album key={album.id}
                                     album={album}
                                     toggleAlbum={props.toggleAlbum}
-                                    playlists={props.playlists}
                                     playTrack={props.playTrack}
     />);
 
     let mapTrack = (album, track) => (<Track key={track.id}
-                                             playlists={props.playlists}
                                              album={album}
                                              track={track}
                                              position={0}

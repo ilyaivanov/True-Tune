@@ -16,7 +16,6 @@ let mapArtist = function (props) {
                    album={album}
                    toggleAlbum={props.toggleAlbum}
                    playlists={props.playlists}
-                   addTo={props.addTo}
                    playTrack={props.playTrack}
             />
         );
@@ -31,11 +30,11 @@ let mapArtist = function (props) {
                         <Image src={artist.image}/>
                     </span>
                 <span className="artist-title">{artist.name}
-                    {(props.addTo) ? (<div className="dropdown">
+                    {(props.playlists) ? (<div className="dropdown">
                         <button className="dropbtn glyphicon glyphicon-plus"></button>
                         <div className="dropdown-content">
                             {props.playlists.map((playlist, index) => <a href="#" key={index}
-                                                                         onClick={event => addTo(event, playlist, artist, 'artist')}>{playlist.name}</a>)}
+                                                                         onClick={event => PlaylistsModel.addTo(event, playlist, artist, 'artist')}>{playlist.name}</a>)}
                         </div>
                     </div>) :
                         (<div className="dropdown">

@@ -51,7 +51,6 @@ class SearchPage extends React.Component {
                                 {this.props.artists.map(artist => <Artist key={artist.id}
                                                                           playlists={this.props.playlists}
                                                                           artist={artist}
-                                                                          addTo={this.props.addTo}
                                                                           toggleArtist={this.findAlbums.bind(this)}
                                                                           toggleAlbum={this.findTracks.bind(this)}/>)}
                             </div>

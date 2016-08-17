@@ -12,12 +12,12 @@ let mapTrack = (props) => {
             <span className="glyphicon glyphicon-play"></span>
         </a>
         {track.name}
-        {(props.addTrack) ? (
+        {(props.playlists) ? (
             <div className="dropdown">
                 <button className="dropbtn glyphicon glyphicon-plus"></button>
                 <div className="dropdown-content">
                     {props.playlists.map((playlist, index) => <a href="#" key={index}
-                                                                 onClick={event => props.addTrack(event, playlist, track, 'track')}>{playlist.name}</a>)}
+                                                                 onClick={event => PlaylistsModel.addTo(event, playlist, track, 'track')}>{playlist.name}</a>)}
                 </div>
             </div>) :
             (<div className="dropdown">
