@@ -47,14 +47,7 @@ class App extends React.Component {
                 <Player songInfo={PlayerModel.getCurrentTrackState()}
                         isPlaying={PlayerModel.isPlaying}/>
 
-                <Sidebar playlists={PlaylistsModel.getPlaylists()}
-                         findArtists={this.navigateToFindArtistPage.bind(this)}
-                         createPlaylist={PlaylistsModel.createPlaylist.bind(PlaylistsModel)}
-                         editPlaylist={PlaylistsModel.editPlaylist.bind(PlaylistsModel)}
-                         stopEditingPlaylist={PlaylistsModel.stopEditingPlaylist.bind(PlaylistsModel)}
-                         setPlaylistName={PlaylistsModel.setPlaylistName.bind(PlaylistsModel)}
-                         selectPlaylist={PlaylistsModel.selectPlaylist.bind(PlaylistsModel)}
-                />
+                <Sidebar playlists={PlaylistsModel.getPlaylists()}/>
 
             </nav>
             <div id="page-wrapper">

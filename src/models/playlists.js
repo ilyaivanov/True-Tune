@@ -62,6 +62,14 @@ class PlaylistsModel {
 
 }
 
+
+//set binding to public methods
+//avoiding using bind from clients onClick={PlaylistsModel.createPlaylist.bind(PlaylistsModel)}
+//                      and allows onClick={PlaylistsModel.createPlaylist}
+//maybe consider using loops to enumerate own static properties
+PlaylistsModel.createPlaylist = PlaylistsModel.createPlaylist.bind(PlaylistsModel);
+
+
 PlaylistsModel.playlists = Storage.store('playlists');
 
 PlaylistsModel.onChanges = [];
