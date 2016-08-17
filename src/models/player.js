@@ -95,8 +95,6 @@ class PlayerModel {
 
     }
 
-
-
     static setTrackTime(time){
         this.player.seekTo(time, true);
     }
@@ -138,5 +136,15 @@ class PlayerModel {
 }
 
 PlayerModel.onChanges = [];
+
+//set binding to public methods
+//avoiding using bind from clients onClick={Player.playPreviousTrack.bind(Player)}
+//                      and allows onClick={Player.playPreviousTrack}
+//maybe consider using loops to enumerate own static properties
+PlayerModel.pause = PlayerModel.pause.bind(PlayerModel);
+PlayerModel.resume = PlayerModel.resume.bind(PlayerModel);
+PlayerModel.playPreviousTrack = PlayerModel.playPreviousTrack.bind(PlayerModel);
+PlayerModel.playNextTrack = PlayerModel.playNextTrack.bind(PlayerModel);
+
 
 export default PlayerModel;

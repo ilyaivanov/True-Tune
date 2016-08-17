@@ -5,22 +5,22 @@ import Player from './../../models/player';
 
 let player = props => (<ul className="nav navbar-top-links navbar-right">
     <li>
-        <a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.playPreviousTrack.bind(Player)}>
+        <a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.playPreviousTrack}>
             <i className="glyphicon glyphicon-backward"></i>
         </a>
     </li>
     <li>
         {(props.isPlaying) ?
-            (<a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.pause.bind(Player)}>
+            (<a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.pause}>
                 <i className="glyphicon glyphicon-pause"></i>
             </a>) :
-            (<a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.resume.bind(Player)}>
+            (<a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.resume}>
                 <i className="glyphicon glyphicon-play"></i>
             </a>)
         }
     </li>
     <li>
-        <a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.playNextTrack.bind(Player)}>
+        <a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.playNextTrack}>
             <i className="glyphicon glyphicon-forward"></i>
         </a>
     </li>
