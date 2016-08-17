@@ -20,10 +20,6 @@ class App extends React.Component {
         PlaylistsModel.subscribe(() => this.forceUpdate());
     }
 
-    navigateToFindArtistPage() {
-        PlaylistsModel.selectPlaylist(undefined);
-    }
-
     render() {
         var currentPlaylist = PlaylistsModel.getSelectedPlaylists();
         let styles = {'marginBottom': 0};
