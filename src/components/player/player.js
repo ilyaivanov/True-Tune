@@ -3,44 +3,32 @@ import './player.css';
 import formatter from '../../common/time.formatter';
 import Player from './../../models/player';
 
-let player = props => (<ul className="nav navbar-top-links navbar-right">
-    <li>
-        <a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.playPreviousTrack}>
-            <i className="glyphicon glyphicon-backward"></i>
-        </a>
-    </li>
-    <li>
-        {(props.isPlaying) ?
-            (<a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.pause}>
-                <i className="glyphicon glyphicon-pause"></i>
-            </a>) :
-            (<a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.resume}>
-                <i className="glyphicon glyphicon-play"></i>
-            </a>)
-        }
-    </li>
-    <li>
-        <a className="dropdown-toggle" data-toggle="dropdown" href="#" onClick={Player.playNextTrack}>
-            <i className="glyphicon glyphicon-forward"></i>
-        </a>
-    </li>
-    <li>{formatter.formatTime(props.songInfo.currentTime)}
-    </li>
-    <li>
-        <div className="songName">{props.songInfo.fullName}</div>
-        <div>
-            <input type="range"
-                   value={props.songInfo.currentTime}
-                   max={props.songInfo.overallTime}
-                   onChange={event => PlayerModel.setTrackTime(event.target.value)}/>
+let player = props => (
+    <form className="navbar-form navbar-left">
+        <div className="btn-group player" role="group" aria-label="...">
+            <button type="button" className="btn btn-default glyphicon glyphicon-backward" onClick={Player.playPreviousTrack}></button>
+            {(props.isPlaying) ?
+                (<button type="button" className="btn btn-default glyphicon glyphicon-pause" onClick={Player.pause}></button>) :
+                (<button type="button" className="btn btn-default glyphicon glyphicon-play" onClick={Player.resume}></button>)
+            }
+            <button type="button" className="btn btn-default glyphicon glyphicon-forward" onClick={Player.playNextTrack}></button>
+            <button type="button" className="btn btn-default range-btn">{formatter.formatTime(props.songInfo.currentTime)}</button>
+            <div className="btn btn-default song-range range-btn">
+                <div className="text-center song-title">{props.songInfo.fullName}</div>
+                <div className="tracker">
+                    <input type="range"
+                           className="seek"
+                           value={props.songInfo.currentTime}
+                           max={props.songInfo.overallTime}
+                           onChange={event => Player.setTrackTime(event.target.value)}/>
+                </div>
+            </div>
+            <button type="button" className="btn btn-default range-btn">{formatter.formatTime(props.songInfo.overallTime)}</button>
+            <button type="button" className="btn btn-default glyphicon glyphicon-volume-up"></button>
+            <div className="btn btn-default volume-range range-btn">
+                <input type="range" min="0" value="0" className="seek" max="198.844082" step="1.9884408199999999"/>
+            </div>
         </div>
-    </li>
-    <li>{formatter.formatTime(props.songInfo.overallTime)}</li>
-    <li className="navbar-right">
-        <a className="dropdown-toggle" data-toggle="dropdown" href="#">
-            <i className="glyphicon glyphicon-cog"></i>
-        </a>
-    </li>
-</ul>);
+    </form>);
 
 export default player;
