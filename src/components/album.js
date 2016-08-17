@@ -21,8 +21,8 @@ let mapAlbum = function (props) {
                     <div className="dropdown">
                           <button className="dropbtn glyphicon glyphicon-plus"></button>
                           <div className="dropdown-content">
-                              {props.playlists.map((p, i) => <a href="#" key={i}
-                                                                onClick={e => addTo(e, p, props.album, 'album')}>{p.name}</a>)}
+                              {props.playlists.map((playlist, index) => <a href="#" key={index}
+                                                                onClick={event => addTo(event, playlist, props.album, 'album')}>{playlist.name}</a>)}
                           </div>
                     </div>
                 </span>
@@ -31,9 +31,11 @@ let mapAlbum = function (props) {
                 <ol className="list-group">
                     {props.album.tracks && props.album.tracks.map((track, index) => <Track
                         key={track.id}
+                        playlists = {props.playlists}
                         album={props.album}
                         track={track}
-                        index={index}
+                        position={index + 1}
+                        addTrack = {addTo}
                         playTrack={props.playTrack}/>)}
                 </ol>
             </Collapse>
