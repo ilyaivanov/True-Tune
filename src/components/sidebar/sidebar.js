@@ -1,6 +1,5 @@
 import React from 'react';
 import classnames from 'classnames';
-import './sidebar.css'
 import PlaylistsModel from './../../models/playlists';
 
 let playlistItem = (playlist, index) => {
