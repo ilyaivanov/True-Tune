@@ -1,10 +1,6 @@
 import React from 'react';
 import {Collapse, Image} from 'react-bootstrap';
-
-let mapTrack = (album, track, index, playTrack) => <li key={track.id} className="list-group-item">{index + 1}.
-    <a href="JavaScript:;" onClick={() => playTrack(album.artistName, album, track)}><span
-        className="glyphicon glyphicon-play"></span></a> {track.name}
-</li>;
+import Track from './track';
 
 
 let mapAlbum = function (props) {
@@ -23,16 +19,22 @@ let mapAlbum = function (props) {
                 </span>
                 <span className="artist-title">{props.album.name}
                     <div className="dropdown">
-                          <button className="dropbtn">add</button>
+                          <button className="dropbtn glyphicon glyphicon-plus"></button>
                           <div className="dropdown-content">
-                              {props.playlists.map((p, i) => <a href="#" key={i} onClick={e => addTo(e, p, props.album, 'album')}>{p.name}</a>)}
+                              {props.playlists.map((p, i) => <a href="#" key={i}
+                                                                onClick={e => addTo(e, p, props.album, 'album')}>{p.name}</a>)}
                           </div>
-                        </div>
-                    </span>
+                    </div>
+                </span>
             </a>
             <Collapse in={props.album.areTracksShown}>
                 <ol className="list-group">
-                    {props.album.tracks && props.album.tracks.map((track, index) => mapTrack(props.album, track, index, props.playTrack))}
+                    {props.album.tracks && props.album.tracks.map((track, index) => <Track
+                        key={track.id}
+                        album={props.album}
+                        track={track}
+                        index={index}
+                        playTrack={props.playTrack}/>)}
                 </ol>
             </Collapse>
         </div>);
