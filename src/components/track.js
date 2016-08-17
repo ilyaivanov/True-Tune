@@ -1,4 +1,5 @@
 import React from 'react';
+import PlaylistsModel from './../models/playlists';
 
 let mapTrack = (props) => {
     var album = props.album,
@@ -17,6 +18,11 @@ let mapTrack = (props) => {
                 {props.playlists.map((playlist, index) => <a href="#" key={index}
                                                              onClick={event => props.addTrack(event, playlist, track, 'track')}>{playlist.name}</a>)}
             </div>
+        </div>
+        <div className="dropdown">
+            <button className="dropbtn glyphicon glyphicon-remove"
+                    onClick={e => PlaylistsModel.removeItemFromCurrentPlaylist(track)}></button>
+
         </div>
     </li>;
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Collapse, Image} from 'react-bootstrap';
 import Track from './track';
-
+import PlaylistsModel from './../models/playlists';
 
 let mapAlbum = function (props) {
     let addTo = (event, playlist, item, type) => {
@@ -22,8 +22,13 @@ let mapAlbum = function (props) {
                           <button className="dropbtn glyphicon glyphicon-plus"></button>
                           <div className="dropdown-content">
                               {props.playlists.map((playlist, index) => <a href="#" key={index}
-                                                                onClick={event => addTo(event, playlist, props.album, 'album')}>{playlist.name}</a>)}
+                                                                           onClick={event => addTo(event, playlist, props.album, 'album')}>{playlist.name}</a>)}
                           </div>
+                    </div>
+                    <div className="dropdown">
+                          <button className="dropbtn glyphicon glyphicon-remove"
+                                  onClick={e => PlaylistsModel.removeItemFromCurrentPlaylist(props.album)}></button>
+
                     </div>
                 </span>
             </a>
@@ -31,11 +36,11 @@ let mapAlbum = function (props) {
                 <ol className="list-group">
                     {props.album.tracks && props.album.tracks.map((track, index) => <Track
                         key={track.id}
-                        playlists = {props.playlists}
+                        playlists={props.playlists}
                         album={props.album}
                         track={track}
                         position={index + 1}
-                        addTrack = {addTo}
+                        addTrack={addTo}
                         playTrack={props.playTrack}/>)}
                 </ol>
             </Collapse>

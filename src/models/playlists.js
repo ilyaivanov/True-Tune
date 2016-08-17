@@ -7,10 +7,7 @@ class PlaylistsModel {
         var newPlaylists = this.playlists;
         newPlaylists.push(newPlaylist);
         this.playlists = newPlaylists;
-
-
         this.inform();
-
     }
 
     static editPlaylist(playlist) {
@@ -31,6 +28,11 @@ class PlaylistsModel {
 
     static addTo(playlist, item) {
         playlist.items.push(item);
+        this.inform();
+    }
+
+    static removeItemFromCurrentPlaylist(item){
+        this.currentPlaylist.items.splice(_.indexOf(this.currentPlaylist.items, item), 1);
         this.inform();
     }
 
