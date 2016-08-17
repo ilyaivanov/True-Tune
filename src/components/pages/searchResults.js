@@ -5,10 +5,9 @@ import {Collapse, Image} from 'react-bootstrap';
 
 let SearchResults = function (props) {
 
-    let mapAlbum = function (artist, album) {
+    let mapAlbum = function (album) {
         return (
             <Album key={album.id}
-                   artist={artist}
                    album={album}
                    toggleAlbum={props.toggleAlbum}
                    playlists={props.playlists}
@@ -30,7 +29,7 @@ let SearchResults = function (props) {
                 </a>
                 <Collapse in={artist.areAlbumsShown}>
                     <div className="list-group">
-                        {artist.albums && artist.albums.map(album => mapAlbum(artist, album))}
+                        {artist.albums && artist.albums.map(mapAlbum)}
                     </div>
                 </Collapse>
             </div>

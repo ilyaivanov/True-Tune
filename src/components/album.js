@@ -16,7 +16,7 @@ let mapAlbum = function (props) {
 
     return (
         <div>
-            <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, props.album.artistName, props.album)}
+            <a href="JavaScript:;" onClick={props.toggleAlbum.bind(this, props.album)}
                className="list-group-item">
                 <span>
                     <Image src={props.album.image} circle/>

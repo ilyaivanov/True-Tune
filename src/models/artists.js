@@ -26,9 +26,9 @@ class ArtistsModel {
         }
     }
 
-    static findTracks(artistName, album) {
+    static findTracks(album) {
         if (!album.tracks) {
-            lastfm.findTracks(artistName, album)
+            lastfm.findTracks(album.artistName, album)
                 .then(albums => {
                     album.tracks = albums;
                     album.areTracksShown = !album.areTracksShown;
