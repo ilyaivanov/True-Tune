@@ -43,9 +43,9 @@ module.exports = function (wallaby) {
         setup: function () {
             window.__moduleBundler.loadTests();
         },
-        teardown: function () {
-            delete global.window;
-        },
+
+        filesWithNoCoverageCalculated: ['src/index.js', 'src/webpack-public-path.js'],
+
         testFramework:"jasmine"
     };
 };
