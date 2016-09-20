@@ -1,6 +1,8 @@
 import React from 'react';
 import './components/Layout.scss';
 
+import SearchPageContent from './components/SearchPageContent';
+
 class App extends React.Component {
     render() {
         return <main className="page-content">
@@ -8,7 +10,7 @@ class App extends React.Component {
                 <h1>Navigation</h1>
             </nav>
             <article className="content-article">
-                <h1>Main Content</h1>
+                <SearchPageContent/>
             </article>
             <aside className="content-sidebar">
                 <h1>Sidebar</h1>

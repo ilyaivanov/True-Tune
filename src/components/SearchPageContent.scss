@@ -1,0 +1,22 @@
+$search-box-height: 40px;
+$tabs-box-height: 60px;
+
+.search-box{
+  height: $search-box-height;
+}
+
+.search-tabs-box{
+  height: $tabs-box-height;
+}
+
+.artist-search{
+  width: 100%;
+  max-width: 300px;
+}
+
+.results-box{
+  background-color: #191919;
+  min-height: 100px;
+  height: calc(100vh - #{$search-box-height + $tabs-box-height});
+  width: 100%;
+}
