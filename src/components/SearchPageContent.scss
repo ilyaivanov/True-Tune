@@ -1,5 +1,6 @@
 $search-box-height: 40px;
-$tabs-box-height: 30px;
+$tabs-box-height: 40px;
+$selected-tab-gradient-end: #242324;
 
 .search-box {
     height: $search-box-height;
@@ -33,14 +34,22 @@ $tabs-box-height: 30px;
 
     div {
         color: grey;
-        line-height: 2;
+        font-size: larger;
+        line-height: 2.5;
         padding-left: 20px;
         padding-right: 20px;
         height: $tabs-box-height;
+        box-sizing: border-box;
     }
 
     div.active {
-        border-bottom: solid red 1px;
+        background: linear-gradient(to top, $selected-tab-gradient-end, transparent);
+        border-bottom: solid red 2px;
+        color: white;
+    }
+
+    div:hover{
+        cursor: pointer;
         color: white;
     }
 }
