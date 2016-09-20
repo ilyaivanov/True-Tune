@@ -1,19 +1,24 @@
 import webpack from 'webpack';
-import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import autoprefixer from 'autoprefixer';
 
 export default {
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
   debug: true,
-  devtool: 'cheap-module-eval-source-map', // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
+  devtool: 'eval-source-map', // more info:https://webpack.github.io/docs/build-performance.html#sourcemaps and https://webpack.github.io/docs/configuration.html#devtool
   noInfo: true, // set to false to see a list of every file being bundled.
   entry: [
+    // must be first entry to properly set public path
+    './src/webpack-public-path',
     'webpack-hot-middleware/client?reload=true',
     './src/index'
   ],
   target: 'web', // necessary per https://webpack.github.io/docs/testing.html#compile-and-test
   output: {
     path: `${__dirname}/src`, // Note: Physical files are only output by the production build task `npm run build`.
-    publicPath: 'http://localhost:3000/', // Use absolute paths to avoid the way that URLs are resolved by Chrome when they're parsed from a dynamically loaded CSS blob. Note: Only necessary in Dev.
+    publicPath: '/',
     filename: 'bundle.js'
   },
   plugins: [
@@ -34,14 +39,15 @@ export default {
   ],
   module: {
     loaders: [
-      {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
+      {test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel']},
       {test: /\.eot(\?v=\d+.\d+.\d+)?$/, loader: 'file'},
-      {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff"},
-      {test: /\.ttf(\?v=\d+.\d+.\d+)?$/, loader: 'file-loader?limit=10000&mimetype=application/octet-stream'},
-      {test: /\.svg(\?v=\d+.\d+.\d+)?$/, loader: 'file-loader?limit=10000&mimetype=image/svg+xml'},
-      {test: /\.(jpe?g|png|gif)$/i, loaders: ['file']},
-      {test: /\.ico$/, loader: 'file-loader?name=[name].[ext]'},
-      {test: /(\.css|\.scss)$/, loaders: ['style', 'css?sourceMap', 'sass?sourceMap']}
+      {test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url?limit=10000&mimetype=application/font-woff"},
+      {test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream'},
+      {test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml'},
+      {test: /\.(jpe?g|png|gif)$/i, loader: 'file?name=[name].[ext]'},
+      {test: /\.ico$/, loader: 'file?name=[name].[ext]'},
+      {test: /(\.css|\.scss)$/, loaders: ['style', 'css?sourceMap', 'postcss','resolve-url', 'sass?sourceMap']}
     ]
-  }
+  },
+  postcss: ()=> [autoprefixer]
 };

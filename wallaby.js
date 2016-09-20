@@ -4,14 +4,19 @@ module.exports = function (wallaby) {
 
     var webpackPostprocessor = wallabyWebpack({
         // webpack options
-
+        module: {
+            loaders: [{
+                test: /\.json$/,
+                loader: 'json-loader'
+            }]
+        },
         externals: {
-            // Use external version of React instead of rebuilding it
-            "react": "React",
             jsdom: 'window',
             cheerio: 'window',
             'react/lib/ExecutionEnvironment': true,
-            'react/lib/ReactContext': 'window'
+            'react/lib/ReactContext': 'window',
+            "react": "React",
+            'react/addons': true
         },
         resolve: {
             extensions: ['', '.js', '.jsx']
@@ -20,34 +25,27 @@ module.exports = function (wallaby) {
 
     return {
         files: [
-            // not required if using PhantomJs2 - http://wallabyjs.com/docs/integration/phantomjs2.html
-            {pattern: 'node_modules/phantomjs-polyfill/bind-polyfill.js', instrument: false},
             {pattern: 'node_modules/react/dist/react-with-addons.js', instrument: false},
-            {pattern: 'node_modules/sinon/lib/sinon.js', instrument: false},
-
-            {pattern: 'src/**/*.js*', load: false},
-            {pattern: '!src/**/*spec.js*', load: false}
+            {pattern: '!src/**/*.spec.js*', load: false},
+            {pattern: 'src/**/*.js*', load: false}
         ],
 
         tests: [
-            {pattern: 'src/**/*spec.js*', load: false}
+            {pattern: 'src/**/*.spec.js*', load: false}
         ],
 
         compilers: {
-            '**/*.js*': wallaby.compilers.babel({
-                'babelrc': false,
-                'presets': [
-                    'es2015',
-                    'react',
-                    'stage-1'
-                ],
-            })
+            '**/*.js*': wallaby.compilers.babel({presets: ['react', 'es2015']})
         },
 
         postprocessor: webpackPostprocessor,
 
-        bootstrap: function () {
+        setup: function () {
             window.__moduleBundler.loadTests();
-        }
+        },
+        teardown: function () {
+            delete global.window;
+        },
+        testFramework:"jasmine"
     };
 };
