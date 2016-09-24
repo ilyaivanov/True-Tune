@@ -2,6 +2,11 @@ $search-box-height: 40px;
 $tabs-box-height: 40px;
 $selected-tab-gradient-end: #242324;
 
+$results-box-padding-top: 30px;
+
+$title-color: #2E2E2E;
+$title-height: 40px;
+
 .search-box {
     height: $search-box-height;
 }
@@ -23,7 +28,7 @@ $selected-tab-gradient-end: #242324;
 .results-box {
     background-color: #191919;
     min-height: 100px;
-    height: calc(100vh - #{$search-box-height + $tabs-box-height});
+    height: calc(100vh - #{$search-box-height + $tabs-box-height + $results-box-padding-top});
     width: 100%;
 }
 
@@ -48,8 +53,14 @@ $selected-tab-gradient-end: #242324;
         color: white;
     }
 
-    div:hover{
+    div:hover {
         cursor: pointer;
         color: white;
     }
+}
+
+//Results
+
+.results-box {
+    padding-top: $results-box-padding-top;
 }

@@ -13,6 +13,14 @@ export default () => <div>
     </div>
 
     <div className="results-box">
-        results...
+        <div className="container">
+            <div className="grid">
+                <div className="cell">
+                    <img src="https://lastfm-img2.akamaized.net/i/u/300x300/b3bba07ec5fe45b3a8b4f852d8cb118f.png"
+                         className="responsive-image" />
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
