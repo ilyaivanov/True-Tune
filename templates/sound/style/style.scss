@@ -204,11 +204,22 @@ img {
     .artist-title {
         position: absolute;
         margin-left: 35px;
+        margin-top: 135px;
         font-size: 26px;
         font-weight: normal;
     }
 }
+.right-buttons{
+    position:absolute;
+    right: 0;
+    top:0;
+}
 
+.left-buttons{
+    position:absolute;
+    left: 0;
+    top:0;
+}
 .sublime {
     background-color: #F4F6F7;
     height: 50px;
