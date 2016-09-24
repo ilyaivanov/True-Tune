@@ -6,7 +6,7 @@ $background: #FBFCFC;
 
 body {
     margin: 0;
-    font-family: "Segoe UI", sans-serif;
+    font-family: 'Lato', sans-serif;
     box-sizing: border-box;
     font-size: 80%;
 }
@@ -43,8 +43,6 @@ img {
     margin: 0;
     padding: 0;
 }
-
-
 
 //Player
 .player {
@@ -88,12 +86,104 @@ img {
 .track-progress-container:hover {
     cursor: pointer;
 }
+
 .controls,
-.volume-meter{
+.volume-meter {
     padding: 3px;
     display: flex;
-    button,span,input{
+    button, span, input {
         flex: 1;
     }
     text-align: center;
+}
+
+//Search
+
+.search-area {
+    height: 185px;
+    text-align: center;
+    background: url(http://www.nilltheme.com/sound/wp-content/uploads/2015/10/Music-Header.png) no-repeat center center;
+    background-size: cover;
+    background-color: $theme-background-color;
+    color: $theme-primary-color;
+    padding: 50px;
+
+    input {
+        width: 400px;
+        height: 40px;
+        font-family: "Segoe UI", sans-serif;
+        font-size: 22px;
+        text-align: center;
+        font-weight: 600;
+        text-transform: uppercase;
+        border-radius: 2px;
+
+    }
+}
+
+.artist-title {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 10px;
+    //padding-bottom: 20px;
+
+}
+
+.artist-info {
+    cursor: pointer;
+    transition: color 0.2s ease,
+                opacity 0.2s ease;
+
+    img {
+        border-radius: 5px;
+    }
+
+    &:hover{
+        color: $theme-primary-color;
+        opacity: 0.8;
+    }
+
+}
+
+//GRID
+.grid-container {
+    width: 100%;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    .grid-item {
+        width: 100%;
+    }
+    //Big screens
+    .grid-item {
+        width: calc(#{(100% / 5)} - 30px);
+        margin: 15px;
+        position: relative;
+    }
+    @media screen and (max-width: 1500px) {
+        .grid-item {
+            width: calc(#{(100% / 4)} - 30px);
+            margin: 15px;
+        }
+    }
+    @media screen and (max-width: 1250px) {
+        .grid-item {
+            width: calc(#{(100% / 3)} - 30px);
+            margin: 15px;
+        }
+    }
+    @media screen and (max-width: 1100px) {
+        .grid-item {
+            width: calc(#{(100% / 2)} - 20px);
+            margin: 10px;
+        }
+    }
+    @media screen and (max-width: 900px) {
+        .grid-item {
+            width: calc(#{(100% / 1)});
+            margin: 0;
+        }
+    }
 }
