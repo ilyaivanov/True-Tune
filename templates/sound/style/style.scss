@@ -1,0 +1,99 @@
+$sidebars-width: 285px;
+
+$theme-primary-color: #45B39D;
+$theme-background-color: rgb(36, 37, 42);
+$background: #FBFCFC;
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    box-sizing: border-box;
+    font-size: 80%;
+}
+
+nav,
+article,
+aside {
+    background-color: $background;
+    min-height: 100vh;
+
+}
+
+nav,
+aside {
+    width: $sidebars-width;
+    box-shadow: 0 0 48px -12px rgba(0, 0, 0, 0.75);
+}
+
+main {
+    display: flex;
+}
+
+nav {
+    z-index: 2;
+}
+
+article {
+    flex: 2 2 12em;
+}
+
+img {
+    width: 100%;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+//Player
+.player {
+    height: 100px;
+    background-color: $theme-background-color;
+    color: white;
+
+}
+
+.player-item {
+    padding: 15px;
+    position: relative;;
+    box-sizing: border-box;
+    font-size: larger;
+    cursor: pointer;
+
+    small {
+        position: absolute;
+        right: 15px;
+    }
+
+    &:hover {
+        background-color: lighten($theme-primary-color, 45);
+    }
+    &.active {
+        background-color: lighten($theme-primary-color, 40);
+        border-left: 2px solid $theme-primary-color;
+    }
+}
+
+.track-progress-container {
+    height: 4px;
+    position: relative;
+
+    .track-progress {
+        height: 4px;
+        background-color: $theme-primary-color;
+    }
+}
+
+.track-progress-container:hover {
+    cursor: pointer;
+}
+.controls,
+.volume-meter{
+    padding: 3px;
+    display: flex;
+    button,span,input{
+        flex: 1;
+    }
+    text-align: center;
+}
