@@ -99,7 +99,8 @@ img {
 
 //Search
 
-.search-area {
+.search-area,
+.artist-header {
     height: 185px;
     text-align: center;
     background: url(http://www.nilltheme.com/sound/wp-content/uploads/2015/10/Music-Header.png) no-repeat center center;
@@ -107,7 +108,9 @@ img {
     background-color: $theme-background-color;
     color: $theme-primary-color;
     padding: 50px;
+}
 
+.search-area {
     input {
         width: 400px;
         height: 40px;
@@ -134,13 +137,13 @@ img {
 .artist-info {
     cursor: pointer;
     transition: color 0.2s ease,
-                opacity 0.2s ease;
+    opacity 0.2s ease;
 
     img {
         border-radius: 5px;
     }
 
-    &:hover{
+    &:hover {
         color: $theme-primary-color;
         opacity: 0.8;
     }
@@ -188,26 +191,25 @@ img {
     }
 }
 
-
 //Artist details
-.search-area{
-    img{
-        position: absolute;
-        top: 70px;
+.artist-header {
+    text-align: left;
+    position: relative;
+    img {
         border-radius: 5px;
+        margin-top: 15px;
         width: 250px;
+        display: inline-block;
     }
-    .artist-title{
-        font-size: 26px;
-        text-align: left;
+    .artist-title {
         position: absolute;
-        top: 200px;
-        left: 620px;
+        margin-left: 35px;
+        font-size: 26px;
         font-weight: normal;
     }
 }
 
-.sublime{
+.sublime {
     background-color: #F4F6F7;
     height: 50px;
 }
