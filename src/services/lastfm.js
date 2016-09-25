@@ -1,15 +1,6 @@
 import requestGet from './../utils/request';
 import _ from 'lodash';
 
-export function findArtistsMock(term) {
-    return new Promise(function (resolve) {
-        setTimeout(() => resolve([
-            {name: 'Foo ' + term},
-            {name: 'Bar ' + term}
-        ]), 1000);
-    });
-}
-
 export function findArtists(term) {
     console.log(`last.fm request for ${term}`);
     var api_key = '185032d80f1827034396b9acfab5a79f';
@@ -66,4 +57,14 @@ function filterOutDuplicatedBy(items, propertyName) {
         .toPairs()
         .map(pair => pair[1][0])
         .value();
+}
+
+export function findArtistsMock(term) {
+    return new Promise(function (resolve) {
+        setTimeout(() => resolve([
+            {name: `Foo (${term})`, id: 1, image: 'https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png'},
+            {name: `Bar (${term})`, id: 2, image: 'https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png'},
+            {name: `Buz (${term})`, id: 3, image: 'https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png'},
+        ]), 1000);
+    });
 }
