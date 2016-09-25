@@ -7,10 +7,7 @@ import Player from './components/Player';
 import SearchPage from './components/SearchPage';
 import AlbumsPage from './components/AlbumsPage';
 
-
 import {findArtists, findAlbums} from './services/lastfm';
-
-// import SearchPageContent from './components/SearchPageContent';
 
 class App extends React.Component {
     constructor(props) {
@@ -20,8 +17,6 @@ class App extends React.Component {
             artistDetails: null,
             albums: null
         };
-        this.onArtistSearch = this.onArtistSearch.bind(this);
-        this.onArtistSelect = this.onArtistSelect.bind(this);
     }
 
     onArtistSearch(text){
@@ -36,14 +31,12 @@ class App extends React.Component {
     }
 
     render() {
-        var Page = <SearchPage onArtistSearch={debounce(this.onArtistSearch, 500)}
-                         onArtistSelect={this.onArtistSelect}
-                         artists={this.state.artists}/>;
-        debugger;
+        var Page = <SearchPage onArtistSearch={debounce(this.onArtistSearch.bind(this), 500)}
+                               onArtistSelect={this.onArtistSelect.bind(this)}
+                               artists={this.state.artists}/>;
         if(this.state.albums){
             Page = <AlbumsPage albums={this.state.albums} artist={this.state.artistDetails} />
         }
-
 
         return (
             <main className="page-content">
