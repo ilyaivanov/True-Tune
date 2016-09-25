@@ -97,7 +97,6 @@ img {
     }
     text-align: center;
 
-
 }
 
 //Search
@@ -139,16 +138,47 @@ img {
 
 .artist-info {
     cursor: pointer;
-    transition: color 0.2s ease,
-    opacity 0.2s ease;
+    transition: color 0.3s ease,
+    opacity 0.3s ease;
 
     img {
         border-radius: 5px;
     }
+    .artist-options {
+        position: absolute;
+        bottom: 29px; //height of artist-title
+        right: 0;
+        padding-right: 10px;
+        color: white;
+
+        i {
+            margin: 5px;
+            font-size: 20px;
+        }
+    }
+    .shadow {
+        position: absolute;
+        width: 100%;
+        box-shadow: inset 0px -61px 49px -20px rgba(0,0,0,0.75);
+        border-radius: 5px;
+        top: 0;
+        bottom: 29px;
+    }
+
+    .artist-options,
+    .shadow{
+        transition: opacity 0.3s ease;
+        opacity: 0;
+    }
 
     &:hover {
         color: $theme-primary-color;
-        opacity: 0.8;
+        opacity: 0.85;
+
+        .artist-options,
+        .shadow{
+            opacity: 1;
+        }
     }
 
 }
@@ -212,18 +242,21 @@ img {
         font-weight: normal;
     }
 }
+
 .left-buttons,
-.right-buttons{
+.right-buttons {
     color: white;
-    position:absolute;
+    position: absolute;
     padding: 10px;
     font-size: 20px;
-    top:0;
+    top: 0;
 }
-.left-buttons{
-    left:0;
+
+.left-buttons {
+    left: 0;
 }
-.right-buttons{
+
+.right-buttons {
     right: 0;
 }
 
@@ -232,11 +265,11 @@ img {
     height: 50px;
 }
 
-i{
+i {
     color: white;
 }
 
-i:hover{
+i:hover {
     color: $theme-primary-color;
     cursor: pointer;
 }
