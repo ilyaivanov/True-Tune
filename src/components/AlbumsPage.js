@@ -18,7 +18,7 @@ export default function AlbumsPage({artist, albums}) {
         </div>
         <div className="sublime"/>
         <div className="artist-albums-container grid-container">
-            {albums.map(album => <ItemPortlet key={album.id} item={album} />)}  1
+            {albums.map(album => <ItemPortlet key={album.id} item={album} />)}
         </div>
     </article>;
 }

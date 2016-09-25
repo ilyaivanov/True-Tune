@@ -1,16 +1,26 @@
 import requestGet from './../utils/request';
 import _ from 'lodash';
 
+let api_key = '185032d80f1827034396b9acfab5a79f';
+let url = `http://ws.audioscrobbler.com/2.0?api_key=${api_key}&format=json`;
+
 export function findArtists(term) {
-    console.log(`last.fm request for ${term}`);
-    var api_key = '185032d80f1827034396b9acfab5a79f';
-    var url = `http://ws.audioscrobbler.com/2.0?api_key=${api_key}&format=json&method=artist.search&artist=${term}`;
-    return requestGet(url)
-        .then(response => response.results.artistmatches.artist.map(mapArtist))
+    console.log(`last.fm search request for ${term}`);
+
+    return requestGet(url + `&method=artist.search&artist=${term}`)
+        .then(response => response.results.artistmatches.artist.map(mapItem))
         .then(artists => removeInvalidData(artists, 'artists'));
 }
 
-function mapArtist(artist){
+export function findAlbums(artistName) {
+    console.log(`last.fm albums request for ${artistName}`);
+
+    return requestGet((url + `&method=artist.getTopAlbums&artist=${artistName}`))
+        .then(response => response.topalbums.album.map(mapItem))
+        .then(albums => removeInvalidData(albums, 'albums'));
+}
+
+function mapItem(artist){
     return {
         name: artist.name,
         id: artist.mbid,
@@ -66,5 +76,16 @@ export function findArtistsMock(term) {
             {name: `Bar (${term})`, id: 2, image: 'https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png'},
             {name: `Buz (${term})`, id: 3, image: 'https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png'},
         ]), 1000);
+    });
+}
+
+export function findAlbumsMock(artistName){
+    return new Promise(function(resolve){
+        resolve([
+            {name:`Album 1 (${artistName})`, id: 1, image:`https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png`},
+            {name:`Album 2 (${artistName})`, id: 2, image:`https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png`},
+            {name:`Album 3 (${artistName})`, id: 3, image:`https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png`},
+            {name:`Album 4 (${artistName})`, id: 4, image:`https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png`}
+        ]);
     });
 }

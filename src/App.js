@@ -8,7 +8,7 @@ import SearchPage from './components/SearchPage';
 import AlbumsPage from './components/AlbumsPage';
 
 
-import {findArtists, findAlbumsMock} from './services/lastfm';
+import {findArtists, findAlbums} from './services/lastfm';
 
 // import SearchPageContent from './components/SearchPageContent';
 
@@ -29,7 +29,7 @@ class App extends React.Component {
     }
 
     onArtistSelect(artist){
-        return findAlbumsMock(artist.name).then(albums => this.setState({
+        return findAlbums(artist.name).then(albums => this.setState({
             albums,
             artistDetails : artist
         }));
