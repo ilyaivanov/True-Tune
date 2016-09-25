@@ -144,9 +144,12 @@ img {
     img {
         border-radius: 5px;
     }
+    .artist-image{
+        position: relative;
+    }
     .artist-options {
         position: absolute;
-        bottom: 29px; //height of artist-title
+        bottom: 0;
         right: 0;
         padding-right: 10px;
         color: white;
@@ -162,7 +165,7 @@ img {
         box-shadow: inset 0px -61px 49px -20px rgba(0,0,0,0.75);
         border-radius: 5px;
         top: 0;
-        bottom: 29px;
+        bottom: 0;
     }
 
     .artist-options,
@@ -173,7 +176,7 @@ img {
 
     &:hover {
         color: $theme-primary-color;
-        opacity: 0.85;
+        opacity: 0.90;
 
         .artist-options,
         .shadow{
