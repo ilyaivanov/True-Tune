@@ -91,10 +91,16 @@ img {
 .volume-meter {
     padding: 3px;
     display: flex;
-    button, span, input {
+    a, i, span, input {
         flex: 1;
+        font-size: 20px;
     }
     text-align: center;
+
+    i:hover{
+        color: $theme-primary-color;
+        cursor: pointer;
+    }
 }
 
 //Search
