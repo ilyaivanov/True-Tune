@@ -5,9 +5,10 @@ import './../templates/sound/style/style.scss';
 import debounce from 'lodash/debounce';
 import Player from './components/Player';
 import SearchPage from './components/SearchPage';
+import AlbumsPage from './components/AlbumsPage';
 
 
-import {findArtists} from './services/lastfm';
+import {findArtists, findAlbumsMock} from './services/lastfm';
 
 // import SearchPageContent from './components/SearchPageContent';
 
@@ -15,21 +16,41 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            artists: []
-        }
+            artists: [],
+            artistDetails: null,
+            albums: null
+        };
+        this.onArtistSearch = this.onArtistSearch.bind(this);
+        this.onArtistSelect = this.onArtistSelect.bind(this);
+    }
+
+    onArtistSearch(text){
+        return findArtists(text).then(newArtists => this.setState({artists: newArtists}));
+    }
+
+    onArtistSelect(artist){
+        return findAlbumsMock(artist.name).then(albums => this.setState({
+            albums,
+            artistDetails : artist
+        }));
     }
 
     render() {
-        var Page = SearchPage;
+        var Page = <SearchPage onArtistSearch={debounce(this.onArtistSearch, 500)}
+                         onArtistSelect={this.onArtistSelect}
+                         artists={this.state.artists}/>;
+        debugger;
+        if(this.state.albums){
+            Page = <AlbumsPage albums={this.state.albums} artist={this.state.artistDetails} />
+        }
 
-        let onArtistSearch = text => findArtists(text)
-                                    .then(newArtists => this.setState({artists: newArtists}));
+
         return (
             <main className="page-content">
                 <nav className="content-navigation">
                 </nav>
 
-                <Page onArtistSearch={debounce(onArtistSearch, 500)} artists={this.state.artists}/>
+                {Page}
 
                 <Player/>
             </main>);
