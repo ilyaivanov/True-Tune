@@ -3,7 +3,7 @@ import React from 'react';
 let mapArtist = artist => (
     <div className="grid-item artist-info" key={artist.id}>
         <div className="artist-image">
-            <img src="https://lastfm-img2.akamaized.net/i/u/174s/1009add02ba54acc8e8047ef30f86e6f.png" alt="Foo"/>
+            <img src={artist.image} alt="Foo"/>
             <div className="shadow"/>
             <div className="artist-options">
                 <i className="fa fa-heart" aria-hidden="true"/>
