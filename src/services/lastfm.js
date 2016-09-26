@@ -2,30 +2,31 @@ import requestGet from './../utils/request';
 import _ from 'lodash';
 
 let api_key = '185032d80f1827034396b9acfab5a79f';
-let url = `http://ws.audioscrobbler.com/2.0?api_key=${api_key}&format=json`;
+let format = 'json';
+let url = `http://ws.audioscrobbler.com/2.0`;
 
 export function findArtists(term) {
     console.log(`last.fm search request for ${term}`);
-
-    return requestGet(url + `&method=artist.search&artist=${term}`)
+    let method = 'artist.search';
+    return requestGet(url, {method, api_key, format, artist: term})
         .then(response => response.results.artistmatches.artist.map(mapItem))
         .then(artists => removeInvalidData(artists, 'artists'));
 }
 
 export function findAlbums(artistName) {
     console.log(`last.fm albums request for ${artistName}`);
-
-    return requestGet((url + `&method=artist.getTopAlbums&artist=${artistName}`))
+    let method = 'artist.getTopAlbums';
+    return requestGet(url, {method, api_key, format, artist: artistName})
         .then(response => response.topalbums.album.map(mapItem))
         .then(albums => removeInvalidData(albums, 'albums'));
 }
 
 export function findTracks(artistName, albumName) {
     console.log(`last.fm tracks request for ${artistName} - ${albumName}`);
-
-    return requestGet((url + `&method=album.getInfo&artist=${artistName}&album=${albumName}`))
+    let method = 'album.getInfo';
+    return requestGet(url, {method, api_key, format, artist: artistName, album: albumName})
         .then(response => response.album.tracks.track.map(mapTrack))
-        .then(tracks => removeInvalidData(tracks, 'tracks', {keepItemsWithoutImage : true}));
+        .then(tracks => removeInvalidData(tracks, 'tracks', {keepItemsWithoutImage: true}));
 }
 
 function mapItem(item) {
@@ -53,7 +54,7 @@ function removeInvalidData(items, setName, options = {}) {
 
     var itemsWithImage = itemsWithId;
 
-    if(!options.keepItemsWithoutImage){
+    if (!options.keepItemsWithoutImage) {
         itemsWithImage = itemsWithId.filter(a => a.image);
         if (itemsWithImage.length < itemsWithId.length) {
             console.log(`ignoring ${itemsWithId.length - itemsWithImage.length} ${setName} without image`);
