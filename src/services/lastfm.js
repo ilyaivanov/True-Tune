@@ -21,37 +21,45 @@ export function findAlbums(artistName) {
 }
 
 export function findTracks(artistName, albumName) {
-    console.log(`last.fm albums request for ${artistName}`);
+    console.log(`last.fm tracks request for ${artistName} - ${albumName}`);
 
-    return new Promise(function (resolve) {
-        resolve([
-            {name: `Dreamimg (${artistName})`, duration: 1091, id: 1},
-            {name: `Inspire (${artistName})`, duration: 1331, id: 2},
-            {name: `Whoka (${artistName})`, duration: 1291, id: 3},
-            {name: `Gogo  (${artistName})`, duration: 1391, id: 4},
-        ]);
-    });
+    return requestGet((url + `&method=album.getInfo&artist=${artistName}&album=${albumName}`))
+        .then(response => response.album.tracks.track.map(mapTrack))
+        .then(tracks => removeInvalidData(tracks, 'tracks', {keepItemsWithoutImage : true}));
 }
 
-function mapItem(artist) {
+function mapItem(item) {
     return {
-        name: artist.name,
-        id: artist.mbid,
-        image: artist.image[2]['#text'] //large image, use filter, write unit tests
+        name: item.name,
+        id: item.mbid,
+        image: item.image[2]['#text'] //large image, use filter, write unit tests
     };
 }
 
-function removeInvalidData(items, setName) {
+function mapTrack(track) {
+    return {
+        name: track.name,
+        id: track.url,
+        duration: track.duration
+    };
+}
+
+function removeInvalidData(items, setName, options = {}) {
     var itemsWithId = items.filter(a => a.id);
 
     if (itemsWithId.length < items.length) {
         console.log(`ignoring ${items.length - itemsWithId.length} ${setName} without id`);
     }
 
-    var itemsWithImage = itemsWithId.filter(a => a.image);
-    if (itemsWithImage.length < itemsWithId.length) {
-        console.log(`ignoring ${itemsWithId.length - itemsWithImage.length} ${setName} without image`);
+    var itemsWithImage = itemsWithId;
+
+    if(!options.keepItemsWithoutImage){
+        itemsWithImage = itemsWithId.filter(a => a.image);
+        if (itemsWithImage.length < itemsWithId.length) {
+            console.log(`ignoring ${itemsWithId.length - itemsWithImage.length} ${setName} without image`);
+        }
     }
+
 
     var duplicated = getDuplicated(itemsWithImage, 'id');
     if (duplicated) {
@@ -127,6 +135,20 @@ export function findAlbumsMock(artistName) {
                 id: 4,
                 image: `https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png`
             }
+        ]);
+    });
+}
+
+
+export function findTracksMock(artistName, albumName) {
+    console.log(`last.fm albums request for ${artistName}`);
+
+    return new Promise(function (resolve) {
+        resolve([
+            {name: `Dreamimg (${artistName})`, duration: 1091, id: 1},
+            {name: `Inspire (${artistName})`, duration: 1331, id: 2},
+            {name: `Whoka (${artistName})`, duration: 1291, id: 3},
+            {name: `Gogo  (${artistName})`, duration: 1391, id: 4},
         ]);
     });
 }
