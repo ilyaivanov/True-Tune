@@ -53,6 +53,16 @@ export default class Player extends React.Component {
         this.clearCurrentInterval();
     }
 
+    play(){
+        this.state.player.playVideo();
+        this.onPlay();
+    }
+
+    pause(){
+        this.state.player.pauseVideo();
+        this.onPause();
+    }
+
     clearCurrentInterval() {
         if (this.state.currentIntervalId) {
             clearInterval(this.state.currentIntervalId);
@@ -87,7 +97,10 @@ export default class Player extends React.Component {
                     </div>
                     <div className="controls">
                         <i className="fa fa-step-backward" aria-hidden="true"/>
-                        <i className="fa fa-play" aria-hidden="true"/>
+                        {this.state.currentIntervalId ?
+                            (<i className="fa fa-pause" aria-hidden="true" onClick={this.pause.bind(this)} />) :
+                            (<i className="fa fa-play" aria-hidden="true" onClick={this.play.bind(this)}/>)
+                        }
                         <i className="fa fa-step-forward" aria-hidden="true"/>
                     </div>
                     <div className="volume-meter">
