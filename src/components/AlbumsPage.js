@@ -1,7 +1,7 @@
 import React from 'react';
 import ItemPortlet from './ItemPortlet';
 import {findAlbums, findInfo} from './../services/lastfm';
-
+import {Link} from 'react-router';
 export default class AlbumsPage extends React.Component {
 
     constructor(props) {
@@ -20,11 +20,10 @@ export default class AlbumsPage extends React.Component {
         return <article className="content-article">
             <div className="artist-header">
                 <div className="left-buttons">
-                    <i className="fa fa-chevron-circle-left" aria-hidden="true"/>
+                    {/*<i className="fa fa-chevron-circle-left" aria-hidden="true"/>*/}
                 </div>
                 <div className="right-buttons">
-                    <i className="fa fa-cog" aria-hidden="true"/>
-                    <i className="fa fa-chevron-circle-right" aria-hidden="true"/>
+                    <Link to="/"><i className="fa fa-search" aria-hidden="true"/></Link>
                 </div>
                 <img src={image} alt={name}/>
                 <span className="artist-title">
