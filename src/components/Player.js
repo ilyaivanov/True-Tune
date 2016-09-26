@@ -83,8 +83,7 @@ export default class Player extends React.Component {
     }
 
     onEnd() {
-        //play next song
-        console.log('end');
+        this.playNext();
     }
 
     render() {
