@@ -20,19 +20,21 @@ class App extends React.Component {
         this.setAlbumToPlayer(this.props.params);
     }
 
-    componentWillReceiveProps() {
+    componentWillReceiveProps(newProps) {
         //state present, cache access
-        this.setAlbumToPlayer(this.props.params);
+        this.setAlbumToPlayer(newProps.params);
     }
 
     setAlbumToPlayer({artistName, albumName}) {
-        return findTracks(artistName, albumName).then(tracks => this.setState({tracks}));
+        if (artistName && albumName) {
+            findTracks(artistName, albumName).then(tracks => this.setState({tracks}));
+        }
     }
 
     render() {
         let player = null,
             {albumName, artistName} = this.props.params;
-        if (this.state.tracks) {
+        if (this.state.tracks.length > 0) {
             player = <Player tracks={this.state.tracks}
                              album={{name: albumName}}
                              artist={{name: artistName}}/>;
