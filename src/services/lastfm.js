@@ -32,8 +32,7 @@ export function findTracks(artistName, albumName) {
     console.log(`last.fm tracks request for ${artistName} - ${albumName}`);
     let method = 'album.getInfo';
     return requestGet(url, {method, api_key, format, artist: artistName, album: albumName})
-        .then(response => response.album.tracks.track.map(mapTrack))
-        .then(tracks => removeInvalidData(tracks, 'tracks', {keepItemsWithoutImage: true}));
+        .then(response => mapAlbumInfo(response.album));
 }
 
 function mapItem(item) {
@@ -41,6 +40,14 @@ function mapItem(item) {
         name: item.name,
         id: item.mbid,
         image: item.image[2]['#text'] //large image, use filter, write unit tests
+    };
+}
+function mapAlbumInfo(albumInfo) {
+    return {
+        tracks: albumInfo.tracks.track.map(mapTrack),
+        name: albumInfo.name,
+        artistName: albumInfo.artist,
+        image: albumInfo.image[2]['#text']
     };
 }
 

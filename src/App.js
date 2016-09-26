@@ -11,7 +11,9 @@ class App extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            tracks: []
+            albumInfo: {
+                tracks:[]
+            }
         };
     }
 
@@ -27,16 +29,16 @@ class App extends React.Component {
 
     setAlbumToPlayer({artistName, albumName}) {
         if (artistName && albumName) {
-            findTracks(artistName, albumName).then(tracks => this.setState({tracks}));
+            findTracks(artistName, albumName).then(albumInfo => this.setState({albumInfo}));
         }
     }
 
     render() {
         let player = null,
-            {albumName, artistName} = this.props.params;
-        if (this.state.tracks.length > 0) {
-            player = <Player tracks={this.state.tracks}
-                             album={{name: albumName}}
+            {artistName} = this.state.albumInfo;
+        if (this.state.albumInfo.tracks.length > 0) {
+            player = <Player tracks={this.state.albumInfo.tracks}
+                             album={this.state.albumInfo}
                              artist={{name: artistName}}/>;
         }
 
