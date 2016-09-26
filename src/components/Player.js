@@ -14,13 +14,14 @@ export default class Player extends React.Component {
             currentTrack: {},
             currentTime: 0,
             overallTime: 0,
+            volume: 50,
             player: null, //exclude from shouldComponentUpdate
             currentIntervalId: null //exclude from shouldComponentUpdate,
         };
     }
 
     playTrack(track) {
-        this.setState({ currentTrack: track, currentTime: 0, overallTime:0});
+        this.setState({currentTrack: track, currentTime: 0, overallTime: 0});
         findYoutubeVideo(this.props.artist.name, track.name)
             .then(video => this.setState({currentVideo: video}),
                 error => this.setState({currentTrack: {}}));
@@ -37,6 +38,7 @@ export default class Player extends React.Component {
     }
 
     setPlayer(player) {
+        player.setVolume(this.state.volume);
         this.setState({player});
     }
 
@@ -86,6 +88,11 @@ export default class Player extends React.Component {
         this.playNext();
     }
 
+    onVolumeChange(volume) {
+        this.state.player.setVolume(volume);
+        this.setState({volume})
+    }
+
     render() {
         const opts = {
             height: '150',
@@ -116,7 +123,7 @@ export default class Player extends React.Component {
                     </div>
                     <div className="volume-meter">
                         <i className="fa fa-volume-down" aria-hidden="true"/>
-                        <input type="range"/>
+                        <input type="range" min="0" max="100" value={this.state.volume} onChange={e => this.onVolumeChange(e.target.value)}/>
                         <i className="fa fa-volume-up" aria-hidden="true"/>
                     </div>
                 </div>
