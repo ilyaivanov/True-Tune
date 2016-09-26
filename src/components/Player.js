@@ -1,13 +1,23 @@
 import React from 'react';
+import Youtube from 'react-youtube';
+
 import formatTime from './../utils/timeFormat';
 import classnames from 'classnames';
 import findYoutubeVideo from './../services/youtube';
 
 export default class Player extends React.Component {
 
-    trackClicked(track){
+    constructor(props) {
+        super(props);
+        this.state = {
+            currentVideo: {},
+            player: null
+        };
+    }
+
+    trackClicked(track) {
         findYoutubeVideo('Carbon Based Lifeforms', track.name)
-            .then(console.log);
+            .then(video => this.setState({currentVideo: video}));
     }
 
     mapTrack(track, index) {
@@ -20,7 +30,19 @@ export default class Player extends React.Component {
             </div>);
     }
 
+    setPlayer(player) {
+        this.setState({player});
+    }
+
     render() {
+        const opts = {
+            height: '150',
+            width: '220',
+            playerVars: { // https://developers.google.com/youtube/player_parameters
+                autoplay: 1
+            }
+        };
+
         return (
             <div>
                 <img src={this.props.album.image}/>
@@ -46,6 +68,10 @@ export default class Player extends React.Component {
                 <div className="player-list">
                     {this.props.tracks.map(this.mapTrack.bind(this))}
                 </div>
+                <div className="player-container">
+                    <Youtube videoId={this.state.currentVideo.id} opts={opts} onReady={e => this.setPlayer(e.target)}/>
+                </div>
+
             </div>);
     }
 
