@@ -15,18 +15,19 @@ class App extends React.Component {
         this.state = {
             artists: [],
             artistDetails: null,
-            albums: null
+            albums: null,
+            albumDetails: null
         };
     }
 
-    onArtistSearch(text){
+    onArtistSearch(text) {
         return findArtists(text).then(newArtists => this.setState({artists: newArtists}));
     }
 
-    onArtistSelect(artist){
+    onArtistSelect(artist) {
         return findAlbums(artist.name).then(albums => this.setState({
             albums,
-            artistDetails : artist
+            artistDetails: artist
         }));
     }
 
@@ -34,9 +35,17 @@ class App extends React.Component {
         var Page = <SearchPage onArtistSearch={debounce(this.onArtistSearch.bind(this), 500)}
                                onArtistSelect={this.onArtistSelect.bind(this)}
                                artists={this.state.artists}/>;
-        if(this.state.albums){
-            Page = <AlbumsPage albums={this.state.albums} artist={this.state.artistDetails} />
+
+        if (this.state.albums) {
+            Page = <AlbumsPage albums={this.state.albums} artist={this.state.artistDetails}/>
         }
+
+        var tracks = [
+            {name: 'Dreamimg', duration: 1091, id: 1},
+            {name: 'Inspire', duration: 1331, id: 2},
+            {name: 'Whoka', duration: 1291, id: 3},
+            {name: 'Go go', duration: 1391, id: 4},
+        ];
 
         return (
             <main className="page-content">
@@ -44,8 +53,9 @@ class App extends React.Component {
                 </nav>
 
                 {Page}
-
-                <Player/>
+                <aside className="content-sidebar">
+                    <Player tracks={tracks} album={this.state.albumDetails}/>
+                </aside>
             </main>);
     }
 }
