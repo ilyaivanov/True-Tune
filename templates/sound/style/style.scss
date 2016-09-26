@@ -281,5 +281,5 @@ i:hover {
 .player-container{
     position: fixed;
     bottom: 15px;
-    right: 15px;
+    right: $sidebars-width + 15px;
 }
