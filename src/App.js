@@ -7,7 +7,7 @@ import Player from './components/Player';
 import SearchPage from './components/SearchPage';
 import AlbumsPage from './components/AlbumsPage';
 
-import {findArtists, findAlbums} from './services/lastfm';
+import {findArtists, findAlbums, findTracks} from './services/lastfm';
 
 class App extends React.Component {
     constructor(props) {
@@ -31,21 +31,28 @@ class App extends React.Component {
         }));
     }
 
+    onAlbumSelect(album) {
+        return findTracks(this.state.artistDetails.name, album.name).then(tracks => this.setState({
+            tracks,
+            albumDetails: album
+        }));
+    }
+
     render() {
         var page = <SearchPage onArtistSearch={debounce(this.onArtistSearch.bind(this), 500)}
                                onArtistSelect={this.onArtistSelect.bind(this)}
                                artists={this.state.artists}/>;
 
         if (this.state.albums) {
-            page = <AlbumsPage albums={this.state.albums} artist={this.state.artistDetails}/>
+            page = <AlbumsPage albums={this.state.albums}
+                               artist={this.state.artistDetails}
+                               onAlbumSelect={this.onAlbumSelect.bind(this)} />
         }
 
-        var tracks = [
-            {name: 'Dreamimg', duration: 1091, id: 1},
-            {name: 'Inspire', duration: 1331, id: 2},
-            {name: 'Whoka', duration: 1291, id: 3},
-            {name: 'Go go', duration: 1391, id: 4},
-        ];
+        var player = null;
+        if(this.state.albumDetails){
+            player = <Player tracks={this.state.tracks} album={this.state.albumDetails}/>;
+        }
 
         return (
             <main className="page-content">
@@ -54,7 +61,7 @@ class App extends React.Component {
 
                 {page}
                 <aside className="content-sidebar">
-                    <Player tracks={tracks} album={this.state.albumDetails}/>
+                    {player}
                 </aside>
             </main>);
     }

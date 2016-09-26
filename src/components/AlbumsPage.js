@@ -1,7 +1,7 @@
 import React from 'react';
 import ItemPortlet from './ItemPortlet';
 
-export default function AlbumsPage({artist, albums}) {
+export default function AlbumsPage({artist, albums, onAlbumSelect}) {
     return <article className="content-article">
         <div className="artist-header">
             <div className="left-buttons">
@@ -18,7 +18,7 @@ export default function AlbumsPage({artist, albums}) {
         </div>
         <div className="sublime"/>
         <div className="artist-albums-container grid-container">
-            {albums.map(album => <ItemPortlet key={album.id} item={album} />)}
+            {albums.map(album => <ItemPortlet key={album.id} item={album} onItemClick={onAlbumSelect} />)}
         </div>
     </article>;
 }

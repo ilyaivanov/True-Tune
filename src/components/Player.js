@@ -16,7 +16,7 @@ export default class Player extends React.Component {
     render() {
         return (
             <div>
-                <img src="https://lastfm-img2.akamaized.net/i/u/300x300/b3bba07ec5fe45b3a8b4f852d8cb118f.png"/>
+                <img src={this.props.album.image}/>
                 <div className="player">
                     <div className="track-progress-container">
                         <div className="track-progress" style={{width: '33%'}}/>
