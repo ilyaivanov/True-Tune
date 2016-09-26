@@ -1,7 +1,7 @@
-export default function requestGet(url) {
+export default function requestGet(url, options = {}) {
     return new Promise(function (resolve, reject) {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', url);
+        xhr.open('GET', url + '?' + stringifyOptions(options));
         xhr.onload = function () {
             if (this.status >= 200 && this.status < 300) {
                 resolve(JSON.parse(xhr.response));
@@ -20,4 +20,13 @@ export default function requestGet(url) {
         };
         xhr.send();
     });
+}
+
+export function stringifyOptions(options) {
+    var res = [];
+
+    for (let key of Object.keys(options)) {
+        res.push(key + '=' + options[key]);
+    }
+    return res.join('&');
 }

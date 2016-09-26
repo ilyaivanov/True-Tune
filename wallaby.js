@@ -26,6 +26,7 @@ module.exports = function (wallaby) {
     return {
         files: [
             {pattern: 'node_modules/react/dist/react-with-addons.js', instrument: false},
+            {pattern: 'node_modules/babel-polyfill/dist/polyfill.js', instrument: false},
             {pattern: '!src/**/*.spec.js*', load: false},
             {pattern: 'src/**/*.js*', load: false}
         ],
@@ -46,6 +47,6 @@ module.exports = function (wallaby) {
 
         filesWithNoCoverageCalculated: ['src/index.js', 'src/webpack-public-path.js'],
 
-        testFramework:"jasmine"
+        testFramework: "jasmine"
     };
 };

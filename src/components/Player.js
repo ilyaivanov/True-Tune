@@ -1,13 +1,20 @@
 import React from 'react';
 import formatTime from './../utils/timeFormat';
 import classnames from 'classnames';
+import findYoutubeVideo from './../services/youtube';
 
 export default class Player extends React.Component {
+
+    trackClicked(track){
+        findYoutubeVideo('Carbon Based Lifeforms', track.name)
+            .then(console.log);
+    }
 
     mapTrack(track, index) {
         return (
             <div key={track.id}
-                 className={classnames('player-item', {active: index == 3})}>
+                 className={classnames('player-item', {active: index == 3})}
+                 onClick={() => this.trackClicked(track)}>
                 {index + 1}. {track.name}
                 <small>{formatTime(track.duration)}</small>
             </div>);
@@ -37,7 +44,7 @@ export default class Player extends React.Component {
                     </div>
                 </div>
                 <div className="player-list">
-                    {this.props.tracks.map(this.mapTrack)}
+                    {this.props.tracks.map(this.mapTrack.bind(this))}
                 </div>
             </div>);
     }
