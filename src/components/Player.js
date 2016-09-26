@@ -12,17 +12,17 @@ export default class Player extends React.Component {
         this.state = {
             currentVideo: {},
             currentTrack: {},
-            currentTime: null,
-            overallTime: null,
+            currentTime: 0,
+            overallTime: 0,
             player: null, //exclude from shouldComponentUpdate
             currentIntervalId: null //exclude from shouldComponentUpdate,
         };
     }
 
-    trackClicked(track) {
-        this.setState({currentTrack: track});
+    playTrack(track) {
+        this.setState({ currentTrack: track, currentTime: 0, overallTime:0});
         findYoutubeVideo(this.props.artist.name, track.name)
-            .then(video => this.setState({currentVideo: video, currentTrack: track}),
+            .then(video => this.setState({currentVideo: video}),
                 error => this.setState({currentTrack: {}}));
     }
 
@@ -30,7 +30,7 @@ export default class Player extends React.Component {
         return (
             <div key={track.id}
                  className={classnames('player-item', {active: this.state.currentTrack.id == track.id})}
-                 onClick={() => this.trackClicked(track)}>
+                 onClick={() => this.playTrack(track)}>
                 {index + 1}. {track.name}
                 <small>{formatTime(track.duration)}</small>
             </div>);
@@ -53,14 +53,26 @@ export default class Player extends React.Component {
         this.clearCurrentInterval();
     }
 
-    play(){
+    play() {
         this.state.player.playVideo();
         this.onPlay();
     }
 
-    pause(){
+    pause() {
         this.state.player.pauseVideo();
         this.onPause();
+    }
+
+    playNext() {
+        var currentIndex = this.props.tracks.indexOf(this.state.currentTrack);
+        if (currentIndex < this.props.tracks.length - 1)
+            this.playTrack(this.props.tracks[currentIndex + 1]);
+    }
+
+    playPrevious() {
+        var currentIndex = this.props.tracks.indexOf(this.state.currentTrack);
+        if (currentIndex > 0)
+            this.playTrack(this.props.tracks[currentIndex - 1]);
     }
 
     clearCurrentInterval() {
@@ -96,12 +108,12 @@ export default class Player extends React.Component {
                         <small>{formatTime(this.state.currentTime)} - {formatTime(this.state.overallTime)}</small>
                     </div>
                     <div className="controls">
-                        <i className="fa fa-step-backward" aria-hidden="true"/>
+                        <i className="fa fa-step-backward" aria-hidden="true" onClick={this.playPrevious.bind(this)}/>
                         {this.state.currentIntervalId ?
-                            (<i className="fa fa-pause" aria-hidden="true" onClick={this.pause.bind(this)} />) :
+                            (<i className="fa fa-pause" aria-hidden="true" onClick={this.pause.bind(this)}/>) :
                             (<i className="fa fa-play" aria-hidden="true" onClick={this.play.bind(this)}/>)
                         }
-                        <i className="fa fa-step-forward" aria-hidden="true"/>
+                        <i className="fa fa-step-forward" aria-hidden="true" onClick={this.playNext.bind(this)}/>
                     </div>
                     <div className="volume-meter">
                         <i className="fa fa-volume-down" aria-hidden="true"/>
