@@ -9,7 +9,7 @@ render(
     <Router history={browserHistory}>
         <Route component={App}>
             <Route path="/(search/:searchTerm)" component={SearchPage}/>
-            <Route path="/artist/:artistName" component={AlbumsPage}/>
+            <Route path="/artist/:artistName(/:albumName)" component={AlbumsPage}/>
         </Route>
     </Router>,
     document.getElementById('app'));

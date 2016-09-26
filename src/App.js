@@ -20,49 +20,40 @@ class App extends React.Component {
         };
     }
 
-    onArtistSearch(text) {
-        return findArtists(text).then(newArtists => this.setState({artists: newArtists}));
+    componentWillMount() {
+        //no state, no cache access
+        let {albumName, artistName} = this.props.params;
+        this.setAlbumToPlayer(artistName, albumName);
     }
 
-    onArtistSelect(artist) {
-        return findAlbums(artist.name).then(albums => this.setState({
-            albums,
-            artistDetails: artist
-        }));
+    componentWillReceiveProps() {
+        //state present, cache access
+        let {albumName, artistName} = this.props.params;
+        this.setAlbumToPlayer(artistName, albumName);
     }
 
-    onAlbumSelect(album) {
-        return findTracks(this.state.artistDetails.name, album.name).then(tracks => this.setState({
+    setAlbumToPlayer(artistName, albumName) {
+        return findTracks(artistName, albumName).then(tracks => this.setState({
             tracks,
-            albumDetails: album
+            albumDetails: {name: albumName}
         }));
     }
 
     render() {
-        // var page = <SearchPage onArtistSearch={debounce(this.onArtistSearch.bind(this), 500)}
-        //                        onArtistSelect={this.onArtistSelect.bind(this)}
-        //                        artists={this.state.artists}/>;
-        //
-        // if (this.state.albums) {
-        //     page = <AlbumsPage albums={this.state.albums}
-        //                        artist={this.state.artistDetails}
-        //                        onAlbumSelect={this.onAlbumSelect.bind(this)} />
-        // }
-        //
-        // var player = null;
-        // if(this.state.albumDetails){
-        //     player = <Player tracks={this.state.tracks} album={this.state.albumDetails} artist={this.state.artistDetails}/>;
-        // }
+        var player = null;
+        if (this.state.albumDetails) {
+            player = <Player tracks={this.state.tracks} album={this.state.albumDetails}
+                             artist={{name: this.props.params.artistName}}/>;
+        }
 
-        let {params, children} = this.props;
         return (
             <main className="page-content">
                 <nav className="content-navigation">
                 </nav>
 
-                {children}
+                {this.props.children}
                 <aside className="content-sidebar">
-                    {params.searchTerm}
+                    {player}
                 </aside>
             </main>);
     }

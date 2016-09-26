@@ -16,7 +16,7 @@ export default class AlbumsPage extends React.Component {
     }
 
     render() {
-        let {artist, albums, onAlbumSelect, params} = this.props;
+        let {image, name} = this.state.info;
         return <article className="content-article">
             <div className="artist-header">
                 <div className="left-buttons">
@@ -26,14 +26,16 @@ export default class AlbumsPage extends React.Component {
                     <i className="fa fa-cog" aria-hidden="true"/>
                     <i className="fa fa-chevron-circle-right" aria-hidden="true"/>
                 </div>
-                <img src={this.state.info.image} alt={this.state.info.name}/>
+                <img src={image} alt={name}/>
                 <span className="artist-title">
-                    {params.artistName}
+                    {name}
                 </span>
             </div>
             <div className="sublime"/>
             <div className="artist-albums-container grid-container">
-                {this.state.albums.map(album => <ItemPortlet key={album.id} item={album} link={'some link'}/>)}
+                {this.state.albums.map(album => <ItemPortlet key={album.id}
+                                                             item={album}
+                                                             link={`/artist/${this.props.params.artistName}/${album.name}`}/>)}
             </div>
         </article>;
     }
