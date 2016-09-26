@@ -11,19 +11,22 @@ export default class Player extends React.Component {
         super(props);
         this.state = {
             currentVideo: {},
+            currentTrackId: null,
             player: null
         };
     }
 
     trackClicked(track) {
-        findYoutubeVideo('Carbon Based Lifeforms', track.name)
-            .then(video => this.setState({currentVideo: video}));
+        this.setState({currentTrackId: track.id});
+        findYoutubeVideo(this.props.artist.name, track.name)
+            .then(video => this.setState({currentVideo: video, currentTrackId: track.id}),
+                  error => this.setState({currentTrackId: null}));
     }
 
     mapTrack(track, index) {
         return (
             <div key={track.id}
-                 className={classnames('player-item', {active: index == 3})}
+                 className={classnames('player-item', {active: this.state.currentTrackId == track.id})}
                  onClick={() => this.trackClicked(track)}>
                 {index + 1}. {track.name}
                 <small>{formatTime(track.duration)}</small>

@@ -51,7 +51,7 @@ class App extends React.Component {
 
         var player = null;
         if(this.state.albumDetails){
-            player = <Player tracks={this.state.tracks} album={this.state.albumDetails}/>;
+            player = <Player tracks={this.state.tracks} album={this.state.albumDetails} artist={this.state.artistDetails}/>;
         }
 
         return (
