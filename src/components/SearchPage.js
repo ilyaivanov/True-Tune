@@ -44,7 +44,7 @@ export default class SearchPage extends React.Component {
                        onChange={e => this.onChange(e.target.value)}/>
             </div>
             <div className="results-container grid-container">
-                {this.state.artists.map(artist => <ItemPortlet key={artist.id} item={artist} link="/artists/album"/>)}
+                {this.state.artists.map(artist => <ItemPortlet key={artist.id} item={artist} link={`/artist/${artist.name}`} />)}
             </div>
         </article>;
     }

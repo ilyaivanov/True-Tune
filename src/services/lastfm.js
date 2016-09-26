@@ -21,6 +21,13 @@ export function findAlbums(artistName) {
         .then(albums => removeInvalidData(albums, 'albums'));
 }
 
+export function findInfo(artistName) {
+    console.log(`last.fm getInfo request for ${artistName}`);
+    let method = 'artist.getInfo';
+    return requestGet(url, {method, api_key, format, artist: artistName})
+        .then(response => mapInfo(response.artist));
+}
+
 export function findTracks(artistName, albumName) {
     console.log(`last.fm tracks request for ${artistName} - ${albumName}`);
     let method = 'album.getInfo';
@@ -42,6 +49,15 @@ function mapTrack(track) {
         name: track.name,
         id: track.url,
         duration: track.duration
+    };
+}
+
+function mapInfo(info) {
+    return {
+        name: info.name,
+        id: info.mbid,
+        image: info.image[2]['#text'],
+        tags: info.tags.tag.map(tag => tag.name)
     };
 }
 
