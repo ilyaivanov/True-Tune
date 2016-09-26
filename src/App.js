@@ -32,12 +32,12 @@ class App extends React.Component {
     }
 
     render() {
-        var Page = <SearchPage onArtistSearch={debounce(this.onArtistSearch.bind(this), 500)}
+        var page = <SearchPage onArtistSearch={debounce(this.onArtistSearch.bind(this), 500)}
                                onArtistSelect={this.onArtistSelect.bind(this)}
                                artists={this.state.artists}/>;
 
         if (this.state.albums) {
-            Page = <AlbumsPage albums={this.state.albums} artist={this.state.artistDetails}/>
+            page = <AlbumsPage albums={this.state.albums} artist={this.state.artistDetails}/>
         }
 
         var tracks = [
@@ -52,7 +52,7 @@ class App extends React.Component {
                 <nav className="content-navigation">
                 </nav>
 
-                {Page}
+                {page}
                 <aside className="content-sidebar">
                     <Player tracks={tracks} album={this.state.albumDetails}/>
                 </aside>
