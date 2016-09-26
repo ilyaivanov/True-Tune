@@ -1,22 +1,20 @@
-import $ from 'jquery';
-import logger from '../common/logger';
-class youtube {
-    static getVideoIdForTerm(term) {
-        return $.get('https://www.googleapis.com/youtube/v3/search', {
-            part: 'snippet',
-            chart: 'mostPopular',
-            key: 'AIzaSyBsCL-zrXWd9S2FKRSDVfz7dOo783LQkLk',
-            q: term
-        })
-            .then(response => this.mapVideo(response.items[0]));
-    }
+import requestGet from './../utils/request';
 
-    static mapVideo(video){
-        return {
-            id : video.id.videoId,
-            title: video.snippet.title
-        }
-    }
+export default function findYoutubeVideo(artistName, albumName) {
+    var options = {
+        part: 'snippet',
+        chart: 'mostPopular',
+        key: 'AIzaSyBsCL-zrXWd9S2FKRSDVfz7dOo783LQkLk',
+        q: `${artistName} - ${albumName}`
+    };
+
+    return requestGet('https://www.googleapis.com/youtube/v3/search', options)
+        .then(response => mapVideo(response.items[0]));
 }
 
-export default youtube;
+function mapVideo(video) {
+    return {
+        id: video.id.videoId,
+        title: video.snippet.title
+    }
+}
