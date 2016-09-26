@@ -39,29 +39,30 @@ class App extends React.Component {
     }
 
     render() {
-        var page = <SearchPage onArtistSearch={debounce(this.onArtistSearch.bind(this), 500)}
-                               onArtistSelect={this.onArtistSelect.bind(this)}
-                               artists={this.state.artists}/>;
+        // var page = <SearchPage onArtistSearch={debounce(this.onArtistSearch.bind(this), 500)}
+        //                        onArtistSelect={this.onArtistSelect.bind(this)}
+        //                        artists={this.state.artists}/>;
+        //
+        // if (this.state.albums) {
+        //     page = <AlbumsPage albums={this.state.albums}
+        //                        artist={this.state.artistDetails}
+        //                        onAlbumSelect={this.onAlbumSelect.bind(this)} />
+        // }
+        //
+        // var player = null;
+        // if(this.state.albumDetails){
+        //     player = <Player tracks={this.state.tracks} album={this.state.albumDetails} artist={this.state.artistDetails}/>;
+        // }
 
-        if (this.state.albums) {
-            page = <AlbumsPage albums={this.state.albums}
-                               artist={this.state.artistDetails}
-                               onAlbumSelect={this.onAlbumSelect.bind(this)} />
-        }
-
-        var player = null;
-        if(this.state.albumDetails){
-            player = <Player tracks={this.state.tracks} album={this.state.albumDetails} artist={this.state.artistDetails}/>;
-        }
-
+        let {params, children} = this.props;
         return (
             <main className="page-content">
                 <nav className="content-navigation">
                 </nav>
 
-                {page}
+                {children}
                 <aside className="content-sidebar">
-                    {player}
+                    {params.searchTerm}
                 </aside>
             </main>);
     }
