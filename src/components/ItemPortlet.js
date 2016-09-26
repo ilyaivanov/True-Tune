@@ -1,7 +1,8 @@
 import React from 'react';
+import {Link} from 'react-router';
 
-export default ({item, onItemClick}) => (
-    <div className="grid-item artist-info" onClick={() => onItemClick(item)}>
+export default ({item, link}) => (
+    <Link className="grid-item artist-info" to={link}>
         <div className="artist-image">
             <img src={item.image} alt="Foo"/>
             <div className="shadow"/>
@@ -11,4 +12,4 @@ export default ({item, onItemClick}) => (
             </div>
         </div>
         <div className="artist-title">{item.name}</div>
-    </div>);
+    </Link>);

@@ -31,7 +31,7 @@ export default class SearchPage extends React.Component {
         findArtists(text).then(newArtists => {
             this.setState({artists: newArtists});
             //no assumption that setState has finished
-            browserHistory.push('/' + text);
+            browserHistory.push('/search/' + text);
         });
     }
 
