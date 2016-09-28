@@ -3,6 +3,7 @@ import {Route, IndexRoute} from 'react-router';
 
 import App from './components/App';
 import SearchPage from './components/SearchPage';
+import ArtistDetails from './components/ArtistDetails';
 import NotFoundPage from './components/NotFoundPage.js';
 
 
@@ -13,6 +14,7 @@ const repositoryName = 'True-Tune';
 export default (
     <Route path={`/(${repositoryName})`} component={App}>
         <IndexRoute component={SearchPage}/>
+        <Route path="/artist/:artistName" component={ArtistDetails}/>
         <Route path="*" component={NotFoundPage}/>
     </Route>
 );
