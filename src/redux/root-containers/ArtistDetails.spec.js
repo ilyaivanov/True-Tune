@@ -1,7 +1,7 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
 import {ArtistDetails} from './ArtistDetails';
-import Portlet from './ItemPortlet';
+import Portlet from '../../components/ItemPortlet';
 import {createStore} from 'redux';
 
 

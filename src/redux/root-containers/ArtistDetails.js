@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
-import Portlet from './ItemPortlet';
-import {searchForAlbums} from './../actions/fuelSavingsActions';
+import Portlet from '../../components/ItemPortlet';
+import {searchForAlbums} from '../actions/fuelSavingsActions';
 
 export class ArtistDetails extends React.Component {
 
@@ -37,9 +37,8 @@ export class ArtistDetails extends React.Component {
                     {name}
                 </span>
                 </div>
-                {this.renderAlbums()}
                 <div className="sublime"/>
-
+                {this.renderAlbums()}
             </div>
         );
     }

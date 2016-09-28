@@ -1,6 +1,6 @@
 import createStore from './configureStore.prod';
-import state from './../reducers/initialState';
-import * as requestStub from './../utils/request';
+import state from '../reducers/initialState';
+import * as requestStub from './../../utils/request';
 
 
 //Builder pattern to be implemented

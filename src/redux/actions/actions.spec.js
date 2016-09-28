@@ -1,4 +1,4 @@
-import * as requestStub from './../utils/request';
+import * as requestStub from './../../utils/request';
 import {searchForAlbums} from './fuelSavingsActions';
 
 /* eslint-disable */

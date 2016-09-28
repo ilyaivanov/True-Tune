@@ -1,8 +1,8 @@
 import React from 'react';
 import {mount} from 'enzyme';
 import Full from './ArtistDetails';
-import Portlet from './ItemPortlet';
-import {createDefaultAppStoreWithAlbums, createDefaultAppStore} from './../store/storeBuilder';
+import Portlet from '../../components/ItemPortlet';
+import {createDefaultAppStoreWithAlbums, createDefaultAppStore} from '../store/storeBuilder';
 
 describe('Having two albums in a store', function () {
     it('should render a ArtistDetails with two portlets', function () {

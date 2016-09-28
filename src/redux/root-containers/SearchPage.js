@@ -3,7 +3,7 @@ import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import debounce from 'lodash/debounce';
 import * as actions from './../actions/fuelSavingsActions';
-import Portlet from './ItemPortlet';
+import Portlet from '../../components/ItemPortlet';
 
 class SearchPage extends React.Component {
 

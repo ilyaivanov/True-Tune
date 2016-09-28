@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import {findArtists, findAlbums} from './../services/lastfm';
+import {findArtists, findAlbums} from './../../services/lastfm';
 
 export function searchForArtists(text) {
     return dispatch =>
