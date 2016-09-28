@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import Portlet from './ItemPortlet';
-import {findAlbums} from './../services/lastfm';
+import {searchForAlbums} from './../actions/fuelSavingsActions';
 
 export class ArtistDetails extends React.Component {
 
@@ -11,8 +11,7 @@ export class ArtistDetails extends React.Component {
     }
 
     render() {
-        // let name = this.props.params.artistName;
-        console.log(this.props.albums)
+        let name = this.props.params.artistName;
         return (
             <div>
                 <div className="artist-header">
@@ -46,8 +45,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        findAlbums: text => {}
-        // findAlbums: text => dispatch(actions.searchForArtists(text))
+        findAlbums: text => dispatch(searchForAlbums(text))
     };
 }
 export default connect(

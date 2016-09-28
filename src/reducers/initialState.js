@@ -1,5 +1,6 @@
 export default {
     app: {
-        artists: []
+        artists: [],
+        albums: [],
     }
 };

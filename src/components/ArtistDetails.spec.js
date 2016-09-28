@@ -34,7 +34,7 @@ var createNode = function (artistFind = () => {}) {
 };
 
 
-import {createDefaultAppStoreWithAlbums} from './../store/storeBuilder';
+import {createDefaultAppStoreWithAlbums, createDefaultAppStore} from './../store/storeBuilder';
 
 //Integration tests
 describe('Having two albums in a store', function () {
@@ -43,5 +43,20 @@ describe('Having two albums in a store', function () {
         let params = {artistName:'Carbon Based Lifeforms'};
         let node = mount(<Full store={store} params={params}/>);
         expect(node.find(Portlet).length).toBe(2);
+    });
+});
+
+
+describe('Mounting an ArtistDetails without albums', function () {
+    it('should dispatch an search albums action', function () {
+        let store = createDefaultAppStore();
+        var artistName = 'Carbon Based Lifeforms';
+        let params = {artistName};
+
+        store.dispatch = jasmine.createSpy('findAlbums');
+
+        mount(<Full store={store} params={params}/>);
+
+        expect(store.dispatch).toHaveBeenCalled();
     });
 });
