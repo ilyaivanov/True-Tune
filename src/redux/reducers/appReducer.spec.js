@@ -4,7 +4,7 @@ import {SEARCH_ARTISTS_DONE} from './../constants/actionTypes';
 
 describe('Having an initial state', function () {
     it('when artists search is done then should be assinged to a state', function () {
-        var receivedState = reducer(initialState, {
+        let receivedState = reducer(initialState, {
             type: SEARCH_ARTISTS_DONE,
             artists: [{name: 'artist1'}, {name: 'artist2'}]
         });

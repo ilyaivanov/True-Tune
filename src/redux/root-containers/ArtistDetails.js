@@ -1,48 +1,30 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {Link} from 'react-router';
-import Portlet from '../../components/ItemPortlet';
 import {searchForAlbums} from '../actions/fuelSavingsActions';
+import ArtistsDetailsComponent from './../../components/ArtistDetails';
 
-export class ArtistDetails extends React.Component {
+class ArtistDetails extends React.Component {
 
     componentWillMount() {
         this.props.findAlbums(this.props.params.artistName);
         this.props.findArtist(this.props.params.artistName);
     }
 
-    renderAlbums() {
-        if (this.props.albums)
-            return <div className="artist-albums-container grid-container">
-                {this.props.albums.map(album => <Portlet key={album.id}
-                                                         item={album}
-                                                         link={`/artist/${this.props.params.artistName}/${album.name}`}/>)}
-            </div>;
-    }
-
     render() {
-        let name = this.props.params.artistName;
-
-        return (
-            <div>
-                <div className="artist-header">
-                    <div className="left-buttons">
-                        {/*<i className="fa fa-chevron-circle-left" aria-hidden="true"/>*/}
-                    </div>
-                    <div className="right-buttons">
-                        <Link to="/"><i className="fa fa-search" aria-hidden="true"/></Link>
-                    </div>
-                    {/*<img src={image} alt={name}/>*/}
-                    <span className="artist-title">
-                    {name}
-                </span>
-                </div>
-                <div className="sublime"/>
-                {this.renderAlbums()}
-            </div>
-        );
+        return (<ArtistsDetailsComponent albums={this.props.albums}
+                                         name={this.props.params.artistName}/>);
     }
 }
+
+
+ArtistDetails.propTypes = {
+    albums: PropTypes.array.isRequired,
+    params: PropTypes.object.isRequired,
+    findAlbums: PropTypes.func.isRequired,
+    findArtist: PropTypes.func.isRequired
+};
+
+
 function mapStateToProps(state) {
     return {
         albums: state.app.albums
@@ -52,7 +34,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         findAlbums: text => dispatch(searchForAlbums(text)),
-        findArtist: text => {
+        findArtist: () => {
         } //dispatch(searchForAlbums(text))
     };
 }

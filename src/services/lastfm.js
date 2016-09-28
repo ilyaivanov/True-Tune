@@ -69,13 +69,13 @@ function mapInfo(info) {
 }
 
 function removeInvalidData(items, setName, options = {}) {
-    var itemsWithId = items.filter(a => a.id);
+    let itemsWithId = items.filter(a => a.id);
 
     if (itemsWithId.length < items.length) {
         console.log(`ignoring ${items.length - itemsWithId.length} ${setName} without id`);
     }
 
-    var itemsWithImage = itemsWithId;
+    let itemsWithImage = itemsWithId;
 
     if (!options.keepItemsWithoutImage) {
         itemsWithImage = itemsWithId.filter(a => a.image);
@@ -85,11 +85,11 @@ function removeInvalidData(items, setName, options = {}) {
     }
 
 
-    var duplicated = getDuplicated(itemsWithImage, 'id');
+    let duplicated = getDuplicated(itemsWithImage, 'id');
     if (duplicated) {
         console.log(`Found duplicated ${setName}\r\n` + duplicated);
         console.log('Taking the first artist by id');
-        itemsWithImage = filterOutDuplicatedBy(itemsWithImage, 'id')
+        itemsWithImage = filterOutDuplicatedBy(itemsWithImage, 'id');
     }
     return itemsWithImage;
 }
@@ -112,67 +112,4 @@ function filterOutDuplicatedBy(items, propertyName) {
         .toPairs()
         .map(pair => pair[1][0])
         .value();
-}
-
-export function findArtistsMock(term) {
-    return new Promise(function (resolve) {
-        setTimeout(() => resolve([
-            {
-                name: `Foo (${term})`,
-                id: 1,
-                image: 'https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png'
-            },
-            {
-                name: `Bar (${term})`,
-                id: 2,
-                image: 'https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png'
-            },
-            {
-                name: `Buz (${term})`,
-                id: 3,
-                image: 'https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png'
-            },
-        ]), 1000);
-    });
-}
-
-export function findAlbumsMock(artistName) {
-    return new Promise(function (resolve) {
-        resolve([
-            {
-                name: `Album 1 (${artistName})`,
-                id: 1,
-                image: `https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png`
-            },
-            {
-                name: `Album 2 (${artistName})`,
-                id: 2,
-                image: `https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png`
-            },
-            {
-                name: `Album 3 (${artistName})`,
-                id: 3,
-                image: `https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png`
-            },
-            {
-                name: `Album 4 (${artistName})`,
-                id: 4,
-                image: `https://lastfm-img2.akamaized.net/i/u/174s/e3b0f8abab8242d8a9f499736d59e726.png`
-            }
-        ]);
-    });
-}
-
-
-export function findTracksMock(artistName, albumName) {
-    console.log(`last.fm albums request for ${artistName}`);
-
-    return new Promise(function (resolve) {
-        resolve([
-            {name: `Dreamimg (${artistName})`, duration: 1091, id: 1},
-            {name: `Inspire (${artistName})`, duration: 1331, id: 2},
-            {name: `Whoka (${artistName})`, duration: 1291, id: 3},
-            {name: `Gogo  (${artistName})`, duration: 1391, id: 4},
-        ]);
-    });
 }

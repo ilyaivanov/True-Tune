@@ -5,14 +5,13 @@ export default class App extends React.Component {
         return (
             <div>
                 <main className="page-content">
-                    <nav className="content-navigation">
-                    </nav>
+                    <nav className="content-navigation" />
+
                     <article className="content-article">
                         {this.props.children}
                     </article>
-                    <aside className="content-sidebar">
-                        {/*{player}*/}
-                    </aside>
+                    <aside className="content-sidebar" />
+
                 </main>
             </div>
         );

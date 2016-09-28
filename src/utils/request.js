@@ -1,6 +1,6 @@
 export function requestGet(url, options = {}) {
     return new Promise(function (resolve, reject) {
-        var xhr = createRequest();
+        let xhr = createRequest();
         xhr.open('GET', url + '?' + stringifyOptions(options));
         xhr.onload = function () {
             if (this.status >= 200 && this.status < 300) {
@@ -23,7 +23,7 @@ export function requestGet(url, options = {}) {
 }
 
 export function stringifyOptions(options) {
-    var res = [];
+    let res = [];
 
     for (let key of Object.keys(options)) {
         res.push(key + '=' + options[key]);
