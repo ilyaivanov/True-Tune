@@ -2,6 +2,8 @@ import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import debounce from 'lodash/debounce';
+import * as actions from './../actions/fuelSavingsActions';
+import Portlet from './ItemPortlet';
 
 class SearchPage extends React.Component {
 
@@ -16,11 +18,12 @@ class SearchPage extends React.Component {
     }
 
     onTextChangedDebounced(text) {
-        console.log(text);
+        this.props.setSearchText(text);
     }
 
     render() {
-        let {searchTerm} = this.props;
+        let {searchTerm, artists} = this.props;
+        artists = artists || [];
         return (
             <div>
                 <div className="search-area">
@@ -29,7 +32,9 @@ class SearchPage extends React.Component {
                            type="text"
                            defaultValue={searchTerm}
                            onChange={this.onTextChanged}/>
-
+                </div>
+                <div className="results-container grid-container">
+                    {artists.map(artist => <Portlet key={artist.id} item={artist} link={`/artist/${artist.name}`} />)}
                 </div>
             </div>
         );
@@ -37,11 +42,16 @@ class SearchPage extends React.Component {
 }
 function mapStateToProps(state) {
     return {
-        searchTerm: state.app.fooBar
+        artists: state.app.artists
     };
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        setSearchText: text => dispatch(actions.searchForArtists(text))
+    };
+}
 export default connect(
     mapStateToProps,
-    () => ({})
+    mapDispatchToProps
 )(SearchPage);

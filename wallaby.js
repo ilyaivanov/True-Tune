@@ -44,7 +44,9 @@ module.exports = function (wallaby) {
         setup: function () {
             window.__moduleBundler.loadTests();
         },
-
+        env: {
+            kind: 'electron'
+        },
         filesWithNoCoverageCalculated: ['src/index.js', 'src/webpack-public-path.js'],
 
         testFramework: "jasmine"
