@@ -8,10 +8,21 @@ export class ArtistDetails extends React.Component {
 
     componentWillMount() {
         this.props.findAlbums(this.props.params.artistName);
+        this.props.findArtist(this.props.params.artistName);
+    }
+
+    renderAlbums() {
+        if (this.props.albums)
+            return <div className="artist-albums-container grid-container">
+                {this.props.albums.map(album => <Portlet key={album.id}
+                                                         item={album}
+                                                         link={`/artist/${this.props.params.artistName}/${album.name}`}/>)}
+            </div>;
     }
 
     render() {
         let name = this.props.params.artistName;
+
         return (
             <div>
                 <div className="artist-header">
@@ -26,13 +37,9 @@ export class ArtistDetails extends React.Component {
                     {name}
                 </span>
                 </div>
-
+                {this.renderAlbums()}
                 <div className="sublime"/>
-                <div className="artist-albums-container grid-container">
-                    {this.props.albums.map(album => <Portlet key={album.id}
-                                                             item={album}
-                                                             link={`/artist/${this.props.params.artistName}/${album.name}`}/>)}
-                </div>
+
             </div>
         );
     }
@@ -45,7 +52,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        findAlbums: text => dispatch(searchForAlbums(text))
+        findAlbums: text => dispatch(searchForAlbums(text)),
+        findArtist: text => {
+        } //dispatch(searchForAlbums(text))
     };
 }
 export default connect(
