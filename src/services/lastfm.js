@@ -39,7 +39,7 @@ function mapItem(item) {
     return {
         name: item.name,
         id: item.mbid,
-        image: item.image[2]['#text'] //large image, use filter, write unit tests
+        image: getImage(item.image)
     };
 }
 function mapAlbumInfo(albumInfo) {
@@ -47,8 +47,12 @@ function mapAlbumInfo(albumInfo) {
         tracks: albumInfo.tracks.track.map(mapTrack),
         name: albumInfo.name,
         artistName: albumInfo.artist,
-        image: albumInfo.image[2]['#text']
+        image: getImage(albumInfo.image)
     };
+}
+function getImage(images = []){
+    let large = images.filter(i => i.size == "large");
+    return large.length > 0 ? large[0]["#text"] : null;
 }
 
 function mapTrack(track) {

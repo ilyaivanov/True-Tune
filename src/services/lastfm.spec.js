@@ -1,8 +1,8 @@
 import * as requestStub from './../utils/request';
 import {findArtists} from './lastfm';
 
-describe('Mapping a url from a string a object of options', function () {
-    it('should give a full url with properties as names and values as url values', function (done) {
+describe('Having a sample lastfm response for artist.search', function () {
+    it('service should return a mapped array with large images', function (done) {
         /* eslint-disable */
         requestStub.requestGet = () => resolvedPromiseWith(lastfmSimplifiedResponse);
         /* eslint-enable */
@@ -20,6 +20,17 @@ describe('Mapping a url from a string a object of options', function () {
                             name: 'DM Ashura',
                             mbid: '3',
                             image: sampleImages()
+                        },
+                        {
+                            name: 'This is ignored because of no images'
+                        },
+                        {
+                            name: 'This is ignored because of empty images',
+                            image: []
+                        },
+                        {
+                            name: 'This is ignored because of only small images',
+                            image: [{}, {}]
                         }
                     ]
                 }
@@ -33,7 +44,7 @@ describe('Mapping a url from a string a object of options', function () {
 
         findArtists('carbon')
             .then(artists => expect(artists).toEqual(expectedArtists))
-            .then(() => done());
+            .then(() => done(), failAndDone(done));
     });
 });
 
@@ -50,4 +61,11 @@ function sampleImages() {
 
 function resolvedPromiseWith(data) {
     return new Promise(resolve => resolve(data));
+}
+
+function failAndDone(done) {
+    return error => {
+        fail(error);
+        done();
+    };
 }
