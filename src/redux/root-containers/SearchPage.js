@@ -3,10 +3,12 @@ import {connect} from 'react-redux';
 import SearchPageComponent from './../../components/SearchPage';
 import * as actions from './../actions/fuelSavingsActions';
 
-let SearchPage = props =>
-    <SearchPageComponent onSearch={props.setSearchText}
-                         artists={props.artists || []}/>;
-
+class SearchPage extends React.Component {
+    render() {
+        return <SearchPageComponent onSearch={this.props.setSearchText}
+                                    artists={this.props.artists || []}/>;
+    }
+}
 
 SearchPage.propTypes = {
     artists: PropTypes.array.isRequired,

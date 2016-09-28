@@ -24,6 +24,6 @@ export default function SearchPage(props) {
 
 SearchPage.propTypes = {
     artists: PropTypes.array.isRequired,
-    searchTerm: PropTypes.string.isRequired,
+    searchTerm: PropTypes.string,
     onSearch: PropTypes.func.isRequired
 };
