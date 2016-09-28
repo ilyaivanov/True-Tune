@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 let api_key = '185032d80f1827034396b9acfab5a79f';
 let format = 'json';
-let url = `http://ws.audioscrobbler.com/2.0`;
+let url = `https://ws.audioscrobbler.com/2.0`;
 
 export function findArtists(term) {
     console.log(`last.fm search request for ${term}`);
