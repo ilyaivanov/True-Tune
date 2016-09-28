@@ -1,13 +1,17 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import {Route, IndexRoute} from 'react-router';
 
 import App from './components/App';
 import SearchPage from './components/SearchPage';
 import NotFoundPage from './components/NotFoundPage.js';
 
+
+//if a repository name is changed, you will need to change this literal
+const repositoryName = 'True-Tune';
+
 export default (
-  <Route path="/" component={App}>
-    <IndexRoute component={SearchPage}/>
-    <Route path="*" component={NotFoundPage}/>
-  </Route>
+    <Route path={`/(${repositoryName})`} component={App}>
+        <IndexRoute component={SearchPage}/>
+        <Route path="*" component={NotFoundPage}/>
+    </Route>
 );
