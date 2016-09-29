@@ -3,9 +3,9 @@ import Portlet from './ItemPortlet';
 import {Link} from 'react-router';
 
 export default function ArtistDetails(props) {
-    let {albums, name} = props;
+    let {albums, name, artist} = props;
     let albumsRendered;
-
+    artist = artist || {};
     if (props.albums) {
         albumsRendered = (<div className="artist-albums-container grid-container">
             {albums.map(album => <Portlet key={album.id}
@@ -22,7 +22,7 @@ export default function ArtistDetails(props) {
             <div className="right-buttons">
                 <Link to="/"><i className="fa fa-search" aria-hidden="true"/></Link>
             </div>
-            {/*<img src={image} alt={name}/>*/}
+            <img src={artist.image} alt={name}/>
             <span className="artist-title">
                 {name}
             </span>
@@ -34,5 +34,6 @@ export default function ArtistDetails(props) {
 
 ArtistDetails.propTypes = {
     albums: PropTypes.array.isRequired,
+    artist: PropTypes.object,
     name: PropTypes.string.isRequired
 };

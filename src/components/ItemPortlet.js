@@ -1,9 +1,10 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
-export default function ItemPortlet({item, link}) {
+export default function ItemPortlet({item, link, onClick}) {
+    onClick = onClick || (() => {});
     return (
-        <Link className="grid-item artist-info" to={link}>
+        <Link className="grid-item artist-info" to={link} onClick={onClick}>
             <div className="artist-image">
                 <img src={item.image} alt="Foo"/>
                 <div className="shadow"/>
@@ -18,5 +19,6 @@ export default function ItemPortlet({item, link}) {
 
 ItemPortlet.propTypes = {
     item: PropTypes.object.isRequired,
+    onClick: PropTypes.func,
     link: PropTypes.string.isRequired
 };

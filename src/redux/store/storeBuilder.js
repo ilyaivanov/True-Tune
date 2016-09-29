@@ -1,5 +1,5 @@
 import createStore from './configureStore.prod';
-import state from '../reducers/initialState';
+import {initialState} from '../reducers';
 import * as requestStub from './../../utils/request';
 
 
@@ -12,12 +12,12 @@ requestStub.requestGet = () => resolvedPromiseWith(lastfmSimplifiedResponse);
 /* eslint-enable */
 
 export function createDefaultAppStore(){
-    return createStore(state);
+    return createStore(initialState);
 }
 
 export function createDefaultAppStoreWithAlbums(albums){
-    state.app.albums = albums;
-    return createStore(state);
+    initialState.albums = albums;
+    return createStore(initialState);
 }
 
 function resolvedPromiseWith(data) {
