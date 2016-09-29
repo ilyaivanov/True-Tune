@@ -1,6 +1,6 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {searchForAlbums, searchForArtistInfo} from '../reducers';
+import {searchForAlbums, searchForArtistInfo, selectAlbum} from '../reducers';
 import ArtistsDetailsComponent from './../../components/ArtistDetails';
 
 class ArtistDetails extends React.Component {
@@ -14,6 +14,7 @@ class ArtistDetails extends React.Component {
 
     render() {
         return (<ArtistsDetailsComponent albums={this.props.albums}
+                                         onAlbumSelect={this.props.selectAlbum}
                                          artist={this.props.artist}
                                          name={this.props.params.artistName}/>);
     }
@@ -39,7 +40,9 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         findAlbums: text => dispatch(searchForAlbums(text)),
-        findArtist: text => dispatch(searchForArtistInfo(text))
+        findArtist: text => dispatch(searchForArtistInfo(text)),
+        selectAlbum: (arName, alName) => dispatch(selectAlbum(arName, alName))
+
     };
 }
 export default connect(

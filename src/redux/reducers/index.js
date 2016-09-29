@@ -1,11 +1,12 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 import objectAssign from 'object-assign';
-import {findArtists, findAlbums, findInfo} from './../../services/lastfm';
+import {findArtists, findAlbums, findInfo, findTracks} from './../../services/lastfm';
 
 export const SEARCH_ARTISTS_DONE = 'SEARCH_ARTISTS_DONE';
 export const SEARCH_ALBUMS_DONE = 'SEARCH_ALBUMS_DONE';
 export const SELECT_ARTIST = 'SELECT_ARTIST';
+export const SELECT_ALBUM = 'SELECT_ALBUM';
 
 export function searchForArtists(text) {
     return dispatch =>
@@ -34,6 +35,15 @@ export function searchForArtistInfo(artistName) {
             }));
 }
 
+export function selectAlbum(artistName, albumName) {
+    return dispatch =>
+        findTracks(artistName, albumName)
+            .then(albumInfo => dispatch({
+                type: SELECT_ALBUM,
+                albumInfo
+            }));
+}
+
 export function selectArtist(artist) {
     return {
         artist,
@@ -44,7 +54,7 @@ export function selectArtist(artist) {
 export let initialState = {
     app: {
         artists: [],
-        albums: [],
+        albums: []
     }
 };
 
@@ -52,6 +62,9 @@ function fuelSavingsReducer(state = initialState.app, action) {
     switch (action.type) {
         case SEARCH_ARTISTS_DONE:
             return objectAssign({}, state, {artists: action.artists});
+
+        case SELECT_ALBUM:
+            return objectAssign({}, state, {albumInfo: action.albumInfo});
 
         case SELECT_ARTIST:
             return objectAssign({}, state, {currentArtist: action.artist});

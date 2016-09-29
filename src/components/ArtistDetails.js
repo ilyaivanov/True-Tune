@@ -3,12 +3,13 @@ import Portlet from './ItemPortlet';
 import {Link} from 'react-router';
 
 export default function ArtistDetails(props) {
-    let {albums, name, artist} = props;
+    let {albums, name, artist, onAlbumSelect} = props;
     let albumsRendered;
     artist = artist || {};
     if (props.albums) {
         albumsRendered = (<div className="artist-albums-container grid-container">
             {albums.map(album => <Portlet key={album.id}
+                                          onClick={() => onAlbumSelect(name, album.name)}
                                           item={album}/>)}
         </div>);
     }
@@ -34,5 +35,6 @@ export default function ArtistDetails(props) {
 ArtistDetails.propTypes = {
     albums: PropTypes.array.isRequired,
     artist: PropTypes.object,
+    onAlbumSelect: PropTypes.func.isRequired,
     name: PropTypes.string.isRequired
 };

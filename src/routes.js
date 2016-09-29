@@ -1,7 +1,7 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 
-import App from './components/App';
+import App from './redux/root-containers/App';
 import SearchPage from './redux/root-containers/SearchPage';
 import ArtistDetails from './redux/root-containers/ArtistDetails';
 import NotFoundPage from './components/NotFoundPage.js';
