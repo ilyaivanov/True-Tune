@@ -2,9 +2,10 @@ import React, {PropTypes} from 'react';
 import {Link} from 'react-router';
 
 export default function ItemPortlet({item, link, onClick}) {
-    onClick = onClick || (() => {});
-    return (
-        <Link className="grid-item artist-info" to={link} onClick={onClick}>
+    onClick = onClick || (() => {
+        });
+    let child = (
+        <div>
             <div className="artist-image">
                 <img src={item.image} alt="Foo"/>
                 <div className="shadow"/>
@@ -14,11 +15,21 @@ export default function ItemPortlet({item, link, onClick}) {
                 </div>
             </div>
             <div className="artist-title">{item.name}</div>
+        </div>);
+    if (link) {
+        return (<Link className="grid-item artist-info" to={link} onClick={onClick}>
+            {child}
         </Link>);
+    }
+    else {
+        return (<div className="grid-item artist-info" onClick={onClick}>
+            {child}
+        </div>);
+    }
 }
 
 ItemPortlet.propTypes = {
     item: PropTypes.object.isRequired,
     onClick: PropTypes.func,
-    link: PropTypes.string.isRequired
+    link: PropTypes.string
 };

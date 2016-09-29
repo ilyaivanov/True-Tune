@@ -9,8 +9,7 @@ export default function ArtistDetails(props) {
     if (props.albums) {
         albumsRendered = (<div className="artist-albums-container grid-container">
             {albums.map(album => <Portlet key={album.id}
-                                          item={album}
-                                          link={`/artist/${name}/${album.name}`}/>)}
+                                          item={album}/>)}
         </div>);
     }
 
