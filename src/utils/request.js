@@ -2,6 +2,7 @@ export function requestGet(url, options = {}) {
     return new Promise(function (resolve, reject) {
         let xhr = createRequest();
         xhr.open('GET', url + '?' + stringifyOptions(options));
+
         xhr.onload = function () {
             if (this.status >= 200 && this.status < 300) {
                 resolve(JSON.parse(xhr.response));
@@ -12,6 +13,7 @@ export function requestGet(url, options = {}) {
                 });
             }
         };
+
         xhr.onerror = function () {
             reject({
                 status: this.status,

@@ -1,5 +1,7 @@
 import * as requestStub from './../utils/request';
 import {findArtists} from './lastfm';
+import {sampleImages} from './../utils/test/lastfm.response.samples';
+
 
 describe('Having a sample lastfm response for artist.search', function () {
     it('service should return a mapped array with large images', function (done) {
@@ -48,16 +50,6 @@ describe('Having a sample lastfm response for artist.search', function () {
     });
 });
 
-
-function sampleImages() {
-    return [
-        {"#text": "smallUrl", "size": "small"},
-        {"#text": "mediumUrl", "size": "medium"},
-        {"#text": "largeUrl", "size": "large"},
-        {"#text": "extralargeUrl", "size": "extralarge"},
-        {"#text": "megaUrl", "size": "mega"}
-    ];
-}
 
 function resolvedPromiseWith(data) {
     return new Promise(resolve => resolve(data));

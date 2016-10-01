@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import {searchForAlbums, searchForArtistInfo, selectAlbum} from '../reducers';
-import ArtistsDetailsComponent from './../../components/ArtistDetails';
+import {searchForAlbums, searchForArtistInfo, selectAlbum} from './../../state/reducers';
+import ArtistsDetailsComponent from '../ArtistDetails';
 
 class ArtistDetails extends React.Component {
 

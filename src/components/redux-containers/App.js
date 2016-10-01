@@ -1,18 +1,19 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import Player from './../../components/Player';
+import Player from '../Player';
 
 class App extends React.Component {
     render() {
         let player;
-        console.log(this.props.albumInfo)
         if(this.props.albumInfo){
             player = <Player albumInfo={this.props.albumInfo}/>
         }
         return (
             <div>
                 <main className="page-content">
-                    <nav className="content-navigation" />
+                    <nav className="content-navigation" >
+                        1233
+                    </nav>
 
                     <article className="content-article">
                         {this.props.children}

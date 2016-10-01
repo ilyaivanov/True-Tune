@@ -1,15 +1,11 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
-import SearchPageComponent from './../../components/SearchPage';
-import * as actions from './../reducers';
+import SearchPageComponent from '../SearchPage';
+import * as actions from './../../state/reducers';
 
-class SearchPage extends React.Component {
-    render() {
-        return <SearchPageComponent onSearch={this.props.setSearchText}
-                                    onArtistSelect={this.props.onArtistSelect}
-                                    artists={this.props.artists || []}/>;
-    }
-}
+let SearchPage = props => <SearchPageComponent onSearch={props.setSearchText}
+                                               onArtistSelect={props.onArtistSelect}
+                                               artists={props.artists || []}/>;
 
 SearchPage.propTypes = {
     artists: PropTypes.array.isRequired,

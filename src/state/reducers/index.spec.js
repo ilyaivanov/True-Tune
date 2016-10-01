@@ -1,5 +1,6 @@
-import configureStore from '../store/configureStore.prod';
-import * as redux from './index';
+//noinspection Eslint
+import configureStore from '../store/configureStore';
+import {selectArtist} from './actions';
 
 describe('having an initial state', function () {
     describe('when selecting an artist', function () {
@@ -11,7 +12,7 @@ describe('having an initial state', function () {
                 done();
             });
 
-            store.dispatch(redux.selectArtist({name: 'Asura'}));
+            store.dispatch(selectArtist({name: 'Asura'}));
 
         }, 50);
     });
