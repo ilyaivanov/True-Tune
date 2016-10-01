@@ -1,4 +1,4 @@
-import requestGet from './../utils/request';
+import {requestGet} from './../utils/request';
 
 export default function findYoutubeVideo(artistName, albumName) {
     var options = {

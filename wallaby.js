@@ -1,8 +1,10 @@
-var wallabyWebpack = require('wallaby-webpack');
+"use strict";
+
+let wallabyWebpack = require('wallaby-webpack');
 
 module.exports = function (wallaby) {
 
-    var webpackPostprocessor = wallabyWebpack({
+    let webpackPostprocessor = wallabyWebpack({
         // webpack options
         module: {
             loaders: [{
@@ -44,7 +46,9 @@ module.exports = function (wallaby) {
         setup: function () {
             window.__moduleBundler.loadTests();
         },
-
+        env: {
+            kind: 'electron'
+        },
         filesWithNoCoverageCalculated: ['src/index.js', 'src/webpack-public-path.js'],
 
         testFramework: "jasmine"

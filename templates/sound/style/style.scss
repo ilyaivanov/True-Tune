@@ -140,6 +140,8 @@ img {
     cursor: pointer;
     transition: color 0.3s ease,
     opacity 0.3s ease;
+    text-decoration: none;
+    color: black;
 
     img {
         border-radius: 5px;
@@ -275,6 +277,10 @@ i {
 i:hover {
     color: $theme-primary-color;
     cursor: pointer;
+}
+
+i:active{
+    color: darken($theme-primary-color, 10);
 }
 
 
