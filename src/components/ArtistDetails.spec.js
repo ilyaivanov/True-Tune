@@ -10,9 +10,6 @@ describe('When navigating to a artist page with 2 albums', function () {
         let portlets = node.find(Portlet);
 
         expect(portlets.length).toEqual(2);
-
-        expect(portlets.at(0).props().link).toEqual('/artist/Carbon Based Lifeforms/foo');
-        expect(portlets.at(1).props().link).toEqual('/artist/Carbon Based Lifeforms/bar');
     });
 });
 
