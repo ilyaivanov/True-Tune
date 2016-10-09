@@ -31,14 +31,17 @@
   "license": "MIT",
   "dependencies": {
     "font-awesome": "^4.6.3",
+    "jstree": "^3.3.2",
+    "jstree-bootstrap-theme": "git+https://github.com/orangehill/jstree-bootstrap-theme.git",
     "lodash": "4.16.2",
     "object-assign": "4.1.0",
     "react": "15.3.1",
-    "react-youtube": "^7.2.0",
     "react-dom": "15.3.1",
+    "react-jstree": "^1.0.0",
     "react-redux": "4.4.5",
     "react-router": "2.7.0",
     "react-router-redux": "4.0.5",
+    "react-youtube": "^7.2.0",
     "redux": "3.5.2",
     "redux-thunk": "2.1.0"
   },

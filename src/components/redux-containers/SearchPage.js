@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import SearchPageComponent from '../SearchPage';
-import * as actions from './../../state/reducers';
+import * as actions from './../../state/reducers/actions';
 
 let SearchPage = props => <SearchPageComponent onSearch={props.setSearchText}
                                                onArtistSelect={props.onArtistSelect}

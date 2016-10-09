@@ -1,6 +1,8 @@
 import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import Player from '../Player';
+import Playlist from './../Playlist/Playlist';
+
 
 class App extends React.Component {
     render() {
@@ -12,7 +14,7 @@ class App extends React.Component {
             <div>
                 <main className="page-content">
                     <nav className="content-navigation" >
-                        1233
+                        <Playlist/>
                     </nav>
 
                     <article className="content-article">
