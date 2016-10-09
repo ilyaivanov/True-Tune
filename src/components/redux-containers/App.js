@@ -5,16 +5,19 @@ import Playlist from './../Playlist/Playlist';
 
 
 class App extends React.Component {
+
     render() {
         let player;
         if(this.props.albumInfo){
             player = <Player albumInfo={this.props.albumInfo}/>
         }
+
         return (
             <div>
                 <main className="page-content">
                     <nav className="content-navigation" >
-                        <Playlist/>
+                        <Playlist playlists={this.props.playlist.items}/>
+                        <button>Create</button>
                     </nav>
 
                     <article className="content-article">
@@ -38,10 +41,12 @@ App.propTypes = {
 
 function mapStateToProps(state) {
     return {
-        albumInfo: state.app.albumInfo
+        albumInfo: state.app.albumInfo,
+        playlist: state.playlist
     };
 }
 
 export default connect(
     mapStateToProps
 )(App);
+
