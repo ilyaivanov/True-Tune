@@ -43,3 +43,9 @@ export function selectArtist(artist) {
         type: constants.SELECT_ARTIST
     };
 }
+
+export function createPlaylist(){
+    return {
+        type: constants.CREATE_PLAYLIST
+    };
+}

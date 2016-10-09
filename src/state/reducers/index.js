@@ -1,11 +1,7 @@
 import {combineReducers} from 'redux';
 import {routerReducer} from 'react-router-redux';
 import objectAssign from 'object-assign';
-
-export const SEARCH_ARTISTS_DONE = 'SEARCH_ARTISTS_DONE';
-export const SEARCH_ALBUMS_DONE = 'SEARCH_ALBUMS_DONE';
-export const SELECT_ARTIST = 'SELECT_ARTIST';
-export const SELECT_ALBUM = 'SELECT_ALBUM';
+import * as constants from './constants';
 
 export let initialState = {
     app: {
@@ -13,7 +9,7 @@ export let initialState = {
         albums: []
     },
     playlist: {
-        items:[
+        items: [
             playlist('Ambient', [
                 artist('Asura', albums1()),
                 artist('Asura', albums1())
@@ -32,23 +28,28 @@ export let initialState = {
 
 function fuelSavingsReducer(state = initialState.app, action) {
     switch (action.type) {
-        case SEARCH_ARTISTS_DONE:
+        case constants.SEARCH_ARTISTS_DONE:
             return objectAssign({}, state, {artists: action.artists});
 
-        case SELECT_ALBUM:
+        case constants.SELECT_ALBUM:
             return objectAssign({}, state, {albumInfo: action.albumInfo});
 
-        case SELECT_ARTIST:
+        case constants.SELECT_ARTIST:
             return objectAssign({}, state, {currentArtist: action.artist});
 
-        case SEARCH_ALBUMS_DONE:
+        case constants.SEARCH_ALBUMS_DONE:
             return objectAssign({}, state, {albums: action.albums});
         default:
             return state;
     }
 }
 
-function playlistReducer(state = initialState.playlist, action){
+function playlistReducer(state = initialState.playlist, action) {
+    switch (action.type) {
+        case constants.CREATE_PLAYLIST:
+            return objectAssign({}, {items: state.items.concat(playlist('New'))});
+    }
+
     return state;
 }
 
@@ -59,8 +60,6 @@ const rootReducer = combineReducers({
 });
 
 export default rootReducer;
-
-
 
 
 function albums1() {

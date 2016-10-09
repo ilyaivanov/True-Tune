@@ -9,6 +9,11 @@ export default class Playlist extends React.Component {
         init($(this._tree), this.props.playlists);
     }
 
+    componentWillUpdate(newProps) {
+        $(this._tree).jstree('destroy');
+        init($(this._tree), newProps.playlists);
+    }
+
     render() {
         return (<div ref={(c) => this._tree = c}></div>);
     }
