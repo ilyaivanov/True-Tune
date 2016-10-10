@@ -10,18 +10,7 @@ export let initialState = {
     },
     playlist: {
         items: [
-            playlist('Ambient', [
-                artist('Asura', albums1()),
-                artist('Asura', albums1())
-            ]),
-            playlist('Psycho', [
-                artist('Asura', albums1()),
-                artist('Asura', albums1())
-            ]),
-            playlist('Dark Ambient', [
-                artist('Asura', albums1()),
-                artist('Asura', albums1())
-            ]),
+            playlist('Favorites')
         ]
     }
 };
@@ -46,8 +35,9 @@ function fuelSavingsReducer(state = initialState.app, action) {
 
 function playlistReducer(state = initialState.playlist, action) {
     switch (action.type) {
-        case constants.CREATE_PLAYLIST:
-            return objectAssign({}, {items: state.items.concat(playlist('New'))});
+        case constants.ADD_TO_FAVORITES: {
+            return objectAssign({}, {items: state.items.concat(artist(action.item.name))});
+        }
     }
 
     return state;
@@ -62,46 +52,16 @@ const rootReducer = combineReducers({
 export default rootReducer;
 
 
-function albums1() {
-    return [
-        album('Hydroponic Garden', [
-            track('Track 1'),
-            track('Track 2'),
-            track('Track 3'),
-            track('Track 4'),
-            track('Track 5'),
-            track('Track 6'),
-            track('Track 7'),
-        ]),
-        album('World Of Sleepers', [
-            track('Track 1'),
-            track('Track 2'),
-            track('Track 3'),
-            track('Track 4'),
-            track('Track 5'),
-            track('Track 6'),
-            track('Track 7'),
-        ]),
-        album('Interloper'),
-        album('The Path')
-    ];
-}
-//icon: 'https://dl.dropboxusercontent.com/u/74942979/1476025048_cd.png'
 function playlist(name, children) {
     return entity(name, children, 'https://dl.dropboxusercontent.com/u/74942979/1476025295_playlist.png');
 }
-
 
 function artist(name, children) {
     return entity(name, children, 'http://www.iconsdownload.net/icons/24/10341-artist-music-player-representation.png');
 }
 
 function album(name, children) {
-    return {
-        text: name,
-        children: children,
-        icon: 'https://dl.dropboxusercontent.com/u/74942979/1476025048_cd.png'
-    };
+    return entity(name, children, 'https://dl.dropboxusercontent.com/u/74942979/1476025048_cd.png');
 }
 
 function track(name, children) {

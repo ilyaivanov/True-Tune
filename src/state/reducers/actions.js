@@ -49,3 +49,9 @@ export function createPlaylist(){
         type: constants.CREATE_PLAYLIST
     };
 }
+export function addToFavorites(item){
+    return {
+        item,
+        type: constants.ADD_TO_FAVORITES,
+    };
+}

@@ -8,6 +8,7 @@ export default function SearchPage(props) {
         props.onSearch(text);
     }, 500);
 
+
     return (<div>
         <div className="search-area">
             <h2>Search for an artist</h2>
@@ -19,6 +20,7 @@ export default function SearchPage(props) {
         <div className="results-container grid-container">
             {props.artists.map(artist => <Portlet key={artist.id}
                                                   onClick={() => props.onArtistSelect(artist)}
+                                                  addToFavorites={props.addToFavorites}
                                                   item={artist}
                                                   link={`/artist/${artist.name}`}/>)}
         </div>
@@ -28,6 +30,7 @@ export default function SearchPage(props) {
 SearchPage.propTypes = {
     artists: PropTypes.array.isRequired,
     onArtistSelect: PropTypes.func.isRequired,
+    addToFavorites: PropTypes.func.isRequired,
     searchTerm: PropTypes.string,
     onSearch: PropTypes.func.isRequired
 };

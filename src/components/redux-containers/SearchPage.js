@@ -5,6 +5,7 @@ import * as actions from './../../state/reducers/actions';
 
 let SearchPage = props => <SearchPageComponent onSearch={props.setSearchText}
                                                onArtistSelect={props.onArtistSelect}
+                                               addToFavorites={props.addToFavorites}
                                                artists={props.artists || []}/>;
 
 SearchPage.propTypes = {
@@ -22,7 +23,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         setSearchText: text => dispatch(actions.searchForArtists(text)),
-        onArtistSelect: ar => dispatch(actions.selectArtist(ar))
+        onArtistSelect: ar => dispatch(actions.selectArtist(ar)),
+        addToFavorites: ar => dispatch(actions.addToFavorites(ar)),
     };
 }
 export default connect(
