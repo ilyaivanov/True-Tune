@@ -32,7 +32,12 @@ function init(root, playlists) {
             data: playlists
         },
         plugins: [
-            "dnd"
+            // "dnd"
         ]
+    }).on('changed.jstree', function (e, data) {
+        if (data.selected && data.selected.length > 0) {
+            let firstSelectedArtistName = data.instance.get_node(data.selected[0]).text;
+            console.log(firstSelectedArtistName);
+        }
     });
 }
