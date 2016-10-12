@@ -2,11 +2,13 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
 import search from './../search/reducer';
 import favorites from './../favotires/reducer';
+import artistDetails from './../artist-details/reducer';
 import {routerReducer} from 'react-router-redux';
 
 const rootReducer = combineReducers({
     favorites,
     search,
+    artistDetails,
     routing: routerReducer
 });
 

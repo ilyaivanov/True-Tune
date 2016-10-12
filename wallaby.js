@@ -27,18 +27,18 @@ module.exports = function (wallaby) {
 
     return {
         files: [
-            {pattern: 'node_modules/react/dist/react-with-addons.js', instrument: false},
-            {pattern: 'node_modules/babel-polyfill/dist/polyfill.js', instrument: false},
-            {pattern: '!src/**/*.spec.js*', load: false},
-            {pattern: 'src/**/*.js*', load: false}
+            { pattern: 'node_modules/react/dist/react-with-addons.js', instrument: false },
+            { pattern: 'node_modules/babel-polyfill/dist/polyfill.js', instrument: false },
+            { pattern: '!src/**/*.spec.js*', load: false },
+            { pattern: 'src/**/*.js*', load: false }
         ],
 
         tests: [
-            {pattern: 'src/**/*.spec.js*', load: false}
+            { pattern: 'src/**/*.spec.js*', load: false }
         ],
 
         compilers: {
-            '**/*.js*': wallaby.compilers.babel({presets: ['react', 'es2015']})
+            '**/*.js*': wallaby.compilers.babel({ presets: ['react', 'es2015', 'stage-0'] })
         },
 
         postprocessor: webpackPostprocessor,
