@@ -9,6 +9,6 @@ export default function ArtistLink({ artist, children }) {
 }
 ArtistLink.propTypes = {
     artist: T.object.isRequired,
-    children: T.object.isRequired,
+    children: T.object,
 };
 

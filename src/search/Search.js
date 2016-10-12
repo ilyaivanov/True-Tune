@@ -10,7 +10,7 @@ class Search extends React.Component {
         searchForArtists: PropTypes.func.isRequired,
         addToFavorites: PropTypes.func.isRequired,
         artists: PropTypes.array.isRequired,
-        isLoading: PropTypes.boolean.isRequired,
+        isLoading: PropTypes.bool,
     };
     render() {
         let triggerSearchChangeDebounced = debounce((text) => {
