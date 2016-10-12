@@ -11,7 +11,7 @@ describe('Artist details page', function () {
         store = createStore();
     });
 
-    xdescribe('when navigated from web (without prepopulated artist)', function () {
+    describe('when navigated from web (without prepopulated artist)', function () {
         let node;
         beforeEach(function () {
             service.findAlbums = () => Promise.resolve([{ name: 'myAlbum', id: '123' }]);// eslint-disable-line

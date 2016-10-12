@@ -11,9 +11,7 @@ class ArtistDetails extends React.Component {
     };
 
     componentWillMount() {
-        if (!this.props.albums) {
-            this.props.loadAlbums(this.props.params.artistName);
-        }
+        this.props.loadAlbums(this.props.params.artistName);
     }
 
     componentWillReceiveProps(newProps) {
