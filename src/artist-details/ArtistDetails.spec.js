@@ -15,6 +15,7 @@ describe('Artist details page', function () {
         let node;
         beforeEach(function () {
             service.findAlbums = () => Promise.resolve([{ name: 'myAlbum', id: '123' }]);// eslint-disable-line
+            service.findInfo = () => Promise.resolve({ name: 'Cell', url: 'my url' });// eslint-disable-line
         });
 
         it('should render artist name from route', function () {
@@ -44,7 +45,11 @@ describe('Artist details page', function () {
 
     describe('when rendered and props are being updated', function () {
         beforeEach(function () {
-            service.findAlbums = jasmine.createSpy('findAlbums').and.returnValue(Promise.resolve([{ name: 'myAlbum', id: '123' }]));// eslint-disable-line
+            service.findAlbums = jasmine.createSpy('findAlbums').and.returnValue(Promise.resolve([{
+                name: 'myAlbum',
+                id: '123'
+            }]));// eslint-disable-line
+            service.findInfo = () => Promise.resolve({ name: 'Cell', url: 'my url' });// eslint-disable-line
         });
 
         it('should trigger a service call for albums', function (done) {
@@ -59,15 +64,19 @@ describe('Artist details page', function () {
 
             function updateAndVerify() {
                 let spy;
-                service.findAlbums = spy = jasmine.createSpy('findAlbums').and.returnValue(Promise.resolve([{ name: 'myDifferentAlbum', id: '1234' }]));// eslint-disable-line
+                service.findAlbums = spy = jasmine.createSpy('findAlbums').and.returnValue(Promise.resolve([{
+                    name: 'myDifferentAlbum',
+                    id: '1234'
+                }]));// eslint-disable-line
+                service.findInfo = () => Promise.resolve({ name: 'Cell', image: 'my url' });// eslint-disable-line
 
                 node.setProps({ params: { artistName: 'new artist' } });
 
-                //ignore first sync dispatch for setting isLoading
                 store.subscribe(function () {
-                    expect(spy).toHaveBeenCalledWith('new artist');
-                    expect(node.find('li').text()).toEqual('myDifferentAlbum');
-                    done();
+                    if (node.find('li').text() == 'myDifferentAlbum') {
+                        expect(spy).toHaveBeenCalledWith('new artist');
+                        done();
+                    }
                 });
             }
 

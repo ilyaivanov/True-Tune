@@ -4,7 +4,7 @@ import { startSearchingArtists, fetchArtistsFromServiceAsync } from './actions';
 import debounce from 'lodash/debounce';
 import { add } from './../favotires/actions';
 import ArtistLink from './../components/ArtistLink';
-class Search extends React.Component {
+export class Search extends React.Component {
 
     static propTypes = {
         searchForArtists: PropTypes.func.isRequired,

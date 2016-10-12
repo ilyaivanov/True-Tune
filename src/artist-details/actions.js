@@ -1,6 +1,7 @@
-import { findAlbums } from './../services/lastfm';
+import { findAlbums, findInfo } from './../services/lastfm';
 export const ALBUMS_SEARCH_START = 'ALBUMS_SEARCH_START';
 export const ALBUMS_SEARCH_DONE = 'ALBUMS_SEARCH_DONE';
+export const ARTIST_INFO_SEARCH_DONE = 'ARTIST_INFO_SEARCH_DONE';
 
 export function startSearchingAlbums() {
     return {
@@ -13,5 +14,14 @@ export function fetchAlbumsFromServiceAsync(artistName) {
             albums,
             type: ALBUMS_SEARCH_DONE
         }));
+}
+
+export function fetchArtistInfoFromServiceAsync(artistName){
+    return dispatch => findInfo(artistName)
+        .then(artist => dispatch({
+            artist,
+            type: ARTIST_INFO_SEARCH_DONE
+        }));
+
 }
 
