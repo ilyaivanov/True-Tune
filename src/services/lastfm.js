@@ -8,7 +8,6 @@ let url = `https://ws.audioscrobbler.com/2.0`;
 export function findArtists(term) {
     console.log(`last.fm search request for ${term}`);
     let method = 'artist.search';
-
     return requestGet(url, {method, api_key, format, artist: term})
         .then(response => response.results.artistmatches.artist.map(mapItem))
         .then(artists => removeInvalidData(artists, 'artists'));

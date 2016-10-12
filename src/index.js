@@ -1,29 +1,20 @@
-/* eslint-disable import/default */
-
 import React from 'react';
 import { render } from 'react-dom';
+import App from './components/App'
 import { Provider } from 'react-redux';
-import { Router, browserHistory } from 'react-router';
-import routes from './routes';
-import configureStore from './state/store/configureStore';
-require('./favicon.ico'); // Tell webpack to load favicon.ico
-
+import { loadState, saveState } from './utils/localStorage';
 import throttle from 'lodash/throttle';
-import { syncHistoryWithStore } from 'react-router-redux';
-import './../node_modules/font-awesome/css/font-awesome.css';
-import './../templates/sound/style/style.scss';
-import { loadState, saveState } from './state/store/localStorage';
+import createStore from './store/create';
 
-const store = configureStore(loadState());
+let store = createStore(loadState());
 
-// Create an enhanced history that syncs navigation events with the store
-const history = syncHistoryWithStore(browserHistory, store);
-
-store.subscribe(throttle(() => {
-    saveState(store.getState());
+store.subscribe(throttle(function () {
+    let substateToSave = { favorites: store.getState().favorites };
+    saveState(substateToSave);
 }, 1000));
-render(
-    <Provider store={store}>
-        <Router history={history} routes={routes}/>
-    </Provider>, document.getElementById('app')
-);
+
+render(<Provider store={store}>
+    <App />
+</Provider>, document.getElementById('app'));
+
+
