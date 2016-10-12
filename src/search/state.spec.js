@@ -24,7 +24,7 @@ describe('Having an initial state', function () {
 
         describe('when response from service is successfull', function () {
             beforeEach(function () {
-                service.findArtists = (name) => Promise.resolve([{ name }]);
+                service.findArtists = (name) => Promise.resolve([{ name }]);// eslint-disable-line
             });
 
             it('a bunch of artists should be shown at search results', function (done) {

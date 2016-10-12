@@ -7,7 +7,7 @@ describe('When adding an item to a favorites', function () {
             expect(store.getState().favorites).toEqual([{ name: 'myFAvoriteArtist' }]);
             done();
         });
-        store.dispatch(add({ name: 'myFAvoriteArtist' }))
+        store.dispatch(add({ name: 'myFAvoriteArtist' }));
     }, 50);
 
 
@@ -20,7 +20,7 @@ describe('When adding an item to a favorites', function () {
                 expect(store.getState().favorites).toEqual([{ name: 'myFAvoriteArtist', id:'42' }]);
                 done();
             });
-            store.dispatch(add({ name: 'myFAvoriteArtist', id:'42' }))
+            store.dispatch(add({ name: 'myFAvoriteArtist', id: '42' }));
         }, 50);
     });
 });

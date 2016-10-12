@@ -3,9 +3,16 @@ import { connect } from 'react-redux';
 import { startSearchingArtists, fetchArtistsFromServiceAsync } from './actions';
 import debounce from 'lodash/debounce';
 import { add } from './../favotires/actions';
+import ArtistLink from './../components/ArtistLink';
 class Search extends React.Component {
+
+    static propTypes = {
+        searchForArtists: PropTypes.func.isRequired,
+        addToFavorites: PropTypes.func.isRequired,
+        artists: PropTypes.array.isRequired,
+        isLoading: PropTypes.boolean.isRequired,
+    };
     render() {
-        console.log(this.props)
         let triggerSearchChangeDebounced = debounce((text) => {
             this.props.searchForArtists(text);
         }, 500);
@@ -24,17 +31,14 @@ class Search extends React.Component {
             <br/>
             {loading}
             <ul>
-                {artists.map(ar => <li key={ar.id}><a href={ar.name}>{ar.name}</a>{' '}
+                {artists.map(ar => <li key={ar.id}><ArtistLink artist={ar}>
                     <button onClick={() => this.props.addToFavorites(ar)}>add</button>
+                </ArtistLink>
                 </li>)}
             </ul>
         </div>);
     }
 }
-
-Search.propTypes = {
-    searchForArtists: PropTypes.func.isRequired,
-};
 
 let mapStateToProps = (state) => ({
     artists: state.search.artists,

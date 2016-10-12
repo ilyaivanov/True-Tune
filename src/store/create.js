@@ -1,14 +1,16 @@
-import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
 import search from './../search/reducer';
 import favorites from './../favotires/reducer';
-
+import {routerReducer} from 'react-router-redux';
 
 const rootReducer = combineReducers({
     favorites,
-    search
+    search,
+    routing: routerReducer
 });
 
 export default function (initialState = undefined) {
-    return createStore(rootReducer, initialState, applyMiddleware(thunk));
+    let chromeExtension = window.devToolsExtension ? window.devToolsExtension() : f => f; // add support for Redux dev tools
+    return createStore(rootReducer, initialState, compose(applyMiddleware(thunk), chromeExtension));
 }
