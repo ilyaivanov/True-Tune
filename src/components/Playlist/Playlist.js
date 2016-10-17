@@ -1,8 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 import 'jstree';
-import './../../../node_modules/jstree-bootstrap-theme/dist/themes/proton/style.css';
-
+import './styles.css';
 export default class Playlist extends React.Component {
 
     componentDidMount() {
@@ -15,7 +14,65 @@ export default class Playlist extends React.Component {
     }
 
     render() {
-        return (<div ref={(c) => this._tree = c}></div>);
+        return (
+            <div>
+                <b>Playlists</b>
+                <ul className="tree">
+                    <li><a href="">+</a>Animals
+                        <ul>
+                            <li>Birds</li>
+                            <li>Mammals
+                                <ul>
+                                    <li>Elephant</li>
+                                    <li>Mouse</li>
+                                </ul>
+                            </li>
+                            <li>Reptiles</li>
+                        </ul>
+                    </li>
+                    <li>Plants
+                        <ul>
+                            <li>Flowers
+                                <ul>
+                                    <li>Rose</li>
+                                    <li>Tulip
+                                        <ul>
+                                            <li>List item 1</li>
+                                            <li>List item 2
+                                                <ul>
+                                                    <li>List item 2.1</li>
+                                                    <li>List item 2.2</li>
+                                                    <li>List item 2.3</li>
+                                                </ul>
+                                            </li>
+                                            <li>List item 3</li>
+                                            <li>List item 4</li>
+                                            <li>List item 5
+                                                <ul>
+                                                    <li>List item 5.1</li>
+                                                    <li>List item 5.2
+                                                        <ul>
+                                                            <li>List item 5.2.1</li>
+                                                            <li>List item 5.2.2</li>
+                                                            <li>List item 5.2.3</li>
+                                                            <li>List item 5.2.4</li>
+                                                        </ul>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>List item 6</li>
+                                            <li>List item 7</li>
+                                            <li>List item 8</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>Trees</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        );
     }
 
 }
