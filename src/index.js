@@ -14,7 +14,10 @@ import { syncHistoryWithStore } from 'react-router-redux';
 let store = createStore(loadState());
 
 store.subscribe(throttle(function () {
-    let substateToSave = { favorites: store.getState().favorites };
+    let substateToSave = {
+        favorites: store.getState().favorites,
+        ui: store.getState().ui,
+    };
     saveState(substateToSave);
 }, 1000));
 

@@ -3,12 +3,14 @@ import thunk from 'redux-thunk';
 import search from './../search/reducer';
 import favorites from './../favotires/reducer';
 import artistDetails from './../artist-details/reducer';
+import ui from './../components/ui.reducer';
 import {routerReducer} from 'react-router-redux';
 
 const rootReducer = combineReducers({
     favorites,
     search,
     artistDetails,
+    ui,
     routing: routerReducer
 });
 
