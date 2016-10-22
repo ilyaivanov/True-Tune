@@ -1,7 +1,7 @@
-import React, { PropTypes as T } from 'react';
-import { connect } from 'react-redux';
+import React, {PropTypes as T} from 'react';
+import {connect} from 'react-redux';
 import ArtistLink from './../components/ArtistLink';
-
+import {Link} from 'react-router';
 class Favorites extends React.Component {
 
     static propTypes = {
@@ -9,13 +9,17 @@ class Favorites extends React.Component {
     };
 
     render() {
-        return (<ul>
-            {this.props.favorites.map(f => <li key={f.id}><ArtistLink artist={f}/></li>)}
-        </ul>);
+        return (<div>
+            <b><Link to="/">Search...</Link></b><br/>
+            <b>Favorites:</b>
+            <ul>
+                {this.props.favorites.map(f => <li key={f.id}><ArtistLink artist={f}/></li>)}
+            </ul>
+        </div>);
     }
 }
 
-let mapStateToProps = state => ({ favorites: state.favorites });
+let mapStateToProps = state => ({favorites: state.favorites});
 
 function mapDispatchToProps(/*dispatch*/) {
     return {};

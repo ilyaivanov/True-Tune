@@ -28,10 +28,9 @@ class ArtistDetails extends React.Component {
         albums = albums || [];
         let info;
         if(artist){
-            info = <img src={artist.image} alt=""/>
+            info = <img src={artist.image} style={{maxWidth:200}}/>
         }
         return (<div>
-            <span><Link to="/">search</Link></span>
             <h1>{params.artistName}</h1>
             {info}
             <ul>
