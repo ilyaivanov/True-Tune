@@ -7,10 +7,16 @@ module.exports = function (wallaby) {
     let webpackPostprocessor = wallabyWebpack({
         // webpack options
         module: {
-            loaders: [{
-                test: /\.json$/,
-                loader: 'json-loader'
-            }]
+            loaders: [
+                {
+                    test: /\.json$/,
+                    loader: 'json-loader'
+                },
+                {
+                    test: /(\.css|\.scss)$/,
+                    loaders: ['style', 'css?sourceMap', 'postcss', 'resolve-url', 'sass?sourceMap']
+                }
+            ]
         },
         externals: {
             jsdom: 'window',
@@ -21,24 +27,24 @@ module.exports = function (wallaby) {
             'react/addons': true
         },
         resolve: {
-            extensions: ['', '.js', '.jsx']
+            extensions: ['', '.js', '.jsx', '.scss']
         }
     });
 
     return {
         files: [
-            { pattern: 'node_modules/react/dist/react-with-addons.js', instrument: false },
-            { pattern: 'node_modules/babel-polyfill/dist/polyfill.js', instrument: false },
-            { pattern: '!src/**/*.spec.js*', load: false },
-            { pattern: 'src/**/*.js*', load: false }
+            {pattern: 'node_modules/react/dist/react-with-addons.js', instrument: false},
+            {pattern: 'node_modules/babel-polyfill/dist/polyfill.js', instrument: false},
+            {pattern: '!src/**/*.spec.js*', load: false},
+            {pattern: 'src/**/*.js*', load: false}
         ],
 
         tests: [
-            { pattern: 'src/**/*.spec.js*', load: false }
+            {pattern: 'src/**/*.spec.js*', load: false}
         ],
 
         compilers: {
-            '**/*.js*': wallaby.compilers.babel({ "presets": ["latest", "react", "stage-1"] })
+            '**/*.js*': wallaby.compilers.babel({"presets": ["latest", "react", "stage-0"]})
         },
 
         postprocessor: webpackPostprocessor,
