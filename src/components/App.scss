@@ -1,5 +1,4 @@
-$navigation-width: 240px;
-$player-width: 340px;
+@import "../variables";
 
 body {
     margin: 0;
@@ -13,7 +12,7 @@ body {
 }
 
 .navigation,
-.player {
+.player-sidebar {
     min-height: 100vh;
     box-shadow: 0 0 38px -12px rgba(0, 0, 0, 0.75);
     width: $navigation-width;
@@ -23,7 +22,7 @@ body {
     width: $navigation-width;
 }
 
-.player {
+.player-sidebar {
     width: $player-width;
 }
 
