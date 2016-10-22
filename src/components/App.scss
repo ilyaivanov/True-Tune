@@ -1,0 +1,39 @@
+$navigation-width: 240px;
+$player-width: 340px;
+
+body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+    box-sizing: border-box;
+    font-size: 80%;
+}
+
+.page-content {
+    display: flex;
+}
+
+.navigation,
+.player {
+    min-height: 100vh;
+    box-shadow: 0 0 38px -12px rgba(0, 0, 0, 0.75);
+    width: $navigation-width;
+}
+
+.navigation {
+    width: $navigation-width;
+}
+
+.player {
+    width: $player-width;
+}
+
+.page {
+    flex: 2 2 12em;
+}
+
+img {
+    width: 100%;
+    display: block;
+    margin: 0;
+    padding: 0;
+}

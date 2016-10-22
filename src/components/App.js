@@ -1,26 +1,26 @@
 import React, {PropTypes as T} from 'react';
 import Favorites from '../favotires/Favorites';
+import './App.scss';
+
 export default class App extends React.Component {
 
     static propTypes = {
-        children : T.object.isRequired
-    }
+        children: T.object.isRequired
+    };
 
     render() {
-        return (<table>
-            <thead>
-            <tr>
-                <th>Page</th>
-                <th>Favorites</th>
-            </tr>
-            </thead>
-            <tbody>
+        return (<div>
+            <main className="page-content">
+                <nav className="navigation" >
+                    <Favorites/>
+                </nav>
 
-            <tr>
-                <td>{this.props.children}</td>
-                <td><Favorites /></td>
-            </tr>
-            </tbody>
-        </table>);
+                <article className="page">
+                    {this.props.children}
+                </article>
+                <aside className="player">
+                </aside>
+            </main>
+        </div>);
     }
 }
