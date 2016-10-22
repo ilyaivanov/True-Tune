@@ -14,7 +14,7 @@ module.exports = function (wallaby) {
                 },
                 {
                     test: /(\.css|\.scss)$/,
-                    loaders: ['style', 'css?sourceMap', 'postcss', 'resolve-url', 'sass?sourceMap']
+                    loaders: ['raw-loader', 'style', 'css?sourceMap', 'postcss', 'resolve-url', 'sass?sourceMap']
                 }
             ]
         },
@@ -35,8 +35,10 @@ module.exports = function (wallaby) {
         files: [
             {pattern: 'node_modules/react/dist/react-with-addons.js', instrument: false},
             {pattern: 'node_modules/babel-polyfill/dist/polyfill.js', instrument: false},
-            {pattern: '!src/**/*.spec.js*', load: false},
-            {pattern: 'src/**/*.js*', load: false}
+            {pattern: 'node_modules/font-awesome/css/font-awesome.css', instrument: false},
+            {pattern: 'src/**/*.spec.js*', ignore:true},
+            {pattern: 'src/**/*.js*', load: false},
+            {pattern: ('src/**/*.scss'), load: false},
         ],
 
         tests: [
