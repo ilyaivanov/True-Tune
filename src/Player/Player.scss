@@ -7,8 +7,11 @@
 
 }
 
+$play-item-padding: 15px;
+$selected-item-left-border-width: 2px;
+
 .player-item {
-    padding: 15px;
+    padding: $play-item-padding;
     position: relative;;
     box-sizing: border-box;
     font-size: larger;
@@ -24,7 +27,8 @@
     }
     &.active {
         background-color: lighten($theme-primary-color, 40);
-        border-left: 2px solid $theme-primary-color;
+        border-left: $selected-item-left-border-width solid $theme-primary-color;
+        padding-left: $play-item-padding - $selected-item-left-border-width;
     }
 }
 
@@ -58,4 +62,10 @@
     position: fixed;
     bottom: 15px;
     right: $player-width + 15px;
+}
+
+.index{
+    float: left;
+    min-width: 25px;
+    font-weight: bold;
 }
