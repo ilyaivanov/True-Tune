@@ -34,7 +34,6 @@ export class ArtistDetails extends React.Component {
         let {params, albums, artist} = this.props;
         albums = albums || [];
         artist = artist || {tags:[], similar:[]};
-        console.log(artist.similar)
         let info;
         if (artist) {
             info = <img src={artist.image} style={{maxWidth: 200}}/>
