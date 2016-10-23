@@ -1,19 +1,25 @@
-import React, { PropTypes as T } from 'react';
-import { Link } from 'react-router';
-import { connect } from 'react-redux';
-import { startSearchingAlbums, fetchArtistInfoFromServiceAsync, fetchAlbumsFromServiceAsync } from './actions';
+import React, {PropTypes as T} from 'react';
+import {connect} from 'react-redux';
+import {startSearchingAlbums,
+    startSearchingAlbum,
+    fetchArtistInfoFromServiceAsync,
+    fetchAlbumsFromServiceAsync,
+    fetchAlbumInfoFromServiceAsync,} from './actions';
 
-class ArtistDetails extends React.Component {
+export class ArtistDetails extends React.Component {
     static propTypes = {
         params: T.object.isRequired,
         artist: T.object,
         albums: T.array,
-        loadAlbums: T.func.isRequired
+        loadAlbums: T.func.isRequired,
+        loadArtistInfo: T.func.isRequired,
     };
 
     componentWillMount() {
-        this.props.loadAlbums(this.props.params.artistName);
-        this.props.loadArtistInfo(this.props.params.artistName);
+        let props = this.props;
+        let params = props.params;
+        props.loadAlbums(params.artistName);
+        props.loadArtistInfo(params.artistName);
     }
 
     componentWillReceiveProps(newProps) {
@@ -24,17 +30,19 @@ class ArtistDetails extends React.Component {
     }
 
     render() {
-        let { params, albums, artist } = this.props;
+        let {params, albums, artist} = this.props;
         albums = albums || [];
         let info;
-        if(artist){
-            info = <img src={artist.image} style={{maxWidth:200}}/>
+        if (artist) {
+            info = <img src={artist.image} style={{maxWidth: 200}}/>
         }
+        let selectAlbum = albumName => () => this.props.selectAlbum(params.artistName, albumName);
         return (<div>
             <h1>{params.artistName}</h1>
             {info}
             <ul>
-                {albums.map(album => <li key={album.id}>{album.name}</li>)}
+                {albums.map(album => <li key={album.id}><a href="JavaScript:;"
+                                                           onClick={selectAlbum(album.name)}>{album.name}</a></li>)}
             </ul>
         </div>);
     }
@@ -45,18 +53,22 @@ let mapStateToProps = state => {
     return {
         albums: state.artistDetails.albums,
         isLoading: state.artistDetails.isLoading,
-        artist: state.artistDetails.artist,
+        artist: state.artistDetails.artist
     };
 };
 
-function mapDispatchToProps(dispatch) {
+export function mapDispatchToProps(dispatch) {
     return {
         loadAlbums: (artistName) => {
             dispatch(startSearchingAlbums());
             dispatch(fetchAlbumsFromServiceAsync(artistName));
         },
-        loadArtistInfo:(artistName) => {
+        loadArtistInfo: (artistName) => {
             dispatch(fetchArtistInfoFromServiceAsync(artistName));
+        },
+        selectAlbum: (artistName, albumName) => {
+            dispatch(startSearchingAlbum());
+            dispatch(fetchAlbumInfoFromServiceAsync(artistName, albumName));
         }
     };
 }
