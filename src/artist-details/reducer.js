@@ -2,7 +2,7 @@ import { ALBUMS_SEARCH_DONE, ALBUMS_SEARCH_START, ARTIST_INFO_SEARCH_DONE } from
 let initialState = {};
 export default function (state = initialState, action) {
     if (action.type == ALBUMS_SEARCH_START) {
-        return Object.assign({}, state, { isLoading: true });
+        return Object.assign({}, state, { isLoading: true, albums:[], artist:{tags:[], similar:[]} });
     }
 
     if (action.type == ALBUMS_SEARCH_DONE) {
