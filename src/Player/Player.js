@@ -96,6 +96,9 @@ export default class Player extends React.Component {
     }
 
     render() {
+        if(!this.props.albumInfo){
+            return <div></div>;
+        }
         const opts = {
             height: '150',
             width: '220',

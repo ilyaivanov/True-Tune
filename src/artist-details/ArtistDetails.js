@@ -1,5 +1,6 @@
 import React, {PropTypes as T} from 'react';
 import {connect} from 'react-redux';
+import ArtistLink from './../components/ArtistLink';
 import {startSearchingAlbums,
     startSearchingAlbum,
     fetchArtistInfoFromServiceAsync,
@@ -32,6 +33,8 @@ export class ArtistDetails extends React.Component {
     render() {
         let {params, albums, artist} = this.props;
         albums = albums || [];
+        artist = artist || {tags:[], similar:[]};
+        console.log(artist.similar)
         let info;
         if (artist) {
             info = <img src={artist.image} style={{maxWidth: 200}}/>
@@ -44,6 +47,13 @@ export class ArtistDetails extends React.Component {
                 {albums.map(album => <li key={album.id}><a href="JavaScript:;"
                                                            onClick={selectAlbum(album.name)}>{album.name}</a></li>)}
             </ul>
+
+            <h3>Similar to {params.artistName}:</h3>
+            <ul>
+                {artist.similar.map(ar => <li key={ar.id}><ArtistLink artist={ar}/></li>)}
+            </ul>
+            <h3>Tags:</h3>
+            {artist.tags.join(', ')}
         </div>);
     }
 }

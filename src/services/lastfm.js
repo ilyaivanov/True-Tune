@@ -68,7 +68,12 @@ function mapInfo(info) {
         name: info.name,
         id: info.mbid,
         image: info.image[2]['#text'],
-        tags: info.tags.tag.map(tag => tag.name)
+        tags: info.tags.tag.map(tag => tag.name),
+        similar: info.similar.artist.map(similar => {
+            let item = mapItem(similar);
+            item.id = similar.url;
+            return item;
+        }),
     };
 }
 
