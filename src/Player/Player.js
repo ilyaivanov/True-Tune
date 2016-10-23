@@ -2,7 +2,7 @@ import React from 'react';
 import Youtube from 'react-youtube';
 
 import formatTime from './../utils/timeFormat';
-import classnames from 'classnames';
+import cx from 'classnames';
 import findYoutubeVideo from './../services/youtube';
 
 import './../../node_modules/font-awesome/css/font-awesome.css';
@@ -32,7 +32,7 @@ export default class Player extends React.Component {
     mapTrack(track, index) {
         return (
             <div key={track.id}
-                 className={classnames('player-item', {active: this.state.currentTrack.id == track.id})}
+                 className={cx('player-item', {active: this.state.currentTrack.id == track.id})}
                  onClick={() => this.playTrack(track)}>
                 <span className="index">{index + 1}.</span>{track.name}
                 <small>{formatTime(track.duration)}</small>
@@ -107,6 +107,7 @@ export default class Player extends React.Component {
             }
         };
         var currentDurationPercent = (this.state.currentTime / this.state.overallTime * 100) + '%';
+        let isYoutubeHidden = true;
         return (
             <div>
                 <img src={this.props.albumInfo.image}/>
@@ -136,7 +137,8 @@ export default class Player extends React.Component {
                     {this.props.albumInfo.tracks.map(this.mapTrack.bind(this))}
                 </div>
                 <div className="player-container">
-                    <Youtube videoId={this.state.currentVideo.id}
+                    <Youtube className={cx({hidden: isYoutubeHidden})}
+                             videoId={this.state.currentVideo.id}
                              opts={opts}
                              onReady={e => this.setPlayer(e.target)}
                              onPlay={this.onPlay.bind(this)}
