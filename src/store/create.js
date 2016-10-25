@@ -6,11 +6,14 @@ import favorites from './../favotires/reducer';
 import artistDetails from './../artist-details/reducer';
 import ui from './../components/ui.reducer';
 import player from './../player/reducer';
+import bottomPlayer from './../components/Player/reducer';
+
 const rootReducer = combineReducers({
     favorites,
     search,
     artistDetails,
     player,
+    bottomPlayer,
     ui,
     routing: routerReducer
 });

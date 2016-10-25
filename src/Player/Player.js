@@ -1,10 +1,6 @@
 import React from 'react';
-import Youtube from 'react-youtube';
-
 import formatTime from './../utils/timeFormat';
 import cx from 'classnames';
-import findYoutubeVideo from './../services/youtube';
-
 import './../../node_modules/font-awesome/css/font-awesome.css';
 import './Player.scss';
 export default class Player extends React.Component {
@@ -22,18 +18,11 @@ export default class Player extends React.Component {
         };
     }
 
-    playTrack(track) {
-        this.setState({currentTrack: track, currentTime: 0, overallTime: 0});
-        findYoutubeVideo(this.props.albumInfo.artistName, track.name)
-            .then(video => this.setState({currentVideo: video}),
-                error => this.setState({currentTrack: {}}));
-    }
-
     mapTrack(track, index) {
         return (
             <div key={track.id}
                  className={cx('player-item', {active: this.state.currentTrack.id == track.id})}
-                 onClick={() => this.playTrack(track)}>
+                 onClick={() => this.props.onTrackPlay(this.props.albumInfo.artistName, this.props.albumInfo.name, track)}>
                 <span className="track-index">{index + 1}.</span>{track.name}
                 <small>{formatTime(track.duration)}</small>
             </div>);
@@ -99,53 +88,19 @@ export default class Player extends React.Component {
         if(!this.props.albumInfo){
             return <div></div>;
         }
-        const opts = {
-            height: '150',
-            width: '220',
-            playerVars: { // https://developers.google.com/youtube/player_parameters
-                autoplay: 1
-            }
-        };
         var currentDurationPercent = (this.state.currentTime / this.state.overallTime * 100) + '%';
-        let isYoutubeHidden = true;
         return (
             <div>
                 <img src={this.props.albumInfo.image}/>
-                <div className="player">
-                    <div className="track-progress-container">
-                        <div className="track-progress" style={{width: currentDurationPercent || 0}}/>
-                    </div>
+                <div className="album-info">
                     <div style={{textAlign: 'center'}}>
-                        {this.state.currentTrack.name} <br />
-                        <small>{formatTime(this.state.currentTime)} - {formatTime(this.state.overallTime)}</small>
-                    </div>
-                    <div className="controls">
-                        <i className="fa fa-step-backward" aria-hidden="true" onClick={this.playPrevious.bind(this)}/>
-                        {this.state.currentIntervalId ?
-                            (<i className="fa fa-pause" aria-hidden="true" onClick={this.pause.bind(this)}/>) :
-                            (<i className="fa fa-play" aria-hidden="true" onClick={this.play.bind(this)}/>)
-                        }
-                        <i className="fa fa-step-forward" aria-hidden="true" onClick={this.playNext.bind(this)}/>
-                    </div>
-                    <div className="volume-meter">
-                        <i className="fa fa-volume-down" aria-hidden="true"/>
-                        <input type="range" min="0" max="100" value={this.state.volume} onChange={e => this.onVolumeChange(e.target.value)}/>
-                        <i className="fa fa-volume-up" aria-hidden="true"/>
+                        <b>{this.props.albumInfo.artistName}</b> <br />
+                        {this.props.albumInfo.name} <br />
                     </div>
                 </div>
                 <div className="player-list">
                     {this.props.albumInfo.tracks.map(this.mapTrack.bind(this))}
                 </div>
-                <div className="player-container">
-                    <Youtube className={cx({hidden: isYoutubeHidden})}
-                             videoId={this.state.currentVideo.id}
-                             opts={opts}
-                             onReady={e => this.setPlayer(e.target)}
-                             onPlay={this.onPlay.bind(this)}
-                             onEnd={this.onEnd.bind(this)}
-                             onPause={this.onPause.bind(this)}/>
-                </div>
-
             </div>);
     }
 

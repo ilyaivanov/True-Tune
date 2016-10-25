@@ -1,13 +1,13 @@
-import React, {PropTypes as T} from 'react';
+import React, { PropTypes as T } from 'react';
 import Favorites from '../favotires/Favorites';
 import './App.scss';
 import SidebarControls from './SidebarControls';
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 import cx from 'classnames';
 import Player from '../player/Player';
-import BottomPlayer from './Player';
-import {TOGGLE_NAVIGATION, TOGGLE_PLAYER} from './ui.reducer';
-
+import BottomPlayer from './Player/Player';
+import { TOGGLE_NAVIGATION, TOGGLE_PLAYER } from './ui.reducer';
+import { playTrack, loadYoutubeTrack } from './../components/Player/reducer';
 class App extends React.Component {
 
     static propTypes = {
@@ -17,10 +17,10 @@ class App extends React.Component {
     render() {
         let props = this.props;
         let albumInfo = props.albumInfo;
-        let {playerShown, navigationShown} = props.ui;
+        let { playerShown, navigationShown } = props.ui;
         return (<div className="application-body">
             <main className="page-content">
-                <nav className={cx('navigation', {hidden: !navigationShown})}>
+                <nav className={cx('navigation', { hidden: !navigationShown })}>
                     <Favorites/>
                 </nav>
 
@@ -29,8 +29,8 @@ class App extends React.Component {
                                      toggleNavigation={props.toggleNavigation}/>
                     {props.children}
                 </article>
-                <aside className={cx('player-sidebar', {hidden: !playerShown})}>
-                    <Player albumInfo={albumInfo}/>
+                <aside className={cx('player-sidebar', { hidden: !playerShown })}>
+                    <Player albumInfo={albumInfo} onTrackPlay={props.onTrackPlay}/>
                 </aside>
             </main>
 
@@ -42,14 +42,18 @@ class App extends React.Component {
     }
 }
 
-function mapStateToProps({ui, player}) {
-    return {ui, albumInfo: player.selectedAlbum};
+function mapStateToProps({ ui, player }) {
+    return { ui, albumInfo: player.selectedAlbum };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        togglePlayer: () => dispatch({type: TOGGLE_PLAYER}),
-        toggleNavigation: () => dispatch({type: TOGGLE_NAVIGATION}),
+        togglePlayer: () => dispatch({ type: TOGGLE_PLAYER }),
+        onTrackPlay: (artist, album, track) => {
+            dispatch(playTrack(artist, album, track.name));
+            dispatch(loadYoutubeTrack(artist, album, track.name));
+        },
+        toggleNavigation: () => dispatch({ type: TOGGLE_NAVIGATION }),
     };
 }
 
