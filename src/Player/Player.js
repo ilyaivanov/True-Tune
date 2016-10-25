@@ -34,7 +34,7 @@ export default class Player extends React.Component {
             <div key={track.id}
                  className={cx('player-item', {active: this.state.currentTrack.id == track.id})}
                  onClick={() => this.playTrack(track)}>
-                <span className="index">{index + 1}.</span>{track.name}
+                <span className="track-index">{index + 1}.</span>{track.name}
                 <small>{formatTime(track.duration)}</small>
             </div>);
     }

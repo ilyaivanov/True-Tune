@@ -32,39 +32,7 @@ $selected-item-left-border-width: 2px;
     }
 }
 
-.track-progress-container {
-    height: 4px;
-    position: relative;
-
-    .track-progress {
-        height: 4px;
-        background-color: $theme-primary-color;
-    }
-}
-
-.track-progress-container:hover {
-    cursor: pointer;
-}
-
-.controls,
-.volume-meter {
-    padding: 4px;
-    display: flex;
-    a, i, span, input {
-        flex: 1;
-        font-size: 20px;
-    }
-    text-align: center;
-
-}
-
-.player-container{
-    position: fixed;
-    bottom: 15px;
-    right: $player-width + 15px;
-}
-
-.index{
+.track-index{
     float: left;
     min-width: 25px;
     font-weight: bold;

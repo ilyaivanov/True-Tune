@@ -5,6 +5,7 @@ import SidebarControls from './SidebarControls';
 import {connect} from "react-redux";
 import cx from 'classnames';
 import Player from '../player/Player';
+import BottomPlayer from './Player';
 import {TOGGLE_NAVIGATION, TOGGLE_PLAYER} from './ui.reducer';
 
 class App extends React.Component {
@@ -17,7 +18,7 @@ class App extends React.Component {
         let props = this.props;
         let albumInfo = props.albumInfo;
         let {playerShown, navigationShown} = props.ui;
-        return (<div>
+        return (<div className="application-body">
             <main className="page-content">
                 <nav className={cx('navigation', {hidden: !navigationShown})}>
                     <Favorites/>
@@ -32,6 +33,11 @@ class App extends React.Component {
                     <Player albumInfo={albumInfo}/>
                 </aside>
             </main>
+
+
+            <footer className="page-footer">
+                <BottomPlayer/>
+            </footer>
         </div>);
     }
 }
