@@ -2,6 +2,7 @@ import findYoutubeVideo from './../../services/youtube';
 const PLAY_TRACK = 'PLAY_TRACK';
 const TRACK_LOADED = 'TRACK_LOADED';
 const TRACK_LOADING_ERROR = 'TRACK_LOADING_ERROR';
+export const ON_PLAY_CHANGE = 'ON_PLAY_CHANGE';
 
 export function playTrack(artistName, albumName, trackName) {
     return {
@@ -17,13 +18,14 @@ export function loadYoutubeTrack(artistName, albumName, trackName) {
                 video,
                 type: TRACK_LOADED
             }),
-            error => dispatch => ({
+            error => dispatch => dispatch({
                 type: TRACK_LOADING_ERROR
             }));
 }
 
 let initialState = {
-    video:{}
+    video:{},
+    isPlaying: true
 };
 
 export default function (state = initialState, action) {
@@ -33,6 +35,10 @@ export default function (state = initialState, action) {
 
     if (action.type == TRACK_LOADED) {
         return { ...state, video: action.video };
+    }
+
+    if(action.type == ON_PLAY_CHANGE){
+        return {...state, isPlaying: action.isPlaying};
     }
 
     return state;
