@@ -16,7 +16,6 @@ export class Player extends React.Component {
         };
     }
     componentWillMount(){
-
         setInterval(this.syncProgressWithThePlayer, 300);
     }
     setPlayer(player) {
@@ -24,8 +23,10 @@ export class Player extends React.Component {
     }
 
     componentWillReceiveProps(newProps) {
-        if (newProps.video && newProps.video.id != this.state.video.id)
-            this.setState({ video: newProps.video });
+        if (newProps.player.video && newProps.player.video.id != this.state.video.id){
+            console.log(newProps)
+            this.setState({ video: newProps.player.video });
+        }
     }
 
     play = () => {
@@ -84,7 +85,7 @@ export class Player extends React.Component {
             </div>
             <div className="player-container">
                 <Youtube className={cx({ hidden: isYoutubeHidden })}
-                         videoId={"4HyCa_rjj38"}
+                         videoId={this.state.video.id}
                          opts={opts}
                          onReady={e => this.setPlayer(e.target)}
                 />
