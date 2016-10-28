@@ -15,7 +15,10 @@ export class Player extends React.Component {
             video: {}
         };
     }
+    componentWillMount(){
 
+        setInterval(this.syncProgressWithThePlayer, 300);
+    }
     setPlayer(player) {
         this.setState({ player });
     }
@@ -37,10 +40,18 @@ export class Player extends React.Component {
 
     getPlayButton = () => {
         if (this.props.player.isPlaying)
-            return <i className="fa fa-pause" aria-hidden="true" onClick={this.pause}/>;
+            return <i className="fa fa-pause" onClick={this.pause}/>;
         else
-            return <i className="fa fa-play" aria-hidden="true" onClick={this.play}/>;
+            return <i className="fa fa-play" onClick={this.play}/>;
     };
+
+    syncProgressWithThePlayer = () => {
+        let {player} = this.state;
+        if(player){
+            let percent = player.getCurrentTime() / player.getDuration() * 100;
+            this.setState({width: percent });
+        }
+    }
 
     render() {
         let props = this.props;
@@ -56,22 +67,20 @@ export class Player extends React.Component {
         };
         return <div>
             <div className="track-progress-container">
-                <div className="track-progress" style={{ width: 455 }}/>
+                <div className="track-progress" style={{ width: this.state.width+'vw' }}/>
             </div>
             <div className="bottom-player-items">
-                <i className="fa fa-step-backward" aria-hidden="true"/>
+                <i className="fa fa-step-backward"/>
                 {this.getPlayButton()}
-                <i className="fa fa-step-forward" aria-hidden="true"/>
-                <i className="fa fa-cogs" aria-hidden="true"/>
+                <i className="fa fa-step-forward"/>
+                <i className="fa fa-cogs"/>
                 0:30/2:43
                 <span>{artistName}</span> -
                 <span>{albumName}</span> -
                 <span>{trackName}</span>
-                <span>{props.player.isPlaying + ""}</span>
-
-                <i className="fa fa-volume-down" aria-hidden="true"/>
+                <i className="fa fa-volume-down"/>
                 <input type="range" min="0" max="100"/>
-                <i className="fa fa-volume-up" aria-hidden="true"/>
+                <i className="fa fa-volume-up"/>
             </div>
             <div className="player-container">
                 <Youtube className={cx({ hidden: isYoutubeHidden })}
