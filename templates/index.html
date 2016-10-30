@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="material-grid">
+    <section class="material-green">
+    </section>
+
+    <section class="material-amber">
+        <div class="material-icon play">
+            <span class="first"></span>
+            <span class="second"></span>
+            <span class="third"></span>
+        </div>
+    </section>
+
+    <section class="material-blue">
+    </section>
+
+    <section class="material-red">
+    </section>
+</div>
+</body>
+<style>
+    /* We want to use the square and mask it so we might as well use the same CSS as the stop */
+    .stop span, .play span {
+        height: 35px;
+    }
+
+    .stop .second, .play .second {
+        height: 45px;
+        -webkit-transform: translateY(25px);
+    }
+
+    .play {
+        -webkit-transform: rotate(180deg);
+    }
+
+    .play:before {
+        -webkit-transform: translateY(-24px) translateX(-17px) rotate(-26deg);
+    }
+
+    .play:after {
+        -webkit-transform: translateY(11px) translateX(-22px) rotate(26deg);
+    }
+
+
+    .material-icon:before,
+    .material-icon:after {
+        background: transparent;
+        width: 0;
+        height: 0;
+        display: block;
+        position: relative;
+        width: 100px;
+        height: 40px;
+        z-index: 1;
+        transform: translateY(-50px);
+        transition: all 500ms ease;
+        color: transparent;
+    }
+
+    /* Colour the masks the same colour as the grids */
+    .material-green,
+    .material-green .material-icon:before,
+    .material-green .material-icon:after { background: #4CAF50; }
+
+    .material-amber,
+    .material-amber .material-icon:before,
+    .material-amber .material-icon:after { background: #FFC107; }
+
+    .material-blue,
+    .material-blue .material-icon:before,
+    .material-blue .material-icon:after { background: #2196F3; }
+
+    .material-red,
+    .material-red .material-icon:before,
+    .material-red .material-icon:after { background: #F44336; }
+
+
+
+    .material-grid {
+        width: 360px;
+        height: 360px;
+        font-family: "Roboto", Arial;
+    }
+
+    .material-grid section {
+        width: 50%;
+        height: 50%;
+        float: left;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    @keyframes materialResponse {
+        0% {
+            width: 0;
+            height: 0;
+            margin: 0;
+            background: rgba(255,255,255,0.1);
+        }
+        100% {
+            width: 250%;
+            height: 250%;
+            margin: -125%;
+            background: rgba(255,255,255,0.4);
+        }
+    }
+
+    .material-grid section:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        border-radius: 999px;
+        cursor: pointer;
+    }
+
+    .material-grid section:active:before {
+        animation: materialResponse 0.4s ease;
+        z-index: 2;
+    }
+
+    .material-green { background: #4CAF50; }
+    .material-amber { background: #FFC107; }
+    .material-blue { background: #2196F3; }
+    .material-red { background: #F44336; }
+</style>
+</html>

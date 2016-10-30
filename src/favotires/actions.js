@@ -1,4 +1,4 @@
-export const ADD_ARTIST_TO_FAVORITES = 'ADD_ARTIST_TO_FAVORITES';
+import { ADD_ARTIST_TO_FAVORITES } from './../store/reducer';
 
 export function add(artist) {
     return {

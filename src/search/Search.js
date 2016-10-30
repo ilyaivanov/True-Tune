@@ -41,8 +41,8 @@ export class Search extends React.Component {
 }
 
 let mapStateToProps = (state) => ({
-    artists: state.search.artists,
-    isLoading: state.search.isLoading
+    artists: state.app.artists,
+    isLoading: state.app.isLoading
 });
 
 function mapDispatchToProps(dispatch) {

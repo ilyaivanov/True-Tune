@@ -60,9 +60,9 @@ export class ArtistDetails extends React.Component {
 
 let mapStateToProps = state => {
     return {
-        albums: state.artistDetails.albums,
-        isLoading: state.artistDetails.isLoading,
-        artist: state.artistDetails.artist
+        albums: state.app.albums,
+        isLoading: state.app.isLoading,
+        artist: state.app.artist
     };
 };
 

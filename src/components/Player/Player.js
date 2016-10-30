@@ -4,7 +4,7 @@ import cx from 'classnames';
 import Youtube from 'react-youtube';
 import '../../../node_modules/font-awesome/css/font-awesome.css';
 import './Player.scss';
-import { ON_PLAY_CHANGE } from './reducer';
+import { ON_PLAY_CHANGE } from './../../store/reducer';
 
 
 export class Player extends React.Component {
@@ -16,7 +16,7 @@ export class Player extends React.Component {
         };
     }
     componentWillMount(){
-        setInterval(this.syncProgressWithThePlayer, 300);
+        setInterval(this.syncProgressWithThePlayer, 100);
     }
     setPlayer(player) {
         this.setState({ player });
@@ -99,7 +99,7 @@ export class Player extends React.Component {
 // onEnd={this.onEnd.bind(this)}
 // onPause={this.onPause.bind(this)}
 let mapStateToProps = (state) => ({
-    player: state.bottomPlayer
+    player: state.app
 });
 let mapDispatchToPros = dispatch => ({
     togglePlay: (isPlaying) => dispatch({ type: ON_PLAY_CHANGE, isPlaying })

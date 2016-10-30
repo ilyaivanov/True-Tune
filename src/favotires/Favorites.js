@@ -19,7 +19,7 @@ class Favorites extends React.Component {
     }
 }
 
-let mapStateToProps = state => ({favorites: state.favorites});
+let mapStateToProps = state => ({favorites: state.app.favorites});
 
 function mapDispatchToProps(/*dispatch*/) {
     return {};

@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import cx from 'classnames';
 import Player from '../player/Player';
 import BottomPlayer from './Player/Player';
-import { TOGGLE_NAVIGATION, TOGGLE_PLAYER } from './ui.reducer';
+import { TOGGLE_NAVIGATION, TOGGLE_PLAYER } from './../store/reducer';
 import { playTrack, loadYoutubeTrack } from './../components/Player/reducer';
 class App extends React.Component {
 
@@ -16,8 +16,8 @@ class App extends React.Component {
 
     render() {
         let props = this.props;
-        let albumInfo = props.albumInfo;
-        let { playerShown, navigationShown } = props.ui;
+        let albumInfo = props.app.selectedAlbum;
+        let { playerShown, navigationShown } = props.app;
         return (<div className="application-body">
             <main className="page-content">
                 <nav className={cx('navigation', { hidden: !navigationShown })}>
@@ -25,12 +25,12 @@ class App extends React.Component {
                 </nav>
 
                 <article className="page">
-                    <SidebarControls ui={props.ui} togglePlayer={props.togglePlayer}
+                    <SidebarControls ui={props.app} togglePlayer={props.togglePlayer}
                                      toggleNavigation={props.toggleNavigation}/>
                     {props.children}
                 </article>
                 <aside className={cx('player-sidebar', { hidden: !playerShown })}>
-                    <Player albumInfo={albumInfo} onTrackPlay={props.onTrackPlay}/>
+                    <Player albumInfo={albumInfo} trackIndex={props.app.currentTrackIndex} onTrackPlay={props.onTrackPlay}/>
                 </aside>
             </main>
 
@@ -42,8 +42,8 @@ class App extends React.Component {
     }
 }
 
-function mapStateToProps({ ui, player }) {
-    return { ui, albumInfo: player.selectedAlbum };
+function mapStateToProps({ app }) {
+    return { app };
 }
 
 function mapDispatchToProps(dispatch) {
