@@ -1,5 +1,5 @@
-import { findArtists } from './../services/lastfm';
-import {ARTIST_SEARCH_START, ARTIST_SEARCH_DONE} from './../store/reducer';
+import { findArtists } from '../../services/lastfm';
+import {ARTIST_SEARCH_START, ARTIST_SEARCH_DONE} from '../../store/reducer';
 
 export function startSearchingArtists() {
     return {

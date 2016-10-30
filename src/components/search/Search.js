@@ -2,8 +2,8 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { startSearchingArtists, fetchArtistsFromServiceAsync } from './actions';
 import debounce from 'lodash/debounce';
-import { add } from './../favotires/actions';
-import ArtistLink from './../components/ArtistLink';
+import { add } from '../../components/favotires/actions';
+import ArtistLink from '../../components/common/ArtistLink';
 export class Search extends React.Component {
 
     static propTypes = {

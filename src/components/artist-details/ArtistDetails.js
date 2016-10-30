@@ -1,6 +1,6 @@
 import React, {PropTypes as T} from 'react';
 import {connect} from 'react-redux';
-import ArtistLink from './../components/ArtistLink';
+import ArtistLink from '../common/ArtistLink';
 import {startSearchingAlbums,
     startSearchingAlbum,
     fetchArtistInfoFromServiceAsync,

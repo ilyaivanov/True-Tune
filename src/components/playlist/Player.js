@@ -1,5 +1,5 @@
 import React from 'react';
-import formatTime from './../utils/timeFormat';
+import formatTime from '../../utils/timeFormat';
 import cx from 'classnames';
 import './Player.scss';
 export default class Player extends React.Component {

@@ -1,8 +1,8 @@
 import React from 'react';
 import {ArtistDetails, mapDispatchToProps}  from './ArtistDetails';
 import {shallow} from 'enzyme';
-import * as service from './../services/lastfm';
-import createStore from './../store/create';
+import * as service from '../../services/lastfm';
+import createStore from '../../store/create';
 
 describe('Artist details page', function () {
     let params = {artistName: 'Cell'};

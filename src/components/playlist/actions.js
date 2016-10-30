@@ -1,4 +1,4 @@
-import { PLAY_NEXT_TRACK } from './../store/reducer';
+import { PLAY_NEXT_TRACK } from '../../store/reducer';
 
 export function playNextTrack() {
     return {

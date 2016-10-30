@@ -1,5 +1,5 @@
-import { findAlbums, findInfo, findTracks } from './../services/lastfm';
-import * as actions from './../store/reducer';
+import { findAlbums, findInfo, findTracks } from './../../services/lastfm';
+import * as actions from './../../store/reducer';
 
 export function startSearchingAlbums() {
     return {

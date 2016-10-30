@@ -1,13 +1,18 @@
 import React, { PropTypes as T } from 'react';
-import Favorites from '../favotires/Favorites';
-import './App.scss';
-import SidebarControls from './SidebarControls';
 import { connect } from "react-redux";
 import cx from 'classnames';
-import Player from '../player/Player';
-import BottomPlayer from './Player/Player';
-import { TOGGLE_NAVIGATION, TOGGLE_PLAYER } from './../store/reducer';
-import { playTrack, loadYoutubeTrack } from './../components/Player/reducer';
+
+import Favorites from '../favotires/Favorites';
+import SidebarControls from './SidebarControls';
+import Player from '../playlist/Player';
+import BottomPlayer from '../player/Player';
+
+import { TOGGLE_NAVIGATION, TOGGLE_PLAYER } from '../../store/reducer';
+
+import { playTrack, loadYoutubeTrack } from '../player/actions';
+import { togglePlayer, toggleNavigation } from './actions';
+
+import './App.scss';
 class App extends React.Component {
 
     static propTypes = {
@@ -30,7 +35,8 @@ class App extends React.Component {
                     {props.children}
                 </article>
                 <aside className={cx('player-sidebar', { hidden: !playerShown })}>
-                    <Player albumInfo={albumInfo} trackIndex={props.app.currentTrackIndex} onTrackPlay={props.onTrackPlay}/>
+                    <Player albumInfo={albumInfo} trackIndex={props.app.currentTrackIndex}
+                            onTrackPlay={props.onTrackPlay}/>
                 </aside>
             </main>
 
@@ -48,12 +54,12 @@ function mapStateToProps({ app }) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        togglePlayer: () => dispatch({ type: TOGGLE_PLAYER }),
+        togglePlayer,
+        toggleNavigation,
         onTrackPlay: (artist, album, track) => {
             dispatch(playTrack(artist, album, track.name));
             dispatch(loadYoutubeTrack(artist, album, track.name));
         },
-        toggleNavigation: () => dispatch({ type: TOGGLE_NAVIGATION }),
     };
 }
 

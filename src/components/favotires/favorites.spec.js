@@ -1,4 +1,4 @@
-import createStore from './../store/create';
+import createStore from '../../store/create';
 import { add } from './actions';
 describe('When adding an item to a favorites', function () {
     it('it should be added to a list of favories', function (done) {
