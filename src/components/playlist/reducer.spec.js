@@ -4,14 +4,14 @@
 // describe('Having a playlist reducer', function () {
 //     let initialState;
 //     beforeEach(function () {
-//         initialState = {
-//             selectedAlbum: {
-//                 tracks: [
-//                     { name: 'myTrack1' },
-//                     { name: 'myTrack2' }]
-//             },
-//             currentTrackIndex: 0
-//         };
+        initialState = {
+            selectedAlbum: {
+                tracks: [
+                    { name: 'myTrack1' },
+                    { name: 'myTrack2' }]
+            },
+            currentTrackIndex: 0
+        };
 //     });
 //
 //     describe('when selecting a next track', function () {

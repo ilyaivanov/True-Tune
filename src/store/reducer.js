@@ -19,13 +19,14 @@ export const ON_PLAY_CHANGE = 'ON_PLAY_CHANGE';
 
 
 import isEmpty from 'lodash/isEmpty';
+import findIndex from 'lodash/findIndex';
 
 let initialState = {
     favorites: [],
-    navigationShown : true,
-    playerShown : true,
-    artists:[],
-    video:{},
+    navigationShown: true,
+    playerShown: true,
+    artists: [],
+    video: {},
     isPlaying: true
 };
 export default function (state = initialState, action) {
@@ -83,23 +84,30 @@ export default function (state = initialState, action) {
     }
 
     if (action.type == TOGGLE_NAVIGATION) {
-        return Object.assign({}, state, {navigationShown: !state.navigationShown});
+        return Object.assign({}, state, { navigationShown: !state.navigationShown });
     }
 
     if (action.type == TOGGLE_PLAYER) {
-        return Object.assign({}, state, {playerShown: !state.playerShown});
+        return Object.assign({}, state, { playerShown: !state.playerShown });
     }
 
     if (action.type == PLAY_TRACK) {
-        return { ...state, artistName: action.artistName, albumName: action.albumName, trackName: action.trackName };
+        let trackIndex = findIndex(state.selectedAlbum.tracks, t => t.name == action.trackName);
+        return {
+            ...state,
+            artistName: action.artistName,
+            albumName: action.albumName,
+            trackName: action.trackName,
+            trackIndex
+        };
     }
 
     if (action.type == TRACK_LOADED) {
         return { ...state, video: action.video };
     }
 
-    if(action.type == ON_PLAY_CHANGE){
-        return {...state, isPlaying: action.isPlaying};
+    if (action.type == ON_PLAY_CHANGE) {
+        return { ...state, isPlaying: action.isPlaying };
     }
 
     return state;

@@ -7,8 +7,6 @@ import SidebarControls from './SidebarControls';
 import Player from '../playlist/Player';
 import BottomPlayer from '../player/Player';
 
-import { TOGGLE_NAVIGATION, TOGGLE_PLAYER } from '../../store/reducer';
-
 import { playTrack, loadYoutubeTrack } from '../player/actions';
 import { togglePlayer, toggleNavigation } from './actions';
 
@@ -35,7 +33,7 @@ class App extends React.Component {
                     {props.children}
                 </article>
                 <aside className={cx('player-sidebar', { hidden: !playerShown })}>
-                    <Player albumInfo={albumInfo} trackIndex={props.app.currentTrackIndex}
+                    <Player albumInfo={albumInfo} trackIndex={props.app.trackIndex}
                             onTrackPlay={props.onTrackPlay}/>
                 </aside>
             </main>
