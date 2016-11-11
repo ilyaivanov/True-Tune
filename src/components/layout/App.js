@@ -28,7 +28,8 @@ class App extends React.Component {
                 </nav>
 
                 <article className="page">
-                    <SidebarControls ui={props.app} togglePlayer={props.togglePlayer}
+                    <SidebarControls ui={props.app}
+                                     togglePlayer={props.togglePlayer}
                                      toggleNavigation={props.toggleNavigation}/>
                     {props.children}
                 </article>
@@ -52,8 +53,8 @@ function mapStateToProps({ app }) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        togglePlayer,
-        toggleNavigation,
+        togglePlayer: () => dispatch(togglePlayer()),
+        toggleNavigation: () => dispatch(toggleNavigation()),
         onTrackPlay: (artist, album, track) => {
             dispatch(playTrack(artist, album, track.name));
             dispatch(loadYoutubeTrack(artist, album, track.name));

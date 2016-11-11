@@ -24,8 +24,10 @@ import findIndex from 'lodash/findIndex';
 
 let initialState = {
     favorites: [],
+
     navigationShown: true,
     playerShown: true,
+
     artists: [],
     video: {},
     isPlaying: true
@@ -93,6 +95,7 @@ export default function (state = initialState, action) {
     }
 
     if (action.type == TOGGLE_NAVIGATION) {
+        console.log('reducer toggling')
         return Object.assign({}, state, { navigationShown: !state.navigationShown });
     }
 
