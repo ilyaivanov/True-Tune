@@ -3,7 +3,6 @@ export const ALBUMS_SEARCH_DONE = 'ALBUMS_SEARCH_DONE';
 export const ARTIST_INFO_SEARCH_DONE = 'ARTIST_INFO_SEARCH_DONE';
 export const ALBUM_SEARCH_START = 'ALBUM_SEARCH_START';
 export const ALBUM_INFO_SEARCH_DONE = 'ALBUM_INFO_SEARCH_DONE';
-export const PLAY_NEXT_TRACK = 'PLAY_NEXT_TRACK';
 
 export const ARTIST_SEARCH_START = 'ARTIST_SEARCH_START';
 export const ARTIST_SEARCH_DONE = 'ARTIST_SEARCH_DONE';
@@ -13,6 +12,8 @@ export const ADD_ARTIST_TO_FAVORITES = 'ADD_ARTIST_TO_FAVORITES';
 export const TOGGLE_NAVIGATION = 'TOGGLE_NAVIGATION';
 export const TOGGLE_PLAYER = 'TOGGLE_PLAYER';
 
+export const PLAY_NEXT_TRACK = 'PLAY_NEXT_TRACK';
+export const PLAY_PREVIOUS_TRACK = 'PLAY_PREVIOUS_TRACK';
 export const PLAY_TRACK = 'PLAY_TRACK';
 export const TRACK_LOADED = 'TRACK_LOADED';
 export const ON_PLAY_CHANGE = 'ON_PLAY_CHANGE';
@@ -48,11 +49,19 @@ export default function (state = initialState, action) {
         return { ...state };
     }
     if (action.type == ALBUM_INFO_SEARCH_DONE) {
-        return { ...state, selectedAlbum: action.albumInfo, currentTrackIndex: -1 };
+        return { ...state, selectedAlbum: action.albumInfo, trackIndex: -1 };
     }
+
     if (action.type == PLAY_NEXT_TRACK) {
-        if (state.currentTrackIndex < state.selectedAlbum.tracks.length - 1)
-            return { ...state, currentTrackIndex: state.currentTrackIndex + 1 };
+        if (state.trackIndex < state.selectedAlbum.tracks.length - 1)
+            return { ...state, trackIndex: state.trackIndex + 1 };
+        else
+            return state;
+    }
+
+    if (action.type == PLAY_PREVIOUS_TRACK) {
+        if (state.trackIndex > 0)
+            return { ...state, trackIndex: state.trackIndex - 1 };
         else
             return state;
     }
@@ -90,6 +99,7 @@ export default function (state = initialState, action) {
     if (action.type == TOGGLE_PLAYER) {
         return Object.assign({}, state, { playerShown: !state.playerShown });
     }
+
 
     if (action.type == PLAY_TRACK) {
         let trackIndex = findIndex(state.selectedAlbum.tracks, t => t.name == action.trackName);

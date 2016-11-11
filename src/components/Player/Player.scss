@@ -2,13 +2,10 @@
 
 
 .bottom-player-items{
-    display:flex;
-    flex-direction: row;
     text-align: center;
     color: white;
 
     a, i, input {
-        flex: 1;
         font-size: 20px;
     }
 }
@@ -16,7 +13,7 @@
 .track-progress-container {
     height: 6px;
     position: relative;
-
+    margin-bottom: 3px;
     .track-progress {
         height: 6px;
         background-color: $theme-primary-color;

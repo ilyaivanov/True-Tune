@@ -1,11 +1,13 @@
-import React, {PropTypes as T} from 'react';
-import {connect} from 'react-redux';
+import React, { PropTypes as T } from 'react';
+import { connect } from 'react-redux';
 import ArtistLink from '../common/ArtistLink';
-import {startSearchingAlbums,
+import {
+    startSearchingAlbums,
     startSearchingAlbum,
     fetchArtistInfoFromServiceAsync,
     fetchAlbumsFromServiceAsync,
-    fetchAlbumInfoFromServiceAsync,} from './actions';
+    fetchAlbumInfoFromServiceAsync,
+} from './actions';
 
 export class ArtistDetails extends React.Component {
     static propTypes = {
@@ -31,28 +33,30 @@ export class ArtistDetails extends React.Component {
     }
 
     render() {
-        let {params, albums, artist} = this.props;
+        let { params, albums, artist } = this.props;
         albums = albums || [];
-        artist = artist || {tags:[], similar:[]};
-        let info;
-        if (artist) {
-            info = <img src={artist.image} style={{maxWidth: 200}}/>
-        }
+        artist = artist || { tags: [], similar: [] };
         let selectAlbum = albumName => () => this.props.selectAlbum(params.artistName, albumName);
-        return (<div>
+        return (<div style={{ margin: 20 }}>
             <h1>{params.artistName}</h1>
-            {info}
-            <ul>
-                {albums.map(album => <li key={album.id}><a href="JavaScript:;"
-                                                           onClick={selectAlbum(album.name)}>{album.name}</a></li>)}
-            </ul>
-
-            <h3>Similar to {params.artistName}:</h3>
-            <ul>
-                {artist.similar.map(ar => <li key={ar.id}><ArtistLink artist={ar}/></li>)}
-            </ul>
-            <h3>Tags:</h3>
+            <h3>Tags</h3>
             {artist.tags.join(', ')}
+            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
+                <div>
+                    <h3>Albums</h3>
+                    <ul>
+                        {albums.map(album => <li key={album.id}><a href="JavaScript:;"
+                                                                   onClick={selectAlbum(album.name)}>{album.name}</a>
+                        </li>)}
+                    </ul>
+                </div>
+                <div>
+                    <h3>Similar to {params.artistName}:</h3>
+                    <ul>
+                        {artist.similar.map(ar => <li key={ar.id}><ArtistLink artist={ar}/></li>)}
+                    </ul>
+                </div>
+            </div>
         </div>);
     }
 }

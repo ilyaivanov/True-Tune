@@ -2,10 +2,11 @@ import React from 'react';
 import { connect } from 'react-redux';
 import cx from 'classnames';
 import Youtube from 'react-youtube';
+
+import { togglePlay, playNextTrack, playPreviousTrack } from './actions';
+
 import '../../../node_modules/font-awesome/css/font-awesome.css';
 import './Player.scss';
-import { ON_PLAY_CHANGE } from './../../store/reducer';
-
 
 export class Player extends React.Component {
 
@@ -15,15 +16,17 @@ export class Player extends React.Component {
             video: {}
         };
     }
-    componentWillMount(){
+
+    componentWillMount() {
         setInterval(this.syncProgressWithThePlayer, 100);
     }
+
     setPlayer(player) {
         this.setState({ player });
     }
 
     componentWillReceiveProps(newProps) {
-        if (newProps.player.video && newProps.player.video.id != this.state.video.id){
+        if (newProps.player.video && newProps.player.video.id != this.state.video.id) {
             console.log(newProps)
             this.setState({ video: newProps.player.video });
         }
@@ -47,10 +50,10 @@ export class Player extends React.Component {
     };
 
     syncProgressWithThePlayer = () => {
-        let {player} = this.state;
-        if(player){
+        let { player } = this.state;
+        if (player) {
             let percent = player.getCurrentTime() / player.getDuration() * 100;
-            this.setState({width: percent });
+            this.setState({ width: percent });
         }
     }
 
@@ -68,20 +71,15 @@ export class Player extends React.Component {
         };
         return <div>
             <div className="track-progress-container">
-                <div className="track-progress" style={{ width: this.state.width+'vw' }}/>
+                <div className="track-progress" style={{ width: this.state.width + 'vw' }}/>
             </div>
             <div className="bottom-player-items">
-                <i className="fa fa-step-backward"/>
+                <div className="playerText">
+                    <span>{artistName}</span> -
+                    <span>{albumName}</span> -
+                    <span>{trackName}</span>
+                </div>
                 {this.getPlayButton()}
-                <i className="fa fa-step-forward"/>
-                <i className="fa fa-cogs"/>
-                0:30/2:43
-                <span>{artistName}</span> -
-                <span>{albumName}</span> -
-                <span>{trackName}</span>
-                <i className="fa fa-volume-down"/>
-                <input type="range" min="0" max="100"/>
-                <i className="fa fa-volume-up"/>
             </div>
             <div className="player-container">
                 <Youtube className={cx({ hidden: isYoutubeHidden })}
@@ -101,7 +99,10 @@ export class Player extends React.Component {
 let mapStateToProps = (state) => ({
     player: state.app
 });
-let mapDispatchToPros = dispatch => ({
-    togglePlay: (isPlaying) => dispatch({ type: ON_PLAY_CHANGE, isPlaying })
-});
+
+let mapDispatchToPros = {
+    playNextTrack,
+    playPreviousTrack,
+    togglePlay,
+};
 export default connect(mapStateToProps, mapDispatchToPros)(Player);
