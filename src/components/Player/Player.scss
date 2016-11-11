@@ -7,6 +7,11 @@
 
     a, i, input {
         font-size: 20px;
+        margin: 10px;
+    }
+    i:hover{
+        color: $theme-primary-color;
+        cursor: pointer;
     }
 }
 
@@ -21,6 +26,7 @@
 
     background-color: lighten($theme-background-color, 20);
 }
+
 
 .track-progress-container:hover {
     cursor: pointer;

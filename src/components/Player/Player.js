@@ -17,7 +17,7 @@ export class Player extends React.Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         setInterval(this.syncProgressWithThePlayer, 100);
     }
 
@@ -27,7 +27,6 @@ export class Player extends React.Component {
 
     componentWillReceiveProps(newProps) {
         if (newProps.player.video && newProps.player.video.id != this.state.video.id) {
-            console.log(newProps)
             this.setState({ video: newProps.player.video });
         }
     }
@@ -55,12 +54,11 @@ export class Player extends React.Component {
             let percent = player.getCurrentTime() / player.getDuration() * 100;
             this.setState({ width: percent });
         }
-    }
+    };
 
     render() {
-        let props = this.props;
         let isYoutubeHidden = false;
-        let { trackName, albumName, artistName } = this.props.player;
+        let { trackName, albumName, artistName } = this.props;
 
         const opts = {
             height: '150',
@@ -75,16 +73,19 @@ export class Player extends React.Component {
             </div>
             <div className="bottom-player-items">
                 <div className="playerText">
-                    <span>{artistName}</span> -
-                    <span>{albumName}</span> -
+                    <span>{artistName}</span>{' '}>{' '}
+                    <span>{albumName}</span>{' '}>{' '}
                     <span>{trackName}</span>
                 </div>
+                <i className="fa fa-step-backward" onClick={this.props.playPreviousTrack}/>
                 {this.getPlayButton()}
+                <i className="fa fa-step-forward" onClick={this.props.playNextTrack}/>
             </div>
             <div className="player-container">
                 <Youtube className={cx({ hidden: isYoutubeHidden })}
                          videoId={this.state.video.id}
                          opts={opts}
+                         onEnd={this.props.playNextTrack}
                          onReady={e => this.setPlayer(e.target)}
                 />
             </div>
@@ -97,12 +98,16 @@ export class Player extends React.Component {
 // onEnd={this.onEnd.bind(this)}
 // onPause={this.onPause.bind(this)}
 let mapStateToProps = (state) => ({
-    player: state.app
+    player: state.app,
+    artistName: state.app.artist ? state.app.artist.name : '',
+    albumName: state.app.selectedAlbum ? state.app.selectedAlbum.name : '',
+    trackName: (state.app.selectedAlbum && state.app.trackIndex >= 0) ? state.app.selectedAlbum.tracks[state.app.trackIndex].name : '',
 });
 
-let mapDispatchToPros = {
+const map = {
     playNextTrack,
     playPreviousTrack,
     togglePlay,
 };
-export default connect(mapStateToProps, mapDispatchToPros)(Player);
+
+export default connect(mapStateToProps, map)(Player);

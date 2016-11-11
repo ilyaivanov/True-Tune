@@ -17,9 +17,18 @@ export function loadYoutubeTrack(artistName, albumName, trackName) {
         }));
 }
 
-export const playNextTrack = () => ({
-    type: PLAY_NEXT_TRACK
-});
+export const playNextTrack = () => (dispatch, getState) => {
+
+    dispatch({
+        type: PLAY_NEXT_TRACK
+    });
+    let index = getState().app.trackIndex;
+    dispatch(loadYoutubeTrack(
+        getState().app.artist.name,
+        getState().app.selectedAlbum.name,
+        getState().app.selectedAlbum.tracks[index].name));
+}
+
 export const playPreviousTrack = () => ({
     type: PLAY_PREVIOUS_TRACK
 });
