@@ -1,4 +1,8 @@
-@import "../variables";
+$sidebars-width: 286px;
+
+$theme-primary-color: #45B39D;
+$theme-background-color: rgb(36, 37, 42);
+$background: #FBFCFC;
 
 body {
     margin: 0;
@@ -7,26 +11,29 @@ body {
     font-size: 80%;
 }
 
-.page-content {
+nav,
+article,
+aside {
+    background-color: $background;
+    min-height: 100vh;
+
+}
+
+nav,
+aside {
+    width: $sidebars-width;
+    box-shadow: 0 0 48px -12px rgba(0, 0, 0, 0.75);
+}
+
+main {
     display: flex;
 }
 
-.navigation,
-.player-sidebar {
-    min-height: 100vh;
-    box-shadow: 0 0 38px -12px rgba(0, 0, 0, 0.75);
-    width: $navigation-width;
+nav {
+    z-index: 2;
 }
 
-.navigation {
-    width: $navigation-width;
-}
-
-.player-sidebar {
-    width: $player-width;
-}
-
-.page {
+article {
     flex: 2 2 12em;
 }
 
@@ -37,6 +44,248 @@ img {
     padding: 0;
 }
 
-.hidden{
-    display: none;
+//Player
+.player {
+    height: 100px;
+    background-color: $theme-background-color;
+    color: white;
+
+}
+
+.player-item {
+    padding: 15px;
+    position: relative;;
+    box-sizing: border-box;
+    font-size: larger;
+    cursor: pointer;
+
+    small {
+        position: absolute;
+        right: 15px;
+    }
+
+    &:hover {
+        background-color: lighten($theme-primary-color, 45);
+    }
+    &.active {
+        background-color: lighten($theme-primary-color, 40);
+        border-left: 2px solid $theme-primary-color;
+    }
+}
+
+.track-progress-container {
+    height: 4px;
+    position: relative;
+
+    .track-progress {
+        height: 4px;
+        background-color: $theme-primary-color;
+    }
+}
+
+.track-progress-container:hover {
+    cursor: pointer;
+}
+
+.controls,
+.volume-meter {
+    padding: 4px;
+    display: flex;
+    a, i, span, input {
+        flex: 1;
+        font-size: 20px;
+    }
+    text-align: center;
+
+}
+
+//Search
+
+.search-area,
+.artist-header {
+    height: 185px;
+    text-align: center;
+    background: url(http://www.nilltheme.com/sound/wp-content/uploads/2015/10/Music-Header.png) no-repeat center center;
+    background-size: cover;
+    background-color: $theme-background-color;
+    color: $theme-primary-color;
+    padding: 50px;
+}
+
+.search-area {
+    input {
+        width: 400px;
+        height: 40px;
+        font-family: "Segoe UI", sans-serif;
+        font-size: 22px;
+        text-align: center;
+        font-weight: 600;
+        text-transform: uppercase;
+        border-radius: 2px;
+
+    }
+}
+
+.artist-title {
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
+    padding-top: 10px;
+    //padding-bottom: 20px;
+
+}
+
+.artist-info {
+    cursor: pointer;
+    transition: color 0.3s ease,
+    opacity 0.3s ease;
+    text-decoration: none;
+    color: black;
+
+    img {
+        border-radius: 5px;
+    }
+    .artist-image{
+        position: relative;
+    }
+    .artist-options {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        padding-right: 10px;
+        color: white;
+
+        i {
+            margin: 5px;
+            font-size: 20px;
+        }
+    }
+    .shadow {
+        position: absolute;
+        width: 100%;
+        box-shadow: inset 0px -61px 49px -20px rgba(0,0,0,0.75);
+        border-radius: 5px;
+        top: 0;
+        bottom: 0;
+    }
+
+    .artist-options,
+    .shadow{
+        transition: opacity 0.3s ease;
+        opacity: 0;
+    }
+
+    &:hover {
+        color: $theme-primary-color;
+        opacity: 0.90;
+
+        .artist-options,
+        .shadow{
+            opacity: 1;
+        }
+    }
+
+}
+
+//GRID
+.grid-container {
+    width: 100%;
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    .grid-item {
+        width: 100%;
+    }
+    //Big screens
+    .grid-item {
+        width: calc(#{(100% / 5)} - 30px);
+        margin: 15px;
+        position: relative;
+    }
+    @media screen and (max-width: 1500px) {
+        .grid-item {
+            width: calc(#{(100% / 4)} - 30px);
+            margin: 15px;
+        }
+    }
+    @media screen and (max-width: 1250px) {
+        .grid-item {
+            width: calc(#{(100% / 3)} - 30px);
+            margin: 15px;
+        }
+    }
+    @media screen and (max-width: 1100px) {
+        .grid-item {
+            width: calc(#{(100% / 2)} - 20px);
+            margin: 10px;
+        }
+    }
+    @media screen and (max-width: 900px) {
+        .grid-item {
+            width: calc(#{(100% / 1)});
+            margin: 0;
+        }
+    }
+}
+
+//Artist details
+.artist-header {
+    text-align: left;
+    position: relative;
+    img {
+        border-radius: 5px;
+        margin-top: 15px;
+        width: 250px;
+        display: inline-block;
+    }
+    .artist-title {
+        position: absolute;
+        margin-left: 35px;
+        margin-top: 135px;
+        font-size: 26px;
+        font-weight: normal;
+    }
+}
+
+.left-buttons,
+.right-buttons {
+    color: white;
+    position: absolute;
+    padding: 10px;
+    font-size: 20px;
+    top: 0;
+}
+
+.left-buttons {
+    left: 0;
+}
+
+.right-buttons {
+    right: 0;
+}
+
+.sublime {
+    background-color: #F4F6F7;
+    height: 50px;
+}
+
+i {
+    color: white;
+}
+
+i:hover {
+    color: $theme-primary-color;
+    cursor: pointer;
+}
+
+i:active{
+    color: darken($theme-primary-color, 10);
+}
+
+
+.player-container{
+    position: fixed;
+    bottom: 15px;
+    right: $sidebars-width + 15px;
 }

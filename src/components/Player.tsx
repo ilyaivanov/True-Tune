@@ -5,7 +5,6 @@ import 'font-awesome/css/font-awesome.css';
 import formatTime from './../utils/timeFormat';
 // import findYoutubeVideo from './../services/youtube';
 
-import './Player.scss';
 
 export default class Player extends React.Component<Album, {}> {
     playPrevious = () => {
