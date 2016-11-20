@@ -1,0 +1,75 @@
+@import "../variables";
+
+.player {
+    height: 100px;
+    background-color: $theme-background-color;
+    color: white;
+
+    .fa:hover{
+        color: rgba(255,255,255,.8);
+        cursor: pointer;
+    }
+}
+
+$play-item-padding: 15px;
+$selected-item-left-border-width: 2px;
+
+.player-item {
+    padding: $play-item-padding;
+    position: relative;;
+    box-sizing: border-box;
+    font-size: larger;
+    cursor: pointer;
+
+    small {
+        position: absolute;
+        right: 15px;
+    }
+
+    &:hover {
+        background-color: lighten($theme-primary-color, 45);
+    }
+    &.active {
+        background-color: lighten($theme-primary-color, 40);
+        border-left: $selected-item-left-border-width solid $theme-primary-color;
+        padding-left: $play-item-padding - $selected-item-left-border-width;
+    }
+}
+
+.track-progress-container {
+    height: 4px;
+    position: relative;
+
+    .track-progress {
+        height: 4px;
+        background-color: $theme-primary-color;
+    }
+}
+
+.track-progress-container:hover {
+    cursor: pointer;
+}
+
+.controls,
+.volume-meter {
+    padding: 4px;
+    display: flex;
+    a, i, span, input {
+        flex: 1;
+        font-size: 20px;
+    }
+    text-align: center;
+
+}
+
+.player-container{
+    position: fixed;
+    bottom: 15px;
+    right: $player-width + 15px;
+}
+
+.index{
+    float: left;
+    min-width: 25px;
+    font-weight: bold;
+}
