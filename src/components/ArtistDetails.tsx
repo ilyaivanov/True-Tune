@@ -12,7 +12,7 @@ export default class ArtistDetails extends React.Component<{ artist: Artist }, {
                     <i className="fa fa-chevron-circle-left" />
                 </div>
                 <div className="right-buttons">
-                    <i className="fa fa-search"></i>
+                    <Link to={`/search`}><i className="fa fa-search"></i></Link>
                     <i className="fa fa-chevron-circle-right" />
                 </div>
                 <img src={artist.image} alt={artist.name} />

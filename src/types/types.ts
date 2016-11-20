@@ -1,13 +1,7 @@
-interface Artist {
-    id: string,
-    name: string,
-    image: string,
+interface Artist  extends Item  {
     albums: Album[],
 }
-interface Album {
-    id: string,
-    name: string,
-    image: string,
+interface Album extends Item {
     tracks: Track[],
 }
 interface Track {
@@ -15,4 +9,10 @@ interface Track {
     duration: number,
     isActive: boolean,
     id: string,
+}
+
+interface Item {
+    id: string,
+    name: string,
+    image: string,
 }

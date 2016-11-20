@@ -9,7 +9,7 @@ export default (props: { albums: Album[] }) => (<div className="artist-albums-co
             key={album.id}>
             <Portlet
                 key={album.id}
-                album={album} />
+                item={album} />
         </div>
     ))}
 </div>);

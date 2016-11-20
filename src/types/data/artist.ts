@@ -1,6 +1,6 @@
-function createArtist(name: string): Artist {
+function createArtist(name: string, id: string): Artist {
     return {
-        id: '1',
+        id,
         name,
         image: "https://lastfm-img2.akamaized.net/i/u/174s/58fc3b5aa7c74541adf85674e272f7fc.png",
         albums: [
@@ -29,7 +29,7 @@ function createAlbum(name: string, id: string): Album {
     };
 }
 
-function createTrack(name: string, id: string, isActive?:boolean): Track {
+function createTrack(name: string, id: string, isActive?: boolean): Track {
     return {
         name,
         id,
@@ -42,6 +42,16 @@ const albums: Album[] = [
     createAlbum('My Album', "1")
 ];
 
-const artist: Artist = createArtist('Pain');
+const artist: Artist = createArtist('Pain', "1");
+const artists: Artist[] = [
+    createArtist('Pain', "1"),
+    createArtist('Pain', "2"),
+    createArtist('Pain', "3"),
+    createArtist('Pain', "4"),
+    createArtist('Pain', "5"),
+    createArtist('Pain', "6"),
+    createArtist('Pain', "7"),
+    createArtist('Pain', "8"),
+];
 
-export { albums, artist };
+export { albums, artist, artists };
