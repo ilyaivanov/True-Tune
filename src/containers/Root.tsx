@@ -15,7 +15,7 @@ class App extends React.Component<{}, {}> {
                 </nav>
 
                 <article className="page">
-                    <ArtistDetails artist={artist}/>
+                    {this.props.children}
                 </article>
                 <aside className={'player-sidebar'}>
                     <Player {...albums[0]} />
