@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest --watch",
-    "start": "browser-sync start --server --files \"dist/*.css\" \"dist/*.js\" \"index.html\""
+    "start": "browser-sync start --server --files \"dist/*\" \"index.html\""
   },
   "jest": {
     "moduleFileExtensions": [
@@ -21,20 +21,23 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "classnames": "2.2.5",
+    "font-awesome": "4.7.0",
     "lodash": "4.17.2",
     "react": "15.3.2",
     "react-dom": "15.3.2"
   },
   "devDependencies": {
-    "@types/jest": "16.0.0",
+    "@types/classnames": "0.0.32",
+    "@types/jasmine": "2.5.38",
     "@types/lodash": "4.14.39",
     "@types/react": "0.14.48",
     "@types/react-dom": "0.14.18",
     "autoprefixer": "6.5.3",
     "css-loader": "0.25.0",
     "extract-text-webpack-plugin": "1.0.1",
-    "jest": "17.0.2",
-    "jest-cli": "15.1.1",
+    "file-loader": "0.9.0",
+    "jasmine": "^2.4.1",
     "node-sass": "3.10.1",
     "postcss-loader": "1.0.0",
     "resolve-url-loader": "1.6.0",
